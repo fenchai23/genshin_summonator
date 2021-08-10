@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
+import 'package:get/get.dart';
 
 class BannerInfo extends StatelessWidget {
   const BannerInfo({Key? key}) : super(key: key);
@@ -10,9 +12,17 @@ class BannerInfo extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.asset(
-                'assets/images/banners/characters/2021-07-22_The_Herons_Court.jpeg',
-                fit: BoxFit.fitWidth,
+              GetBuilder<BannerInfoController>(
+                init: BannerInfoController(),
+                builder: (val) => val.characterBanners.length > 0
+                    ? Image.asset(
+                        val.characterBanners.values
+                            .elementAt(val.characterBanners.length -
+                                val.bannerIndex.value)
+                            .path,
+                        fit: BoxFit.fitWidth,
+                      )
+                    : Container(),
               ),
               Positioned(
                   top: 0,
@@ -24,9 +34,14 @@ class BannerInfo extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
-                    child: Text(
-                      '0',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    child: Obx(
+                      () => Text(
+                        Get.find<BannerInfoController>()
+                            .bannerIndex
+                            .value
+                            .toString(),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                     backgroundColor: Colors.black38,
                     foregroundColor: Colors.white,
@@ -40,14 +55,16 @@ class BannerInfo extends StatelessWidget {
                   spacing: 20,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          Get.find<BannerInfoController>().nextBanner(),
                       icon: Icon(
                         Icons.navigate_before_rounded,
                         color: Colors.white,
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          Get.find<BannerInfoController>().prevBanner(),
                       icon: Icon(
                         Icons.navigate_next_rounded,
                         color: Colors.white,
