@@ -57,7 +57,7 @@ List<DataRow> summonRows(Map<int, String> summons) {
             DataCell(Text((index + 1).toString())),
             DataCell(Text(item)),
             DataCell(Text(((index + 1) * 160).toString())),
-            DataCell(Text(((index + 1) * 1.98).toStringAsFixed(2))),
+            DataCell(Text('\$ ${((index + 1) * 1.98).toStringAsFixed(2)}')),
           ],
         ),
       );

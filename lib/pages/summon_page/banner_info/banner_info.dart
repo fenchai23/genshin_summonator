@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:get/get.dart';
 
 class BannerInfo extends StatelessWidget {
@@ -45,7 +46,7 @@ class BannerInfo extends StatelessWidget {
                 ),
                 Positioned(
                   bottom: 0,
-                  right: 0,
+                  left: 0,
                   child: Container(
                     color: Colors.black12,
                     child: Wrap(
@@ -72,7 +73,27 @@ class BannerInfo extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Wrap(
+                    children: [
+                      InkWell(
+                        child: IconButton(
+                            onPressed: () =>
+                                Get.find<SummonHistoryController>().summon(1),
+                            icon: Icon(Icons.check_circle)),
+                      ),
+                      InkWell(
+                        child: IconButton(
+                            onPressed: () =>
+                                Get.find<SummonHistoryController>().summon(10),
+                            icon: Icon(Icons.check_circle)),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ],
