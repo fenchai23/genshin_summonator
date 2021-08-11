@@ -28,8 +28,19 @@ class SummonHistoryController extends GetxController {
       fourStarCharPool = jsonData['standard_pool']['characters']['4'];
       fiveStarCharPool = jsonData['standard_pool']['characters']['5'];
 
+      Map<int, String> tempSummonsDone = {};
+
       fourStarWeaponPool.asMap().forEach((key, value) {
-        summonsDone[key] = value;
+        tempSummonsDone[key] = value;
+      });
+
+      // reverse summons
+      final List<int> reversedKeys =
+          tempSummonsDone.keys.toList().reversed.toList();
+
+      reversedKeys.forEach((int e) {
+        summonsDone[e] =
+            tempSummonsDone[e]!; // ! means I can guarantee this wont be null
       });
 
       update();

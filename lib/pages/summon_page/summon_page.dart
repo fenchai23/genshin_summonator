@@ -21,23 +21,25 @@ class SummonPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Scrollbar(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                BannerInfo(),
-                Divider(),
-                Flexible(flex: 5, child: SummonHistory()),
-              ],
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              child: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-            ),
-          ],
-        ),
+      body: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BannerInfo(),
+              Divider(),
+              Flexible(
+                flex: 5,
+                child: SummonHistory(),
+              ),
+            ],
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            child: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
+          ),
+        ],
       ),
     );
   }

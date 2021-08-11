@@ -9,14 +9,54 @@ class SummonHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<SummonHistoryController>(
       init: SummonHistoryController(),
-      builder: (summons) => (summons.summonsDone.length > 0)
-          ? ListView.builder(
-              itemCount: summons.summonsDone.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Text(summons.summonsDone.values.elementAt(index));
-              },
-            )
-          : Container(),
+      builder: (summons) {
+        if (summons.summonsDone.length > 0)
+          return SingleChildScrollView(
+            child: DataTable(
+              headingRowColor: MaterialStateProperty.all(Colors.blueGrey[200]),
+              // dataRowColor: MaterialStateProperty.all(Colors.black12),
+              sortColumnIndex: 0,
+              sortAscending: true,
+              dividerThickness: 4,
+              headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+              columns: summonColumns(['#', 'SUMMON', 'PRIMOS', 'DOLLARS']),
+              rows: summonRows(summons.summonsDone),
+            ),
+          );
+        else
+          return Container();
+      },
     );
   }
+}
+
+List<DataColumn> summonColumns(List<String> columns) {
+  List<DataColumn> dataColumns = [];
+
+  for (String k in columns) {
+    dataColumns.add(DataColumn(label: Text(k)));
+  }
+
+  return dataColumns;
+}
+
+List<DataRow> summonRows(Map<int, String> summons) {
+  List<DataRow> dataRows = [];
+
+  summons.forEach(
+    (index, item) {
+      dataRows.add(
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text((index + 1).toString())),
+            DataCell(Text(item)),
+            DataCell(Text(((index + 1) * 160).toString())),
+            DataCell(Text(((index + 1) * 1.98).toStringAsFixed(2))),
+          ],
+        ),
+      );
+    },
+  );
+
+  return dataRows;
 }
