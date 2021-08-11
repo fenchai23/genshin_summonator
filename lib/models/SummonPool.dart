@@ -1,18 +1,30 @@
-class SummonPool {
-  final String code;
-  final String desc;
-  final String invt;
-  final String price;
-  final String codealt;
-  final String descalt;
-  final String group;
-  final String disc1;
-  bool isSelected;
+// class SummonPool {
+//   final List<EventPool> eventPool;
+//   final List<StandardPool> standardPool;
 
-  SummonPool(this.code, this.desc, this.invt, this.price, this.codealt,
-      this.descalt, this.group, this.disc1,
-      {this.isSelected = false});
+//   SummonPool(this.eventPool, this.standardPool);
+// }
 
+class StandardPool {
+  final List<dynamic> fiveStarCharacterPool;
+  final List<dynamic> fourStarCharacterPool;
+  final List<dynamic> threeStarWeaponPool;
+  final List<dynamic> fourStarWeaponPool;
+
+  StandardPool(this.fiveStarCharacterPool, this.fourStarCharacterPool,
+      this.threeStarWeaponPool, this.fourStarWeaponPool);
+}
+
+class EventPool {
+  final List<dynamic> fiveStarCharacterPool;
+  final List<dynamic> fourStarCharacterPool;
+  final List<dynamic> threeStarWeaponPool;
+  final List<dynamic> fourStarWeaponPool;
+  final Map<dynamic, dynamic> images;
+
+  EventPool(this.fiveStarCharacterPool, this.fourStarCharacterPool,
+      this.threeStarWeaponPool, this.fourStarWeaponPool, this.images);
+}
   // SummonPool.fromJson(Map<String, dynamic> json)
   //     : code = json['CODIGO'].trim(),
   //       desc = json['DESCRIPCION'].trim().replaceAll(trimSpacesRegex, ' '),
@@ -95,4 +107,4 @@ class SummonPool {
   //   // 'MEDIDA DE PLATO/P':
   //   //     StorageUrlPaths.cgi_plato,
   // };
-}
+

@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:genshin_summonator/models/SummonPool.dart';
 import 'package:get/get.dart';
 
 class SummonHistoryController extends GetxController {
-  List fourStarCharPool = [];
-  List fiveStarCharPool = [];
-  List threeStarWeaponPool = [];
-  List fourStarWeaponPool = [];
+  late EventPool eventPool;
   Map<int, String> summoned = {};
   int fourStarPityCount = 0;
   int fiveStarPityCount = 0;
@@ -21,24 +19,50 @@ class SummonHistoryController extends GetxController {
   void summon(int amount) {
     // logic here to increase pity and add list to summoned
 
+    for (var i = 0; i <= amount; i++) {
+      print(i);
+      if (i > 100) break;
+    }
     update();
   }
 
   Future<void> loadPoolData() async {
     try {
-      final jsonRawData =
+      final rawBannerData =
           await File("assets/genshin/index/banners.json").readAsString();
 
-      final jsonData = json.decode(jsonRawData);
+      final bannerData = json.decode(rawBannerData);
 
-      threeStarWeaponPool = jsonData['standard_pool']['weapons']['3'];
-      fourStarWeaponPool = jsonData['standard_pool']['weapons']['4'];
-      fourStarCharPool = jsonData['standard_pool']['characters']['4'];
-      fiveStarCharPool = jsonData['standard_pool']['characters']['5'];
+      final List<dynamic> threeStarWeaponPool =
+          bannerData['standard_pool']['weapons']['3'];
+      final List<dynamic> fourStarWeaponPool =
+          bannerData['standard_pool']['weapons']['4'];
+      final List<dynamic> fourStarCharPool =
+          bannerData['standard_pool']['characters']['4'];
+      final List<dynamic> fiveStarCharPool =
+          bannerData['standard_pool']['characters']['5'];
+
+      final characterImagesData = json.decode(
+          await File("assets/genshin/image/characters.json").readAsString());
+
+      final weaponImagesData = json.decode(
+          await File("assets/genshin/image/weapons.json").readAsString());
+
+      Map<dynamic, dynamic> imagesData = {};
+
+      imagesData.addAll(characterImagesData);
+      imagesData.addAll(weaponImagesData);
+
+      eventPool = EventPool(fiveStarCharPool, fourStarCharPool,
+          threeStarWeaponPool, fourStarWeaponPool, imagesData);
 
       Map<int, String> tempSummoned = {};
 
       fourStarWeaponPool.asMap().forEach((key, value) {
+        tempSummoned[key] = value;
+      });
+
+      fourStarCharPool.asMap().forEach((key, value) {
         tempSummoned[key] = value;
       });
 
