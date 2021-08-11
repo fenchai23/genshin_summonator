@@ -19,7 +19,7 @@ class SummonHistory extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 6.0),
                 child: DataTable(
                   headingRowColor:
-                      MaterialStateProperty.all(Colors.blueGrey[200]),
+                      MaterialStateProperty.all(Colors.orange[400]),
                   // dataRowColor: MaterialStateProperty.all(Colors.black12),
                   dividerThickness: 4,
                   headingTextStyle: TextStyle(fontWeight: FontWeight.bold),

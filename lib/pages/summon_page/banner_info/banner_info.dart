@@ -59,6 +59,10 @@ class BannerInfo extends StatelessWidget {
                               color: Colors.white,
                               size: 50,
                             ),
+                          )
+                        else
+                          Container(
+                            width: 50,
                           ),
                         if (!((banner.bannerIndex + 1) >=
                             banner.characterBanners.length))
@@ -69,6 +73,10 @@ class BannerInfo extends StatelessWidget {
                               color: Colors.white,
                               size: 50,
                             ),
+                          )
+                        else
+                          Container(
+                            width: 50,
                           ),
                       ],
                     ),
