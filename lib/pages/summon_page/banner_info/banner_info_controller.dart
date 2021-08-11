@@ -4,14 +4,14 @@ import 'package:path/path.dart';
 
 class BannerInfoController extends GetxController {
   Map<String, FileSystemEntity> characterBanners = {};
-  var bannerIndex = 0.obs;
+  int bannerIndex = 0;
 
   @override
   void onInit() async {
     final List<FileSystemEntity> fileList =
         await Directory('assets/images/banners/characters/').list().toList();
 
-    fileList.forEach((e) {
+    fileList.reversed.forEach((e) {
       characterBanners[basename(e.path)] = e;
     });
 
@@ -21,13 +21,18 @@ class BannerInfoController extends GetxController {
   }
 
   void nextBanner() {
-    final int next = bannerIndex.value + 1;
-    if (!(next > characterBanners.length))
-      bannerIndex.value = bannerIndex.value + 1;
+    final int next = bannerIndex - 1;
+    if ((next >= 0)) bannerIndex = bannerIndex - 1;
+
+    update();
   }
 
   void prevBanner() {
-    final int next = bannerIndex.value + 1;
-    if (!(next > 0)) bannerIndex.value = bannerIndex.value - 1;
+    final int next = bannerIndex + 1;
+    // print(
+    //     'current index: $bannerIndex\nnext index: ${bannerIndex + 1} / ${characterBanners.length}');
+    if (!(next >= characterBanners.length)) bannerIndex = bannerIndex + 1;
+
+    update();
   }
 }
