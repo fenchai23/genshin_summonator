@@ -7,13 +7,21 @@ class SummonHistoryController extends GetxController {
   List fiveStarCharPool = [];
   List threeStarWeaponPool = [];
   List fourStarWeaponPool = [];
-  Map<int, String> summonsDone = {};
+  Map<int, String> summoned = {};
+  int fourStarPityCount = 0;
+  int fiveStarPityCount = 0;
 
   @override
   Future<void> onInit() async {
     await loadPoolData();
 
     super.onInit();
+  }
+
+  void summon(int amount) {
+    // logic here to increase pity and add list to summoned
+
+    update();
   }
 
   Future<void> loadPoolData() async {
@@ -28,19 +36,19 @@ class SummonHistoryController extends GetxController {
       fourStarCharPool = jsonData['standard_pool']['characters']['4'];
       fiveStarCharPool = jsonData['standard_pool']['characters']['5'];
 
-      Map<int, String> tempSummonsDone = {};
+      Map<int, String> tempSummoned = {};
 
       fourStarWeaponPool.asMap().forEach((key, value) {
-        tempSummonsDone[key] = value;
+        tempSummoned[key] = value;
       });
 
       // reverse summons
       final List<int> reversedKeys =
-          tempSummonsDone.keys.toList().reversed.toList();
+          tempSummoned.keys.toList().reversed.toList();
 
       reversedKeys.forEach((int e) {
-        summonsDone[e] =
-            tempSummonsDone[e]!; // ! means I can guarantee this wont be null
+        summoned[e] =
+            tempSummoned[e]!; // ! means I can guarantee this wont be null
       });
 
       update();

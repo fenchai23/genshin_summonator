@@ -1,3 +1,4 @@
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      onInit: () async {
+        await DesktopWindow.setWindowSize(Size(532, 700));
+        await DesktopWindow.setMinWindowSize(Size(532, 700));
+        await DesktopWindow.setMaxWindowSize(Size(1000, 900));
+      },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(

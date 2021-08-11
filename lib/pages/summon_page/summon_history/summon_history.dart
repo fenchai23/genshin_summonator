@@ -10,17 +10,23 @@ class SummonHistory extends StatelessWidget {
     return GetBuilder<SummonHistoryController>(
       init: SummonHistoryController(),
       builder: (summons) {
-        if (summons.summonsDone.length > 0)
+        if (summons.summoned.length > 0)
           return SingleChildScrollView(
-            child: DataTable(
-              headingRowColor: MaterialStateProperty.all(Colors.blueGrey[200]),
-              // dataRowColor: MaterialStateProperty.all(Colors.black12),
-              sortColumnIndex: 0,
-              sortAscending: true,
-              dividerThickness: 4,
-              headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
-              columns: summonColumns(['#', 'SUMMON', 'PRIMOS', 'DOLLARS']),
-              rows: summonRows(summons.summonsDone),
+            scrollDirection: Axis.horizontal,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                child: DataTable(
+                  headingRowColor:
+                      MaterialStateProperty.all(Colors.blueGrey[200]),
+                  // dataRowColor: MaterialStateProperty.all(Colors.black12),
+                  dividerThickness: 4,
+                  headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                  columns: summonColumns(['#', 'SUMMON', 'PRIMOS', 'DOLLARS']),
+                  rows: summonRows(summons.summoned),
+                ),
+              ),
             ),
           );
         else
