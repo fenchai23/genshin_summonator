@@ -7,6 +7,8 @@ import 'package:genshin_summonator/pages/summon_page/summon_history/summon_histo
 import 'package:get/get.dart';
 
 class SummonHistoryController extends GetxController {
+  // TODO: fix sometimes image does not contain the icon url
+  // TODO: fix I have not seen any 4 star weapon
   late EventPool eventPool;
   int fourStarPityCount = 0;
   int fiveStarPityCount = 0;
@@ -74,6 +76,7 @@ class SummonHistoryController extends GetxController {
       } else {
         print('got 3*');
         distributeThreeStar(nextRollCount, rnd);
+        update();
       }
     } else {
       int luck = rnd.nextInt(1000);
@@ -100,6 +103,7 @@ class SummonHistoryController extends GetxController {
     summoned.add(SummonHistoryModel(nextRollCount,
         eventPool.threeStarWeaponPool[rnd.nextInt(12)], 'weapon', '3', false));
     fourStarPityCount++;
+    fiveStarPityCount++;
   }
 
   void distributeFourStar(nextRollCount, rnd) {
@@ -117,6 +121,7 @@ class SummonHistoryController extends GetxController {
       wonfourStar5050(nextRollCount, rnd);
       wasLastFourStarRateUp = true;
     }
+    fiveStarPityCount++;
   }
 
   void distributeFiveStar(nextRollCount, rnd) {

@@ -1,4 +1,17 @@
 class BannerInfoModel {
+  static Map<String, String> starIcons = {
+    "5":
+        "https://static.wikia.nocookie.net/gensin-impact/images/2/2b/Icon_5_Stars.png/revision/latest/scale-to-width-down/63?cb=20201226100736",
+    "4":
+        "https://static.wikia.nocookie.net/gensin-impact/images/7/77/Icon_4_Stars.png/revision/latest/scale-to-width-down/51?cb=20201226100702",
+    "3":
+        "https://static.wikia.nocookie.net/gensin-impact/images/1/11/Icon_3_Stars.png/revision/latest/scale-to-width-down/40?cb=20201226100630",
+    "2":
+        "https://static.wikia.nocookie.net/gensin-impact/images/6/64/Icon_2_Stars.png/revision/latest/scale-to-width-down/28?cb=20201226100559",
+    "1":
+        "https://static.wikia.nocookie.net/gensin-impact/images/b/b7/Icon_1_Star.png/revision/latest/scale-to-width-down/16?cb=20201226100531"
+  };
+
   static Map<String, dynamic> eventCharacters = {
     '2021-08-10_Wish_Tapestry_of_Golden_Flames.png': {
       '5': 'yoimiya.json',

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
@@ -26,9 +27,7 @@ class SummonHistory extends StatelessWidget {
         else
           return CachedNetworkImage(
             imageUrl:
-                'https://static.wikia.nocookie.net/gensin-impact/images/5/5a/Character_Paimon_Card.png/revision/latest?cb=20200602200646',
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
+                'https://static.wikia.nocookie.net/gensin-impact/images/1/10/Character_Paimon_Game.png/revision/latest?cb=20210622104811',
           );
       },
     );
@@ -63,6 +62,12 @@ class SummonRows extends StatelessWidget {
                 fit: BoxFit.fitHeight,
                 height: 70,
                 width: 70,
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: CachedNetworkImage(
+                imageUrl: BannerInfoModel.starIcons[summon.rarity]!,
               ),
             ),
             Expanded(flex: 5, child: Text(summon.item)),
