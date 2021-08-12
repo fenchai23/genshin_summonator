@@ -34,16 +34,38 @@ class BannerInfo extends StatelessWidget {
                   right: 0,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      child: GetBuilder<SummonHistoryController>(
-                        init: SummonHistoryController(),
-                        builder: (summons) => Text(
-                          summons.summoned.length.toString(),
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                    child: GetBuilder<SummonHistoryController>(
+                      init: SummonHistoryController(),
+                      builder: (summons) => Wrap(
+                        spacing: 10,
+                        direction: Axis.vertical,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.blueGrey.withOpacity(0.65),
+                            foregroundColor: Colors.white70,
+                            child: Text(
+                              summons.summoned.length.toString(),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.amber.withOpacity(0.65),
+                            foregroundColor: Colors.white70,
+                            child: Text(
+                              summons.fiveStarPityCount.toString(),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.purple.withOpacity(0.8),
+                            foregroundColor: Colors.white70,
+                            child: Text(
+                              summons.fourStarPityCount.toString(),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
                       ),
-                      backgroundColor: Colors.black38,
-                      foregroundColor: Colors.white,
                     ),
                   ),
                 ),

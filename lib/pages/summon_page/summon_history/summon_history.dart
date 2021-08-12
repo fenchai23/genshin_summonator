@@ -24,8 +24,11 @@ class SummonHistory extends StatelessWidget {
                     return SummonRows(summons.summoned[reversedIndex]);
                   }));
         else
-          return Container(
-            color: Colors.blueGrey[200],
+          return CachedNetworkImage(
+            imageUrl:
+                'https://static.wikia.nocookie.net/gensin-impact/images/5/5a/Character_Paimon_Card.png/revision/latest?cb=20200602200646',
+            fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
           );
       },
     );
@@ -41,6 +44,11 @@ class SummonRows extends StatelessWidget {
     SummonHistoryController ctrl = Get.find<SummonHistoryController>();
 
     return Card(
+      color: (summon.rarity == '5')
+          ? Colors.amber
+          : (summon.rarity == '4')
+              ? Colors.purple[300]
+              : Colors.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
         child: Row(

@@ -9,6 +9,7 @@ class SummonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey[100],
       body: Stack(
         children: [
           Column(

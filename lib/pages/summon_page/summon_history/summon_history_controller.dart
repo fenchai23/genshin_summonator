@@ -15,7 +15,8 @@ class SummonHistoryController extends GetxController {
   bool wasLastFourStarRateUp = false;
   bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
-  double fourStarChance = (5.1 * 0100) / 100;
+  double fourStarChance = (5.1 * 1000) / 100;
+  // double fourStarChance = (61.1 * 1000) / 100;
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
 
@@ -76,7 +77,6 @@ class SummonHistoryController extends GetxController {
       }
     } else {
       int luck = rnd.nextInt(1000);
-
       if (luck >= 0 && luck <= fiveStarChance) {
         print('won 5* you are VERY lucky');
         distributeFiveStar(nextRollCount, rnd);
