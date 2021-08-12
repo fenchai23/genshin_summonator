@@ -66,5 +66,69 @@
                 "qiqi.json"
             ]
         }
+    },
+    "event_pool": {
+        "weapons": {
+            "3": [
+                "blacktassel.json",
+                "bloodtaintedgreatsword.json",
+                "coolsteel.json",
+                "debateclub.json",
+                "emeraldorb.json",
+                "ferrousshadow.json",
+                "harbingerofdawn.json",
+                "magicguide.json",
+                "ravenbow.json",
+                "sharpshootersoath.json",
+                "skyridersword.json",
+                "slingshot.json",
+                "thrillingtalesofdragonslayers.json"
+            ],
+            "4": [
+                "dragonsbane.json",
+                "eyeofperception.json",
+                "favoniuscodex.json",
+                "favoniusgreatsword.json",
+                "favoniuslance.json",
+                "favoniussword.json",
+                "favoniuswarbow.json",
+                "lionsroar.json",
+                "rainslasher.json",
+                "rust.json",
+                "sacrificialbow.json",
+                "sacrificialfragments.json",
+                "sacrificialgreatsword.json",
+                "sacrificialsword.json",
+                "thebell.json",
+                "theflute.json",
+                "thestringless.json",
+                "thewidsith.json"
+            ]
+        },
+        "characters": {
+            "4": [
+                "beidou.json",
+                "bennett.json",
+                "chongyun.json",
+                "diona.json",
+                "fischl.json",
+                "ningguang.json",
+                "noelle.json",
+                "razor.json",
+                "rosaria.json",
+                "sucrose.json",
+                "xiangling.json",
+                "xingqiu.json",
+                "xinyan.json",
+                "yanfei.json"
+            ],
+            "5": [
+                "diluc.json",
+                "jean.json",
+                "keqing.json",
+                "mona.json",
+                "qiqi.json"
+            ]
+        }
     }
 }

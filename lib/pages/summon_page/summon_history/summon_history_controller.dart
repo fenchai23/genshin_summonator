@@ -206,13 +206,13 @@ class SummonHistoryController extends GetxController {
       final bannerData = json.decode(rawBannerData);
 
       final List<dynamic> threeStarWeaponPool =
-          bannerData['standard_pool']['weapons']['3'];
+          bannerData['event_pool']['weapons']['3'];
       final List<dynamic> fourStarWeaponPool =
-          bannerData['standard_pool']['weapons']['4'];
+          bannerData['event_pool']['weapons']['4'];
       final List<dynamic> fourStarCharPool =
-          bannerData['standard_pool']['characters']['4'];
+          bannerData['event_pool']['characters']['4'];
       final List<dynamic> fiveStarCharPool =
-          bannerData['standard_pool']['characters']['5'];
+          bannerData['event_pool']['characters']['5'];
 
       final characterImagesData = json.decode(
           await File("assets/genshin/image/characters.json").readAsString());
