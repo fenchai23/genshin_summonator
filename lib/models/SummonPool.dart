@@ -22,8 +22,13 @@ class EventPool {
   final List<dynamic> fourStarWeaponPool;
   final Map<dynamic, dynamic> images;
 
-  EventPool(this.fiveStarCharacterPool, this.fourStarCharacterPool,
-      this.threeStarWeaponPool, this.fourStarWeaponPool, this.images);
+  EventPool(
+    this.fiveStarCharacterPool,
+    this.fourStarCharacterPool,
+    this.threeStarWeaponPool,
+    this.fourStarWeaponPool,
+    this.images,
+  );
 }
   // SummonPool.fromJson(Map<String, dynamic> json)
   //     : code = json['CODIGO'].trim(),

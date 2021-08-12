@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 
 class BannerInfoController extends GetxController {
   Map<String, FileSystemEntity> characterBanners = {};
   int bannerIndex = 0;
+  Map<String, dynamic> currentBannerPool = {};
 
   @override
   void onInit() async {
@@ -15,6 +17,11 @@ class BannerInfoController extends GetxController {
       characterBanners[basename(e.path)] = e;
     });
 
+    currentBannerPool = BannerInfoModel
+        .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
+
+    // print(bannerInfo);
+
     update();
 
     super.onInit();
@@ -24,6 +31,9 @@ class BannerInfoController extends GetxController {
     final int next = bannerIndex - 1;
     if ((next >= 0)) bannerIndex = bannerIndex - 1;
 
+    currentBannerPool = BannerInfoModel
+        .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
+
     update();
   }
 
@@ -32,6 +42,9 @@ class BannerInfoController extends GetxController {
     // print(
     //     'current index: $bannerIndex\nnext index: ${bannerIndex + 1} / ${characterBanners.length}');
     if (!(next >= characterBanners.length)) bannerIndex = bannerIndex + 1;
+
+    currentBannerPool = BannerInfoModel
+        .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
 
     update();
   }

@@ -35,9 +35,12 @@ class BannerInfo extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CircleAvatar(
-                      child: Text(
-                        '0',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      child: GetBuilder<SummonHistoryController>(
+                        init: SummonHistoryController(),
+                        builder: (summons) => Text(
+                          summons.summoned.length.toString(),
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                       backgroundColor: Colors.black38,
                       foregroundColor: Colors.white,
@@ -90,13 +93,13 @@ class BannerInfo extends StatelessWidget {
                       InkWell(
                         child: IconButton(
                             onPressed: () =>
-                                Get.find<SummonHistoryController>().summon(1),
+                                Get.find<SummonHistoryController>().roll(1),
                             icon: Icon(Icons.check_circle)),
                       ),
                       InkWell(
                         child: IconButton(
                             onPressed: () =>
-                                Get.find<SummonHistoryController>().summon(10),
+                                Get.find<SummonHistoryController>().roll(10),
                             icon: Icon(Icons.check_circle)),
                       )
                     ],

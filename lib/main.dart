@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       onInit: () async {
         await DesktopWindow.setWindowSize(Size(532, 700));
         await DesktopWindow.setMinWindowSize(Size(532, 700));
-        await DesktopWindow.setMaxWindowSize(Size(1000, 900));
+        // await DesktopWindow.setMaxWindowSize(Size(1000, 900));
       },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
