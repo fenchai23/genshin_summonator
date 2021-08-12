@@ -18,13 +18,13 @@ class BannerInfo extends StatelessWidget {
                 GetBuilder<BannerInfoController>(
                   init: BannerInfoController(),
                   builder: (banner) => banner.characterBanners.length > 0
-                      ? AspectRatio(
-                          aspectRatio: 16 / 9,
+                      ? Container(
+                          width: 750,
                           child: Image.asset(
                             banner.characterBanners.values
                                 .elementAt(banner.bannerIndex)
                                 .path,
-                            fit: BoxFit.fill,
+                            fit: BoxFit.fitWidth,
                           ),
                         )
                       : Container(),

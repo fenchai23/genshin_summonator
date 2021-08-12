@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       onInit: () async {
-        await DesktopWindow.setWindowSize(Size(532, 700));
-        await DesktopWindow.setMinWindowSize(Size(532, 700));
+        // await DesktopWindow.setWindowSize(Size(532, 700));
+        // await DesktopWindow.setMinWindowSize(Size(532, 700));
         // await DesktopWindow.setMaxWindowSize(Size(1000, 900));
       },
       debugShowCheckedModeBanner: false,
