@@ -25,10 +25,7 @@ class SummonHistory extends StatelessWidget {
                     return SummonRows(summons.summoned[reversedIndex]);
                   }));
         else
-          return CachedNetworkImage(
-            imageUrl:
-                'https://static.wikia.nocookie.net/gensin-impact/images/1/10/Character_Paimon_Game.png/revision/latest?cb=20210622104811',
-          );
+          return Icon(Icons.hourglass_empty);
       },
     );
   }
@@ -42,6 +39,17 @@ class SummonRows extends StatelessWidget {
   Widget build(BuildContext context) {
     SummonHistoryController ctrl = Get.find<SummonHistoryController>();
 
+    String getApropUrl(SummonHistoryController ctrl, String item) {
+      String url = '';
+      if (ctrl.eventPool.images[summon.item]['icon'] != null)
+        url = ctrl.eventPool.images[summon.item]['icon'];
+      else if (ctrl.eventPool.images[summon.item]['image'] != null)
+        url = ctrl.eventPool.images[summon.item]['image'];
+      else
+        url = ctrl.eventPool.images[summon.item]['image'];
+      return url;
+    }
+
     return Card(
       color: (summon.rarity == '5')
           ? Colors.amber
@@ -53,12 +61,11 @@ class SummonRows extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(flex: 1, child: Text((summon.index).toString())),
+            Expanded(flex: 2, child: Text((summon.index).toString())),
             Expanded(
               flex: 3,
               child: CachedNetworkImage(
-                imageUrl: ctrl.eventPool.images[summon.item]['icon'] ??
-                    ctrl.eventPool.images[summon.item]['image'],
+                imageUrl: getApropUrl(ctrl, summon.item),
                 fit: BoxFit.fitHeight,
                 height: 70,
                 width: 70,

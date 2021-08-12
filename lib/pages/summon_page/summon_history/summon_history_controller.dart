@@ -7,8 +7,6 @@ import 'package:genshin_summonator/pages/summon_page/summon_history/summon_histo
 import 'package:get/get.dart';
 
 class SummonHistoryController extends GetxController {
-  // TODO: fix sometimes image does not contain the icon url
-  // TODO: fix I have not seen any 4 star weapon
   late EventPool eventPool;
   int fourStarPityCount = 0;
   int fiveStarPityCount = 0;
@@ -156,8 +154,18 @@ class SummonHistoryController extends GetxController {
 
   void lostfourStar5050(nextRollCount, rnd) {
     // TODO: need to remove the (3) four star character from the rate up banner
-    summoned.add(SummonHistoryModel(nextRollCount,
-        eventPool.fourStarCharacterPool[rnd.nextInt(17)], 'mixed', '4', false));
+    bool win5050 = rnd.nextBool();
+    if (win5050) {
+      summoned.add(SummonHistoryModel(
+          nextRollCount,
+          eventPool.fourStarCharacterPool[rnd.nextInt(17)],
+          'character',
+          '4',
+          false));
+    } else {
+      summoned.add(SummonHistoryModel(nextRollCount,
+          eventPool.fourStarWeaponPool[rnd.nextInt(17)], 'weapon', '4', false));
+    }
 
     wasLastFourStarRateUp = false;
 
