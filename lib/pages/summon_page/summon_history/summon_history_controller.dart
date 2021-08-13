@@ -58,6 +58,8 @@ class SummonHistoryController extends GetxController {
 
       Get.find<BannerInfoController>().removeRateUpCharFromPool();
 
+      await Future.delayed(Duration(seconds: 2));
+
       update();
     } on Exception catch (e) {
       print(e.toString());
