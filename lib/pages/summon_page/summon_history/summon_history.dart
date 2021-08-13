@@ -32,7 +32,7 @@ class SummonHistory extends StatelessWidget {
                   size: 100,
                 ),
                 Text(
-                  'Good Luck on your summonings!',
+                  'Good luck on your summons!',
                   style: TextStyle(fontSize: 35),
                 )
               ],

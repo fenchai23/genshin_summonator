@@ -12,7 +12,6 @@ class SummonPage extends StatelessWidget {
   // TODO: add a left menu
   // TODO: add dragable scrollbar on pull history
   // TODO: add standard banner
-  // TODO: add windowMove on top left side as well
   @override
   Widget build(BuildContext context) {
     return Scaffold(
