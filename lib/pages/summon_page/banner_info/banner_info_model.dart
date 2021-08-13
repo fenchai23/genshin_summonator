@@ -12,6 +12,15 @@ class BannerInfoModel {
         "https://static.wikia.nocookie.net/gensin-impact/images/b/b7/Icon_1_Star.png/revision/latest/scale-to-width-down/16?cb=20201226100531"
   };
 
+  static Map<String, String> currency = {
+    "primogem":
+        "https://static.wikia.nocookie.net/gensin-impact/images/d/d4/Item_Primogem.png/revision/latest/scale-to-width-down/256?cb=20201117071158",
+    "intertwined_fate":
+        "https://static.wikia.nocookie.net/gensin-impact/images/1/1f/Item_Intertwined_Fate.png/revision/latest?cb=20201117073436",
+    "acquaint_fate":
+        "https://static.wikia.nocookie.net/gensin-impact/images/2/22/Item_Acquaint_Fate.png/revision/latest?cb=20201117073340",
+  };
+
   static Map<String, dynamic> eventCharacters = {
     '2021-08-10_Wish_Tapestry_of_Golden_Flames.png': {
       '5': 'yoimiya.json',

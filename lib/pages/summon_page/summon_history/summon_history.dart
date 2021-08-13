@@ -14,16 +14,14 @@ class SummonHistory extends StatelessWidget {
       init: SummonHistoryController(),
       builder: (summons) {
         if (summons.summoned.length > 0)
-          return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
-              child: ListView.builder(
-                  reverse: false,
-                  itemCount: summons.summoned.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final reversedIndex = summons.summoned.length - 1 - index;
+          return ListView.builder(
+              reverse: false,
+              itemCount: summons.summoned.length,
+              itemBuilder: (BuildContext context, int index) {
+                final reversedIndex = summons.summoned.length - 1 - index;
 
-                    return SummonRows(summons.summoned[reversedIndex]);
-                  }));
+                return SummonRows(summons.summoned[reversedIndex]);
+              });
         else
           return Icon(Icons.hourglass_empty);
       },
@@ -50,39 +48,49 @@ class SummonRows extends StatelessWidget {
       return url;
     }
 
-    return Card(
-      color: (summon.rarity == '5')
-          ? Colors.amber
-          : (summon.rarity == '4')
-              ? Colors.purple[300]
-              : Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(flex: 2, child: Text((summon.index).toString())),
-            Expanded(
-              flex: 3,
-              child: CachedNetworkImage(
-                imageUrl: getApropUrl(ctrl, summon.item),
-                fit: BoxFit.fitHeight,
-                height: 70,
-                width: 70,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 2.0),
+      child: Container(
+        color: (summon.rarity == '5')
+            ? Colors.amber
+            : (summon.rarity == '4')
+                ? Colors.purple[300]
+                : Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(flex: 2, child: Text((summon.index).toString())),
+              Expanded(
+                flex: 2,
+                child: CachedNetworkImage(
+                  imageUrl: getApropUrl(ctrl, summon.item),
+                  fit: BoxFit.fitHeight,
+                  height: 70,
+                  width: 70,
+                ),
               ),
-            ),
-            Expanded(
-              flex: 5,
-              child: CachedNetworkImage(
-                imageUrl: BannerInfoModel.starIcons[summon.rarity]!,
+              Expanded(
+                flex: 2,
+                child: CachedNetworkImage(
+                  imageUrl: BannerInfoModel.starIcons[summon.rarity]!,
+                ),
               ),
-            ),
-            Expanded(flex: 5, child: Text(summon.item)),
-            Expanded(flex: 3, child: Text(((summon.index) * 160).toString())),
-            Expanded(
-                flex: 3,
-                child: Text('\$ ${((summon.index) * 1.98).toStringAsFixed(2)}'))
-          ],
+              Expanded(flex: 5, child: Text(summon.item)),
+              Expanded(
+                flex: 1,
+                child: CachedNetworkImage(
+                  imageUrl: BannerInfoModel.currency['primogem']!,
+                ),
+              ),
+              Expanded(flex: 3, child: Text(((summon.index) * 160).toString())),
+              Expanded(
+                  flex: 3,
+                  child:
+                      Text('\$ ${((summon.index) * 1.98).toStringAsFixed(2)}'))
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:get/get.dart';
 
@@ -20,12 +22,30 @@ class BannerInfo extends StatelessWidget {
                   builder: (banner) => banner.characterBanners.length > 0
                       ? Container(
                           width: 750,
-                          child: Image.asset(
-                            banner.characterBanners.values
-                                .elementAt(banner.bannerIndex)
-                                .path,
-                            fit: BoxFit.fitWidth,
-                          ),
+                          child: Stack(children: [
+                            Image.asset(
+                              banner.characterBanners.values
+                                  .elementAt(banner.bannerIndex)
+                                  .path,
+                              fit: BoxFit.fitWidth,
+                            ),
+                            Container(
+                              height: 370,
+                              width: 750,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    const Color(0xCC000000),
+                                    const Color(0x00000000),
+                                    const Color(0x00000000),
+                                    const Color(0xCC000000),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ]),
                         )
                       : Container(),
                 ),
@@ -40,28 +60,62 @@ class BannerInfo extends StatelessWidget {
                         spacing: 10,
                         direction: Axis.vertical,
                         children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.blueGrey.withOpacity(0.65),
-                            foregroundColor: Colors.white70,
-                            child: Text(
-                              summons.summoned.length.toString(),
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                          Tooltip(
+                            message:
+                                'Total Amount of Rolls: ${summons.summoned.length.toString()}',
+                            textStyle:
+                                TextStyle(fontSize: 20, color: Colors.white70),
+                            decoration: BoxDecoration(
+                              color: Colors.blueGrey,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4)),
+                            ),
+                            child: CircleAvatar(
+                              backgroundColor:
+                                  Colors.blueGrey.withOpacity(0.65),
+                              foregroundColor: Colors.white70,
+                              child: Text(
+                                summons.summoned.length.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
-                          CircleAvatar(
-                            backgroundColor: Colors.amber.withOpacity(0.65),
-                            foregroundColor: Colors.white70,
-                            child: Text(
-                              summons.fiveStarPityCount.toString(),
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                          Tooltip(
+                            message:
+                                '5 Star Pity: ${summons.fiveStarPityCount.toString()}',
+                            textStyle:
+                                TextStyle(fontSize: 20, color: Colors.white70),
+                            decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4)),
+                            ),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.amber.withOpacity(0.65),
+                              foregroundColor: Colors.white70,
+                              child: Text(
+                                summons.fiveStarPityCount.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
-                          CircleAvatar(
-                            backgroundColor: Colors.purple.withOpacity(0.8),
-                            foregroundColor: Colors.white70,
-                            child: Text(
-                              summons.fourStarPityCount.toString(),
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                          Tooltip(
+                            message:
+                                '4 Star Pity: ${summons.fourStarPityCount.toString()}',
+                            textStyle:
+                                TextStyle(fontSize: 20, color: Colors.white70),
+                            decoration: BoxDecoration(
+                              color: Colors.purple,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4)),
+                            ),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.purple.withOpacity(0.8),
+                              foregroundColor: Colors.white70,
+                              child: Text(
+                                summons.fourStarPityCount.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ],
@@ -81,7 +135,7 @@ class BannerInfo extends StatelessWidget {
                             onTap: () => banner.nextBanner(),
                             child: Icon(
                               Icons.navigate_before_rounded,
-                              color: Colors.white,
+                              color: Colors.white70,
                               size: 50,
                             ),
                           )
@@ -95,7 +149,7 @@ class BannerInfo extends StatelessWidget {
                             onTap: () => banner.prevBanner(),
                             child: Icon(
                               Icons.navigate_next_rounded,
-                              color: Colors.white,
+                              color: Colors.white70,
                               size: 50,
                             ),
                           )
@@ -108,22 +162,73 @@ class BannerInfo extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 0,
-                  right: 0,
+                  bottom: 5,
+                  right: 5,
                   child: Wrap(
+                    spacing: 20,
                     children: [
-                      InkWell(
-                        child: IconButton(
-                            onPressed: () =>
-                                Get.find<SummonHistoryController>().roll(1),
-                            icon: Icon(Icons.check_circle)),
+                      Material(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        color: Colors.transparent,
+                        child: InkWell(
+                          hoverColor: Colors.blue[300],
+                          onTap: () =>
+                              Get.find<SummonHistoryController>().roll(1),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Row(
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl: BannerInfoModel
+                                      .currency['intertwined_fate']!,
+                                  height: 50,
+                                ),
+                                Text(
+                                  'x 1',
+                                  style: TextStyle(
+                                      color: Colors.white70,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      InkWell(
-                        child: IconButton(
-                            onPressed: () =>
-                                Get.find<SummonHistoryController>().roll(10),
-                            icon: Icon(Icons.check_circle)),
-                      )
+                      Material(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        color: Colors.transparent,
+                        child: InkWell(
+                          hoverColor: Colors.amber[300],
+                          onTap: () =>
+                              Get.find<SummonHistoryController>().roll(10),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Row(
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl: BannerInfoModel
+                                      .currency['intertwined_fate']!,
+                                  height: 50,
+                                ),
+                                Text(
+                                  'x 10',
+                                  style: TextStyle(
+                                      color: Colors.white70,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
