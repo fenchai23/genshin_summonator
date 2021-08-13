@@ -26,7 +26,10 @@ class SummonPage extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    BannerInfo(),
+                    Container(
+                      width: 750,
+                      child: BannerInfo(),
+                    ),
                     Expanded(
                       child: Container(
                         color: Colors.orange[400],

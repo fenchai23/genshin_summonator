@@ -17,35 +17,32 @@ class BannerInfo extends StatelessWidget {
           GetBuilder<BannerInfoController>(
             init: BannerInfoController(),
             builder: (banner) => banner.characterBanners.length > 0
-                ? Container(
-                    width: 750,
-                    child: Stack(children: [
-                      Image.asset(
-                        banner.characterBanners.values
-                            .elementAt(banner.bannerIndex)
-                            .path,
-                        fit: BoxFit.fitWidth,
-                      ),
-                      Container(
-                        height: 371,
-                        width: 750,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              const Color(0x00000000),
-                              const Color(0x00000000),
-                              const Color(0x00000000),
-                              const Color(0x00000000),
-                              const Color(0x00000000),
-                              const Color(0xCC000000),
-                            ],
-                          ),
+                ? Stack(children: [
+                    Image.asset(
+                      banner.characterBanners.values
+                          .elementAt(banner.bannerIndex)
+                          .path,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    Container(
+                      height: 371,
+                      width: 750,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            const Color(0x00000000),
+                            const Color(0x00000000),
+                            const Color(0x00000000),
+                            const Color(0x00000000),
+                            const Color(0x00000000),
+                            const Color(0xCC000000),
+                          ],
                         ),
-                      )
-                    ]),
-                  )
+                      ),
+                    )
+                  ])
                 : Container(),
           ),
           Positioned(
