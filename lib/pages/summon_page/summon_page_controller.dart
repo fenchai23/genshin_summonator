@@ -12,6 +12,7 @@ class SummonPageController extends GetxController {
 
     bgMusicPlayer.setVolume(0.75);
     bgMusicPlayer.open(media);
+    bgMusicPlayer.setPlaylistMode(PlaylistMode.loop);
 
     super.onInit();
   }

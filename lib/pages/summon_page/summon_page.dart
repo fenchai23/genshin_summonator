@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banners_info.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
 import 'package:genshin_summonator/windows_window.dart';
 import 'package:get/get.dart';
@@ -51,8 +52,20 @@ class SummonPage extends StatelessWidget {
                           alignment: Alignment.centerRight,
                           child: MoveWindow(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                GetBuilder<SummonHistoryController>(
+                                  init: SummonHistoryController(),
+                                  builder: (summon) => Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      summon.commentary,
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                ),
                                 WindowButtons(),
                               ],
                             ),

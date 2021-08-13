@@ -19,6 +19,7 @@ class SummonHistoryController extends GetxController {
   double fourStarChance = (5.1 * 1000) / 100;
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
+  String commentary = 'good luck ~';
 
   @override
   Future<void> onInit() async {
@@ -80,7 +81,7 @@ class SummonHistoryController extends GetxController {
     final int nextRollCount = (currRollCount + 1);
 
     if ((fiveStarPityCount + 1) == 90) {
-      print('hit 5* hard pity');
+      commentary = 'oof... 5* hard pity';
       // hard pity lmao
       distributeFiveStar(nextRollCount, rnd);
       update();
@@ -88,7 +89,7 @@ class SummonHistoryController extends GetxController {
     }
 
     if ((fourStarPityCount + 1) == 10) {
-      print('hit 4* hard pity');
+      commentary = 'good luck next time kiddo, 4* hard pity';
       // hard pity 4 star
       distributeFourStar(nextRollCount, rnd);
       update();
@@ -96,40 +97,41 @@ class SummonHistoryController extends GetxController {
     }
 
     if ((fiveStarPityCount + 1) > 75) {
-      print('entering soft pity realm');
+      commentary = 'attention! entering soft pity realm...';
 
       // entering soft pity realm
       int luck = rnd.nextInt(1000);
 
       if (luck >= 0 && luck <= fiveStarSoftChance) {
-        print('won 5* on soft pity');
+        commentary = 'congrats! 5* on soft pity';
         distributeFiveStar(nextRollCount, rnd);
         update();
         return;
       } else if (luck >= 0 && luck <= fourStarChance) {
-        print('won 4*');
+        commentary = 'rolled a 4* before pity, you are quite lucky!';
         distributeFourStar(nextRollCount, rnd);
         update();
         return;
       } else {
-        print('got 3*');
+        commentary = '3*? boooo';
         distributeThreeStar(nextRollCount, rnd);
         update();
       }
     } else {
       int luck = rnd.nextInt(1000);
       if (luck >= 0 && luck <= fiveStarChance) {
-        print('won 5* you are VERY lucky');
+        commentary =
+            'you rolled a 5* before soft pity, you are VERY VERY lucky!';
         distributeFiveStar(nextRollCount, rnd);
         update();
         return;
       } else if (luck >= 0 && luck <= fourStarChance) {
-        print('won a 4* you are quite lucky');
+        commentary = 'rolled a 4* before pity, you are quite lucky!';
         distributeFourStar(nextRollCount, rnd);
         update();
         return;
       } else {
-        print('just another 3*');
+        commentary = 'just a 3*...';
         distributeThreeStar(nextRollCount, rnd);
       }
 
