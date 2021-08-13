@@ -16,7 +16,6 @@ class SummonHistoryController extends GetxController {
   bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
   double fourStarChance = (5.1 * 1000) / 100;
-  // double fourStarChance = (61.1 * 1000) / 100;
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
 
@@ -152,13 +151,16 @@ class SummonHistoryController extends GetxController {
     fourStarPityCount = 0;
   }
 
-  void lostfourStar5050(nextRollCount, rnd) {
-    // TODO: need to remove the (3) four star character from the rate up banner
+  void lostfourStar5050(nextRollCount, Random rnd) {
     bool win5050 = rnd.nextBool();
+
+    final fourStarCharPool =
+        Get.find<BannerInfoController>().fourStarEventCharPool;
+    print(fourStarCharPool.length - 1);
     if (win5050) {
       summoned.add(SummonHistoryModel(
           nextRollCount,
-          eventPool.fourStarCharacterPool[rnd.nextInt(17)],
+          fourStarCharPool[rnd.nextInt(fourStarCharPool.length - 1)],
           'character',
           '4',
           false));
@@ -228,24 +230,7 @@ class SummonHistoryController extends GetxController {
       eventPool = EventPool(fiveStarCharPool, fourStarCharPool,
           threeStarWeaponPool, fourStarWeaponPool, imagesData);
 
-      // Map<int, String> tempSummoned = {};
-
-      // fourStarWeaponPool.asMap().forEach((key, value) {
-      //   tempSummoned[key] = value;
-      // });
-
-      // fourStarCharPool.asMap().forEach((key, value) {
-      //   tempSummoned[key] = value;
-      // });
-
-      // // reverse summons
-      // final List<int> reversedKeys =
-      //     tempSummoned.keys.toList().reversed.toList();
-
-      // reversedKeys.forEach((int e) {
-      //   summoned[e] =
-      //       tempSummoned[e]!; // ! means I can guarantee this wont be null
-      // });
+      Get.find<BannerInfoController>().removeRateUpCharFromPool();
 
       update();
     } on Exception catch (e) {

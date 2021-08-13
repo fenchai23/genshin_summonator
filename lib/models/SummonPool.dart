@@ -1,10 +1,3 @@
-// class SummonPool {
-//   final List<EventPool> eventPool;
-//   final List<StandardPool> standardPool;
-
-//   SummonPool(this.eventPool, this.standardPool);
-// }
-
 class StandardPool {
   final List<dynamic> fiveStarCharacterPool;
   final List<dynamic> fourStarCharacterPool;

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 
@@ -7,6 +8,7 @@ class BannerInfoController extends GetxController {
   Map<String, FileSystemEntity> characterBanners = {};
   int bannerIndex = 0;
   Map<String, dynamic> currentBannerPool = {};
+  List<String> fourStarEventCharPool = [];
 
   @override
   void onInit() async {
@@ -34,6 +36,8 @@ class BannerInfoController extends GetxController {
     currentBannerPool = BannerInfoModel
         .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
 
+    removeRateUpCharFromPool();
+
     update();
   }
 
@@ -46,6 +50,17 @@ class BannerInfoController extends GetxController {
     currentBannerPool = BannerInfoModel
         .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
 
+    removeRateUpCharFromPool();
+
     update();
+  }
+
+  void removeRateUpCharFromPool() {
+    final List<dynamic> fourStarCharPool =
+        Get.find<SummonHistoryController>().eventPool.fourStarCharacterPool;
+
+    fourStarCharPool.forEach((e) {
+      if (!currentBannerPool['4'].contains(e)) fourStarEventCharPool.add(e);
+    });
   }
 }
