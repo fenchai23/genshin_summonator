@@ -31,7 +31,7 @@ class SummonPage extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.menu,
-                  color: Colors.white70,
+                  color: Colors.black45,
                 )),
           ),
         ],

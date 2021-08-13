@@ -37,7 +37,9 @@ class BannerInfo extends StatelessWidget {
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    const Color(0xCC000000),
+                                    const Color(0x00000000),
+                                    const Color(0x00000000),
+                                    const Color(0x00000000),
                                     const Color(0x00000000),
                                     const Color(0x00000000),
                                     const Color(0xCC000000),
