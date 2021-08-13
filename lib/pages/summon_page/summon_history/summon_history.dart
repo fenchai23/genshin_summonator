@@ -58,7 +58,8 @@ class SummonRows extends StatelessWidget {
       else if (ctrl.eventPool.images[summon.item]['image'] != null)
         url = ctrl.eventPool.images[summon.item]['image'];
       else
-        url = ctrl.eventPool.images[summon.item]['image'];
+        url =
+            'https://static.wikia.nocookie.net/gensin-impact/images/6/6a/Character_Dainsleif_Portrait.png/revision/latest/scale-to-width-down/1000?cb=20210321222051';
       return url;
     }
 

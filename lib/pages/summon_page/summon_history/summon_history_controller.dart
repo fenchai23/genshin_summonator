@@ -26,6 +26,44 @@ class SummonHistoryController extends GetxController {
     super.onInit();
   }
 
+  Future<void> loadPoolData() async {
+    try {
+      final rawBannerData =
+          await File("assets/genshin/index/banners.json").readAsString();
+
+      final bannerData = json.decode(rawBannerData);
+
+      final List<dynamic> threeStarWeaponPool =
+          bannerData['event_pool']['weapons']['3'];
+      final List<dynamic> fourStarWeaponPool =
+          bannerData['event_pool']['weapons']['4'];
+      final List<dynamic> fourStarCharPool =
+          bannerData['event_pool']['characters']['4'];
+      final List<dynamic> fiveStarCharPool =
+          bannerData['event_pool']['characters']['5'];
+
+      final characterImagesData = json.decode(
+          await File("assets/genshin/image/characters.json").readAsString());
+
+      final weaponImagesData = json.decode(
+          await File("assets/genshin/image/weapons.json").readAsString());
+
+      Map<dynamic, dynamic> imagesData = {};
+
+      imagesData.addAll(characterImagesData);
+      imagesData.addAll(weaponImagesData);
+
+      eventPool = EventPool(fiveStarCharPool, fourStarCharPool,
+          threeStarWeaponPool, fourStarWeaponPool, imagesData);
+
+      Get.find<BannerInfoController>().removeRateUpCharFromPool();
+
+      update();
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+  }
+
   void roll(int amount) {
     for (var i = 1; i <= amount; i++) {
       increasePity();
@@ -156,7 +194,7 @@ class SummonHistoryController extends GetxController {
 
     final fourStarCharPool =
         Get.find<BannerInfoController>().fourStarEventCharPool;
-    print(fourStarCharPool.length - 1);
+
     if (win5050) {
       summoned.add(SummonHistoryModel(
           nextRollCount,
@@ -198,43 +236,5 @@ class SummonHistoryController extends GetxController {
     wasLastFiveStarRateUp = false;
 
     fiveStarPityCount = 0;
-  }
-
-  Future<void> loadPoolData() async {
-    try {
-      final rawBannerData =
-          await File("assets/genshin/index/banners.json").readAsString();
-
-      final bannerData = json.decode(rawBannerData);
-
-      final List<dynamic> threeStarWeaponPool =
-          bannerData['event_pool']['weapons']['3'];
-      final List<dynamic> fourStarWeaponPool =
-          bannerData['event_pool']['weapons']['4'];
-      final List<dynamic> fourStarCharPool =
-          bannerData['event_pool']['characters']['4'];
-      final List<dynamic> fiveStarCharPool =
-          bannerData['event_pool']['characters']['5'];
-
-      final characterImagesData = json.decode(
-          await File("assets/genshin/image/characters.json").readAsString());
-
-      final weaponImagesData = json.decode(
-          await File("assets/genshin/image/weapons.json").readAsString());
-
-      Map<dynamic, dynamic> imagesData = {};
-
-      imagesData.addAll(characterImagesData);
-      imagesData.addAll(weaponImagesData);
-
-      eventPool = EventPool(fiveStarCharPool, fourStarCharPool,
-          threeStarWeaponPool, fourStarWeaponPool, imagesData);
-
-      Get.find<BannerInfoController>().removeRateUpCharFromPool();
-
-      update();
-    } on Exception catch (e) {
-      print(e.toString());
-    }
   }
 }

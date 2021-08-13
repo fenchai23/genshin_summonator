@@ -36,7 +36,7 @@ class BannerInfoModel {
     },
     '2021-05-19_Born_of_Ocean_Swell.jpg': {
       '5': 'eula.json',
-      '4': ['xinqiu.json', 'xinyan.json', 'beidou.json']
+      '4': ['xingqiu.json', 'xinyan.json', 'beidou.json']
     },
     '2021-04-28_Gentry_of_Hermitage.jpg': {
       '5': 'zhongli.json',
@@ -52,7 +52,7 @@ class BannerInfoModel {
     },
     '2021-03-02-MomentOfBloom.jpg': {
       '5': 'hutao.json',
-      '4': ['xinqiu.json', 'xiangling.json', 'chongyun.json']
+      '4': ['xingqiu.json', 'xiangling.json', 'chongyun.json']
     },
     '2021-02-17_Dance_of_Lanterns.jpg': {
       '5': 'keqing.json',
@@ -64,7 +64,7 @@ class BannerInfoModel {
     },
     '2021-01-13_Adrift_in_the_Harbor.jpeg': {
       '5': 'ganyu.json',
-      '4': ['noelle.json', 'xinqiu.json', 'xiangling.json']
+      '4': ['noelle.json', 'xingqiu.json', 'xiangling.json']
     },
     '2020-12-23_Secretum_Secretorum.png': {
       '5': 'albedo.json',
@@ -80,7 +80,7 @@ class BannerInfoModel {
     },
     '2020-10-19_Sparkling_Steps.jpg': {
       '5': 'klee.json',
-      '4': ['xinqiu.json', 'noelle.json', 'sucrose.json']
+      '4': ['xingqiu.json', 'noelle.json', 'sucrose.json']
     },
   };
 }

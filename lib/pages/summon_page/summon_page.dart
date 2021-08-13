@@ -1,5 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banners_info.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history.dart';
 import 'package:genshin_summonator/windows_window.dart';
@@ -23,8 +24,9 @@ class SummonPage extends StatelessWidget {
                     BannerInfo(),
                     Expanded(
                       child: Container(
-                        color: Colors.red,
+                        color: Colors.orange[400],
                         width: 750,
+                        child: AllBannersInfo(),
                       ),
                     ),
                   ],

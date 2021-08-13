@@ -55,6 +55,15 @@ class BannerInfoController extends GetxController {
     update();
   }
 
+  void setBannerIndex(int index) {
+    bannerIndex = index;
+
+    currentBannerPool = BannerInfoModel
+        .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
+
+    update();
+  }
+
   void removeRateUpCharFromPool() {
     final List<dynamic> fourStarCharPool =
         Get.find<SummonHistoryController>().eventPool.fourStarCharacterPool;
