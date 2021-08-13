@@ -9,7 +9,6 @@ class SummonPage extends StatelessWidget {
   const SummonPage({Key? key}) : super(key: key);
 
   // TODO: add a custom amount to roll
-  // TODO: fix error on start about event sht not loaded
   // TODO: add a left menu
   // TODO: add dragable scrollbar on pull history
   // TODO: add standard banner

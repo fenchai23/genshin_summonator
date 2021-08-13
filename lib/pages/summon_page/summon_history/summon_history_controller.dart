@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 class SummonHistoryController extends GetxController {
   late EventPool eventPool;
+  bool hasEventPoolInit = false;
   int fourStarPityCount = 0;
   int fiveStarPityCount = 0;
   bool firstTimePullingFourStar = true;
@@ -58,7 +59,7 @@ class SummonHistoryController extends GetxController {
 
       Get.find<BannerInfoController>().removeRateUpCharFromPool();
 
-      await Future.delayed(Duration(seconds: 2));
+      hasEventPoolInit = true;
 
       update();
     } on Exception catch (e) {

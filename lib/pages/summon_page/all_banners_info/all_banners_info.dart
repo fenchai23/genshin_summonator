@@ -38,7 +38,10 @@ class AllBannersInfo extends StatelessWidget {
                           ? Border.all(color: Colors.red[400]!, width: 5)
                           : Border.all(color: Colors.white70, width: 5)),
                   child: CachedNetworkImage(
-                    imageUrl: summon.eventPool.images[fiveStarCharIcon]['icon'],
+                    imageUrl: (summon.hasEventPoolInit)
+                        ? summon.eventPool.images[fiveStarCharIcon]['icon']
+                        : "https://static.wikia.nocookie.net/gensin-impact/images/6/6a/Character_Dainsleif_Portrait.png/revision/latest/scale-to-width-down/1000?cb=20210321222051",
+                    height: 50,
                     fit: BoxFit.cover,
                   ),
                 ),
