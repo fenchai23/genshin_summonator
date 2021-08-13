@@ -1,10 +1,19 @@
-import 'package:desktop_window/desktop_window.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page.dart';
 import 'package:get/get.dart';
 
 void main() {
   runApp(MyApp());
+
+  doWhenWindowReady(() {
+    final initialSize = Size(1487, 1004);
+    appWindow.minSize = initialSize;
+    appWindow.size = initialSize;
+    appWindow.alignment = Alignment.center;
+    appWindow.title = 'Genshin Summonator';
+    appWindow.show();
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -13,9 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       onInit: () async {
-        await DesktopWindow.setWindowSize(Size(1487, 1004));
-        await DesktopWindow.setMinWindowSize(Size(1487, 1004));
-        // await DesktopWindow.setMaxWindowSize(Size(1000, 900));
+        // await DesktopWindow.setWindowSize(Size(1487, 1004));
+        // await DesktopWindow.setMinWindowSize(Size(1487, 1004));
       },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

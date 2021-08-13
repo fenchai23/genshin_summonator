@@ -23,7 +23,21 @@ class SummonHistory extends StatelessWidget {
                 return SummonRows(summons.summoned[reversedIndex]);
               });
         else
-          return Icon(Icons.hourglass_empty);
+          return Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.list_rounded,
+                  size: 100,
+                ),
+                Text(
+                  'Good Luck on your summonings!',
+                  style: TextStyle(fontSize: 35),
+                )
+              ],
+            ),
+          );
       },
     );
   }
