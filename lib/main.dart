@@ -1,10 +1,13 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:dart_vlc/dart_vlc.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page.dart';
 import 'package:get/get.dart';
 
 void main() {
   runApp(MyApp());
+
+  DartVLC.initialize();
 
   doWhenWindowReady(() {
     final initialSize = Size(1487, 1004);

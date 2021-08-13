@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.1"
+  audio_video_progress_bar:
+    dependency: transitive
+    description:
+      name: audio_video_progress_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   bitsdojo_window:
     dependency: "direct main"
     description:
@@ -113,6 +120,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  dart_vlc:
+    dependency: "direct main"
+    description:
+      name: dart_vlc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.3"
+  dart_vlc_ffi:
+    dependency: "direct main"
+    description:
+      name: dart_vlc_ffi
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   fake_async:
     dependency: transitive
     description:
