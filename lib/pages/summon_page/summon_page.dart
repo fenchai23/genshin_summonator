@@ -18,6 +18,7 @@ class SummonPage extends StatelessWidget {
   // TODO: allow different music bg
   // TODO: hide 3 stars
   // TODO: animate commentary
+  // TODO: add a way to show all 4* and 5* summoned so far on left panel
 
   @override
   Widget build(BuildContext context) {
