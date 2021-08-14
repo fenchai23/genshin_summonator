@@ -14,6 +14,10 @@ class SummonPage extends StatelessWidget {
 
   // TODO: add standard banner
   // TODO: add sharedPreferences for bg music preference and audio etc
+  // TODO: add a way to not use any asset from the app itself
+  // TODO: allow different music bg
+  // TODO: hide 3 stars
+  // TODO: animate commentary
 
   @override
   Widget build(BuildContext context) {
