@@ -32,7 +32,7 @@ class BannerInfoModel {
     },
     '2021-07-03_Leaves_in_the_Wind.png': {
       '5': 'kaedeharakazuha.json',
-      '4': ['bennet.json', 'rosaria.json', 'razor.json']
+      '4': ['bennett.json', 'rosaria.json', 'razor.json']
     },
     '2021-05-19_Born_of_Ocean_Swell.jpg': {
       '5': 'eula.json',
@@ -56,7 +56,7 @@ class BannerInfoModel {
     },
     '2021-02-17_Dance_of_Lanterns.jpg': {
       '5': 'keqing.json',
-      '4': ['barbara.json', 'bennet.json', 'ningguang.json']
+      '4': ['barbara.json', 'bennett.json', 'ningguang.json']
     },
     '2021-02-03_Invitation_to_Mundane_Life.jpg': {
       '5': 'xiao.json',
@@ -68,7 +68,7 @@ class BannerInfoModel {
     },
     '2020-12-23_Secretum_Secretorum.png': {
       '5': 'albedo.json',
-      '4': ['fischl.json', 'bennet.json', 'sucrose.json']
+      '4': ['fischl.json', 'bennett.json', 'sucrose.json']
     },
     '2020-12-02_Gentry_of_Hermitage.jpg': {
       '5': 'zhongli.json',
