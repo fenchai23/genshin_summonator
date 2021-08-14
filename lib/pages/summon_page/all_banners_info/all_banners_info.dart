@@ -35,8 +35,8 @@ class AllBannersInfo extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                       border: (banner.bannerIndex == index)
-                          ? Border.all(color: Colors.red[400]!, width: 5)
-                          : Border.all(color: Colors.white70, width: 5)),
+                          ? Border.all(color: Colors.white70, width: 7)
+                          : Border.all(color: Colors.black12, width: 5)),
                   child: CachedNetworkImage(
                     imageUrl: (summon.hasEventPoolInit)
                         ? summon.eventPool.images[fiveStarCharIcon]['icon']
