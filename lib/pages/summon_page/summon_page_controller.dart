@@ -20,9 +20,9 @@ class SummonPageController extends GetxController {
     super.onInit();
   }
 
-  setPlayerStatus(Player player, status) {
+  setPlayerStatus(Player player, bool status) {
     if (status) {
-      player.stop();
+      player.pause();
       isbgMusicPlaying = false;
     } else {
       player.play();

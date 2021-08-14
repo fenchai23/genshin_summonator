@@ -32,25 +32,31 @@ class MainDrawer extends StatelessWidget {
                   ),
                 ),
                 Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'Background Music',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                    ),
-                    FlutterSwitch(
+                TextButton.icon(
+                  label: Text(
+                    'Background Music',
+                    style: TextStyle(fontSize: 18.0, color: Colors.black87),
+                  ),
+                  icon: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: FlutterSwitch(
                       value: player.isbgMusicPlaying,
                       activeColor: Colors.amber[400]!,
                       width: 60,
+                      height: 30,
                       onToggle: (status) => (status)
                           ? player.setPlayerStatus(
                               player.bgMusicPlayer, !status)
                           : player.setPlayerStatus(
                               player.bgMusicPlayer, !status),
                     ),
-                  ],
+                  ),
+                  onPressed: () {
+                    if (player.isbgMusicPlaying)
+                      player.setPlayerStatus(player.bgMusicPlayer, true);
+                    else
+                      player.setPlayerStatus(player.bgMusicPlayer, false);
+                  },
                 ),
                 Divider(),
                 TextButton.icon(
