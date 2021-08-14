@@ -1,5 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/menu/main_drawer.dart';
 import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banners_info.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history.dart';
@@ -12,14 +13,18 @@ class SummonPage extends StatelessWidget {
   const SummonPage({Key? key}) : super(key: key);
 
   // TODO: add a custom amount to roll
-  // TODO: add a left menu
   // TODO: add dragable scrollbar on pull history
   // TODO: add standard banner
+
   @override
   Widget build(BuildContext context) {
+    final scaffoldKey = GlobalKey<ScaffoldState>();
+
     return GetBuilder<SummonPageController>(
       init: SummonPageController(),
       builder: (summonPage) => Scaffold(
+        key: scaffoldKey,
+        drawer: MainDrawer(),
         backgroundColor: Colors.blueGrey[100],
         body: WindowBorder(
           color: Color(0xFF805306),
@@ -83,9 +88,7 @@ class SummonPage extends StatelessWidget {
                 top: 0,
                 left: 0,
                 child: IconButton(
-                    onPressed: () async {
-                      // print(await DesktopWindow.getWindowSize());
-                    },
+                    onPressed: () => scaffoldKey.currentState!.openDrawer(),
                     icon: Icon(
                       Icons.menu,
                       color: Colors.black45,

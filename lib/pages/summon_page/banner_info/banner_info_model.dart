@@ -28,7 +28,7 @@ class BannerInfoModel {
     },
     '2021-07-22_The_Herons_Court.jpeg': {
       '5': 'kamisatoayaka.json',
-      '4': ['chongyun.json', 'ninguang.json', 'yanfei.json']
+      '4': ['chongyun.json', 'ningguang.json', 'yanfei.json']
     },
     '2021-07-03_Leaves_in_the_Wind.png': {
       '5': 'kaedeharakazuha.json',
@@ -56,7 +56,7 @@ class BannerInfoModel {
     },
     '2021-02-17_Dance_of_Lanterns.jpg': {
       '5': 'keqing.json',
-      '4': ['barbara.json', 'bennet.json', 'ninguang.json']
+      '4': ['barbara.json', 'bennet.json', 'ningguang.json']
     },
     '2021-02-03_Invitation_to_Mundane_Life.jpg': {
       '5': 'xiao.json',
@@ -76,7 +76,7 @@ class BannerInfoModel {
     },
     '2020-11-10_Farewell_of_Snezhnaya.jpg': {
       '5': 'tartaglia.json',
-      '4': ['ninguang.json', 'beidou.json', 'diona.json']
+      '4': ['ningguang.json', 'beidou.json', 'diona.json']
     },
     '2020-10-19_Sparkling_Steps.jpg': {
       '5': 'klee.json',

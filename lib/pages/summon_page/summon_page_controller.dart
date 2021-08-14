@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class SummonPageController extends GetxController {
   Player bgMusicPlayer = Player(id: 111);
+  bool isbgMusicPlaying = true;
 
   @override
   Future<void> onInit() async {
@@ -15,5 +16,16 @@ class SummonPageController extends GetxController {
     bgMusicPlayer.setPlaylistMode(PlaylistMode.loop);
 
     super.onInit();
+  }
+
+  setPlayerStatus(Player player, status) {
+    if (status) {
+      player.stop();
+      isbgMusicPlaying = false;
+    } else {
+      player.play();
+      isbgMusicPlaying = true;
+    }
+    update();
   }
 }
