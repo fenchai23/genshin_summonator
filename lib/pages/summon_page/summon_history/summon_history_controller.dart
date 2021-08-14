@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:genshin_summonator/models/SummonPool.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
@@ -22,6 +23,7 @@ class SummonHistoryController extends GetxController {
   String commentary = 'good luck ~';
   int fiveStarCount = 0;
   int fourStarCount = 0;
+  final ScrollController historyScrollController = ScrollController();
 
   @override
   Future<void> onInit() async {
@@ -88,6 +90,10 @@ class SummonHistoryController extends GetxController {
   void roll(int amount) {
     for (var i = 1; i <= amount; i++) {
       increasePity();
+
+      if (historyScrollController.offset != 0.0)
+        historyScrollController.animateTo(0.0,
+            duration: Duration(milliseconds: 400), curve: Curves.ease);
     }
   }
 

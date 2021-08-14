@@ -12,7 +12,6 @@ import 'package:get/get.dart';
 class SummonPage extends StatelessWidget {
   const SummonPage({Key? key}) : super(key: key);
 
-  // TODO: add dragable scrollbar on pull history
   // TODO: add standard banner
   // TODO: add constellations on sumnmon history characters
   // TODO: add sharedPreferences for bg music preference and audio etc

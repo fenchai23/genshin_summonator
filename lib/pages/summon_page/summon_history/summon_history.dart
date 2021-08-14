@@ -14,14 +14,20 @@ class SummonHistory extends StatelessWidget {
       init: SummonHistoryController(),
       builder: (summons) {
         if (summons.summoned.length > 0)
-          return ListView.builder(
-              reverse: false,
-              itemCount: summons.summoned.length,
-              itemBuilder: (BuildContext context, int index) {
-                final reversedIndex = summons.summoned.length - 1 - index;
+          return Scrollbar(
+            thickness: 12.0,
+            controller: summons.historyScrollController,
+            isAlwaysShown: true,
+            child: ListView.builder(
+                controller: summons.historyScrollController,
+                reverse: false,
+                itemCount: summons.summoned.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final reversedIndex = summons.summoned.length - 1 - index;
 
-                return SummonRows(summons.summoned[reversedIndex]);
-              });
+                  return SummonRows(summons.summoned[reversedIndex]);
+                }),
+          );
         else
           return Center(
             child: Column(
