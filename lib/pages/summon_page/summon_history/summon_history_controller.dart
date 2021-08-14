@@ -20,6 +20,8 @@ class SummonHistoryController extends GetxController {
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
   String commentary = 'good luck ~';
+  int fiveStarCount = 0;
+  int fourStarCount = 0;
 
   @override
   Future<void> onInit() async {
@@ -190,7 +192,7 @@ class SummonHistoryController extends GetxController {
         true));
 
     wasLastFourStarRateUp = true;
-
+    fourStarCount++;
     fourStarPityCount = 0;
   }
 
@@ -213,7 +215,7 @@ class SummonHistoryController extends GetxController {
     }
 
     wasLastFourStarRateUp = false;
-
+    fourStarCount++;
     fourStarPityCount = 0;
   }
 
@@ -226,7 +228,7 @@ class SummonHistoryController extends GetxController {
         true));
 
     wasLastFiveStarRateUp = true;
-
+    fiveStarCount++;
     fiveStarPityCount = 0;
   }
 
@@ -239,7 +241,7 @@ class SummonHistoryController extends GetxController {
         false));
 
     wasLastFiveStarRateUp = false;
-
+    fiveStarCount++;
     fiveStarPityCount = 0;
   }
 }

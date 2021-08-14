@@ -14,9 +14,21 @@ class SummonPage extends StatelessWidget {
 
   // TODO: add dragable scrollbar on pull history
   // TODO: add standard banner
+  // TODO: add constellations on sumnmon history characters
+  // TODO: add sharedPreferences for bg music preference and audio etc
+  // TODO: add a RESET button
 
   @override
   Widget build(BuildContext context) {
+    String getSummonStats(SummonHistoryController summoned) {
+      String fiveStarStats = (summoned.summoned.length / summoned.fiveStarCount)
+          .toStringAsFixed(2);
+      String fourStarStats = (summoned.summoned.length / summoned.fourStarCount)
+          .toStringAsFixed(2);
+      print(summoned.fiveStarCount);
+      return 'Summon Stats:\n5* rate = $fiveStarStats / ${summoned.summoned.length}\n4* rate = $fourStarStats / ${summoned.summoned.length}';
+    }
+
     return GetBuilder<SummonPageController>(
       init: SummonPageController(),
       builder: (summonPage) => Scaffold(
@@ -48,17 +60,18 @@ class SummonPage extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        Container(
-                          height: 35,
-                          color: Colors.orange[400],
-                          alignment: Alignment.centerRight,
-                          child: MoveWindow(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                GetBuilder<SummonHistoryController>(
-                                  init: SummonHistoryController(),
-                                  builder: (summon) => Padding(
+                        GetBuilder<SummonHistoryController>(
+                          init: SummonHistoryController(),
+                          builder: (summon) => Container(
+                            height: 35,
+                            color: Colors.orange[400],
+                            alignment: Alignment.centerRight,
+                            child: MoveWindow(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: Text(
                                       summon.commentary,
@@ -67,9 +80,29 @@ class SummonPage extends StatelessWidget {
                                           fontWeight: FontWeight.w400),
                                     ),
                                   ),
-                                ),
-                                WindowButtons(),
-                              ],
+                                  Row(
+                                    children: [
+                                      Tooltip(
+                                        message: getSummonStats(summon),
+                                        padding: EdgeInsets.all(10.0),
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(4)),
+                                        ),
+                                        textStyle: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white70),
+                                        child: Icon(
+                                          Icons.help_center_rounded,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                      WindowButtons(),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
