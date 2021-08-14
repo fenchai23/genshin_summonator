@@ -15,7 +15,7 @@ class SummonHistory extends StatelessWidget {
       builder: (summons) {
         if (summons.summoned.length > 0)
           return Scrollbar(
-            thickness: 12.0,
+            thickness: 20.0,
             controller: summons.historyScrollController,
             isAlwaysShown: true,
             child: ListView.builder(
@@ -85,11 +85,31 @@ class SummonRows extends StatelessWidget {
               Expanded(flex: 2, child: Text((summon.index).toString())),
               Expanded(
                 flex: 2,
-                child: CachedNetworkImage(
-                  imageUrl: getApropUrl(ctrl, summon.item),
-                  fit: BoxFit.fitHeight,
-                  height: 70,
-                  width: 70,
+                child: Stack(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: getApropUrl(ctrl, summon.item),
+                      fit: BoxFit.fitHeight,
+                      height: 70,
+                      width: 70,
+                    ),
+                    Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Visibility(
+                          visible: !(summon.rarity == '3'),
+                          child: Text(
+                            ' c${summon.constellation.toString()} ',
+                            style: TextStyle(
+                                color: (summon.rarity == '5')
+                                    ? Colors.amber
+                                    : Colors.purple[300],
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                                backgroundColor: Colors.black45),
+                          ),
+                        ))
+                  ],
                 ),
               ),
               Expanded(

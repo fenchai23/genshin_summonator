@@ -13,7 +13,6 @@ class SummonPage extends StatelessWidget {
   const SummonPage({Key? key}) : super(key: key);
 
   // TODO: add standard banner
-  // TODO: add constellations on sumnmon history characters
   // TODO: add sharedPreferences for bg music preference and audio etc
   // TODO: fix naming
 
