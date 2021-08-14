@@ -13,6 +13,7 @@ class EventPool {
   final List<dynamic> fourStarCharacterPool;
   final List<dynamic> threeStarWeaponPool;
   final List<dynamic> fourStarWeaponPool;
+  final Map<dynamic, dynamic> nameMap;
   final Map<dynamic, dynamic> images;
 
   EventPool(
@@ -20,6 +21,7 @@ class EventPool {
     this.fourStarCharacterPool,
     this.threeStarWeaponPool,
     this.fourStarWeaponPool,
+    this.nameMap,
     this.images,
   );
 }

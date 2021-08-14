@@ -118,7 +118,7 @@ class SummonRows extends StatelessWidget {
                   imageUrl: BannerInfoModel.starIcons[summon.rarity]!,
                 ),
               ),
-              Expanded(flex: 5, child: Text(summon.item)),
+              Expanded(flex: 5, child: Text(summon.itemName)),
               Expanded(
                 flex: 1,
                 child: CachedNetworkImage(

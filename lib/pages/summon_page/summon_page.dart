@@ -14,7 +14,6 @@ class SummonPage extends StatelessWidget {
 
   // TODO: add standard banner
   // TODO: add sharedPreferences for bg music preference and audio etc
-  // TODO: fix naming
 
   @override
   Widget build(BuildContext context) {
