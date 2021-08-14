@@ -12,18 +12,15 @@ import 'package:get/get.dart';
 class SummonPage extends StatelessWidget {
   const SummonPage({Key? key}) : super(key: key);
 
-  // TODO: add a custom amount to roll
   // TODO: add dragable scrollbar on pull history
   // TODO: add standard banner
 
   @override
   Widget build(BuildContext context) {
-    final scaffoldKey = GlobalKey<ScaffoldState>();
-
     return GetBuilder<SummonPageController>(
       init: SummonPageController(),
       builder: (summonPage) => Scaffold(
-        key: scaffoldKey,
+        key: summonPage.scaffoldKey,
         drawer: MainDrawer(),
         backgroundColor: Colors.blueGrey[100],
         body: WindowBorder(
@@ -88,7 +85,8 @@ class SummonPage extends StatelessWidget {
                 top: 0,
                 left: 0,
                 child: IconButton(
-                    onPressed: () => scaffoldKey.currentState!.openDrawer(),
+                    onPressed: () =>
+                        summonPage.scaffoldKey.currentState!.openDrawer(),
                     icon: Icon(
                       Icons.menu,
                       color: Colors.black45,

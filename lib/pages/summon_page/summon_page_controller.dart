@@ -1,7 +1,9 @@
 import 'package:dart_vlc/dart_vlc.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SummonPageController extends GetxController {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   Player bgMusicPlayer = Player(id: 111);
   bool isbgMusicPlaying = true;
 

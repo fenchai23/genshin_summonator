@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +12,7 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController tec = TextEditingController(text: '1000');
     return GetBuilder<SummonPageController>(
       init: SummonPageController(),
       builder: (player) => Drawer(
@@ -27,9 +31,7 @@ class MainDrawer extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                   ),
                 ),
-                SizedBox(
-                  height: 25,
-                ),
+                Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -49,7 +51,51 @@ class MainDrawer extends StatelessWidget {
                               player.bgMusicPlayer, !status),
                     ),
                   ],
-                )
+                ),
+                Divider(),
+                TextButton.icon(
+                  onPressed: () => Get.bottomSheet(Container(
+                    child: Wrap(
+                      children: <Widget>[
+                        ListTile(
+                          leading: CachedNetworkImage(
+                            imageUrl:
+                                BannerInfoModel.currency['intertwined_fate']!,
+                            height: 50,
+                          ),
+                          title: TextField(
+                            controller: tec,
+                            autofocus: true,
+                            onTap: () => tec.clear(),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9]')),
+                            ],
+                          ),
+                          trailing: TextButton(
+                            onPressed: () {
+                              Get.back(closeOverlays: true);
+
+                              Get.find<SummonHistoryController>()
+                                  .roll(int.parse(tec.text));
+                            },
+                            child: Text('Roll!'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+                  icon: CachedNetworkImage(
+                    imageUrl: BannerInfoModel.currency['intertwined_fate']!,
+                    height: 50,
+                  ),
+                  label: Text(
+                    'Custom Roll',
+                    style: TextStyle(fontSize: 18.0, color: Colors.black87),
+                  ),
+                ),
+                Divider(),
               ],
             ),
           ),

@@ -63,6 +63,7 @@ class BannerInfo extends StatelessWidget {
                   direction: Axis.vertical,
                   children: [
                     Tooltip(
+                      padding: EdgeInsets.all(10.0),
                       message:
                           'Total Amount of Rolls: ${summons.summoned.length.toString()}',
                       textStyle: TextStyle(fontSize: 20, color: Colors.white70),
@@ -81,6 +82,7 @@ class BannerInfo extends StatelessWidget {
                       ),
                     ),
                     Tooltip(
+                      padding: EdgeInsets.all(10.0),
                       message:
                           '5 Star Pity: ${summons.fiveStarPityCount.toString()}',
                       textStyle: TextStyle(fontSize: 20, color: Colors.white70),
@@ -99,6 +101,7 @@ class BannerInfo extends StatelessWidget {
                       ),
                     ),
                     Tooltip(
+                      padding: EdgeInsets.all(10.0),
                       message:
                           '4 Star Pity: ${summons.fourStarPityCount.toString()}',
                       textStyle: TextStyle(fontSize: 20, color: Colors.white70),
