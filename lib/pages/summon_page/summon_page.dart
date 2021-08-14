@@ -25,7 +25,7 @@ class SummonPage extends StatelessWidget {
           .toStringAsFixed(2);
       String fourStarStats = (summoned.summoned.length / summoned.fourStarCount)
           .toStringAsFixed(2);
-      print(summoned.fiveStarCount);
+
       return 'Summon Stats:\n5* rate = $fiveStarStats / ${summoned.summoned.length}\n4* rate = $fourStarStats / ${summoned.summoned.length}';
     }
 
@@ -63,7 +63,7 @@ class SummonPage extends StatelessWidget {
                         GetBuilder<SummonHistoryController>(
                           init: SummonHistoryController(),
                           builder: (summon) => Container(
-                            height: 35,
+                            height: 30,
                             color: Colors.orange[400],
                             alignment: Alignment.centerRight,
                             child: MoveWindow(

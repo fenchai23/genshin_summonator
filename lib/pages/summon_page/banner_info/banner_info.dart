@@ -60,6 +60,7 @@ class BannerInfo extends StatelessWidget {
                 init: SummonHistoryController(),
                 builder: (summons) => Wrap(
                   spacing: 10,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   direction: Axis.vertical,
                   children: [
                     Tooltip(
@@ -73,11 +74,14 @@ class BannerInfo extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(4)),
                       ),
                       child: CircleAvatar(
+                        radius: 30,
                         backgroundColor: Colors.blueGrey.withOpacity(0.65),
                         foregroundColor: Colors.white70,
                         child: Text(
                           summons.summoned.length.toString(),
                           style: TextStyle(fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
