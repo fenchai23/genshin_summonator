@@ -82,5 +82,9 @@ class BannerInfoModel {
       '5': 'klee.json',
       '4': ['xingqiu.json', 'noelle.json', 'sucrose.json']
     },
+    '2020-09-28_BalladInGoblets.jpg': {
+      '5': 'venti.json',
+      '4': ['xiangling.json', 'barbara.json', 'fischl.json']
+    }
   };
 }
