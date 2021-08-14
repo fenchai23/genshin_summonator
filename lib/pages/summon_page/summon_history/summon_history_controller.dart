@@ -30,6 +30,21 @@ class SummonHistoryController extends GetxController {
     super.onInit();
   }
 
+  void resetSummons() {
+    fourStarPityCount = 0;
+    fiveStarPityCount = 0;
+    firstTimePullingFourStar = true;
+    firstTimePullingFiveStar = true;
+    wasLastFourStarRateUp = false;
+    wasLastFiveStarRateUp = false;
+    summoned = [];
+    commentary = 'good luck ~';
+    fiveStarCount = 0;
+    fourStarCount = 0;
+
+    update();
+  }
+
   Future<void> loadPoolData() async {
     try {
       final rawBannerData =

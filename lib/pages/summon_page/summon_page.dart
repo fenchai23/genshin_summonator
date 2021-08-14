@@ -16,7 +16,7 @@ class SummonPage extends StatelessWidget {
   // TODO: add standard banner
   // TODO: add constellations on sumnmon history characters
   // TODO: add sharedPreferences for bg music preference and audio etc
-  // TODO: add a RESET button
+  // TODO: fix naming
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class SummonPage extends StatelessWidget {
       String fourStarStats = (summoned.summoned.length / summoned.fourStarCount)
           .toStringAsFixed(2);
 
-      return 'Summon Stats:\n5* rate = $fiveStarStats / ${summoned.summoned.length}\n4* rate = $fourStarStats / ${summoned.summoned.length}';
+      return 'summon stats:\n5* rate = $fiveStarStats / ${summoned.summoned.length}\n4* rate = $fourStarStats / ${summoned.summoned.length}';
     }
 
     return GetBuilder<SummonPageController>(
@@ -82,6 +82,34 @@ class SummonPage extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
+                                      Tooltip(
+                                        message: 'reset',
+                                        padding: EdgeInsets.all(10.0),
+                                        decoration: BoxDecoration(
+                                          color: Colors.redAccent,
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(4)),
+                                        ),
+                                        textStyle: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white70),
+                                        child: InkWell(
+                                          onTap: () {
+                                            summon.resetSummons();
+                                            Get.defaultDialog(
+                                                title: 'Done',
+                                                middleText:
+                                                    'Everything was reset');
+                                          },
+                                          child: Icon(
+                                            Icons.refresh,
+                                            color: Colors.red[400],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
                                       Tooltip(
                                         message: getSummonStats(summon),
                                         padding: EdgeInsets.all(10.0),

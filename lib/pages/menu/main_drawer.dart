@@ -19,19 +19,17 @@ class MainDrawer extends StatelessWidget {
         child: Container(
           color: Colors.blueGrey[100],
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 40),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: ListView(
               children: [
-                Container(
-                  width: 60,
-                  height: 200,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
                   child: CachedNetworkImage(
                     imageUrl:
                         "https://static.wikia.nocookie.net/gensin-impact/images/c/c2/Character_Zhongli_Thumb.png",
                     fit: BoxFit.fitWidth,
                   ),
                 ),
-                Divider(),
                 TextButton.icon(
                   label: Text(
                     'Background Music',
