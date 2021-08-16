@@ -24,7 +24,7 @@ class SummonHistoryController extends GetxController {
   int fiveStarCount = 0;
   int fourStarCount = 0;
   final ScrollController historyScrollController = ScrollController();
-  bool staticPage = false;
+  bool noAnimations = false;
 
   @override
   Future<void> onInit() async {
@@ -91,11 +91,17 @@ class SummonHistoryController extends GetxController {
   }
 
   void roll(int amount) {
+    if (amount != 1) noAnimations = true;
+
     for (var i = 1; i <= amount; i++) increasePity();
+
+    noAnimations = false;
 
     if (historyScrollController.offset != 0.0 && amount == 1)
       historyScrollController.animateTo(0.0,
           duration: Duration(milliseconds: 400), curve: Curves.ease);
+
+    update();
   }
 
   void increasePity() {

@@ -74,19 +74,28 @@ class SummonPage extends StatelessWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
-                                    child: AnimatedTextKit(
-                                      animatedTexts: [
-                                        TyperAnimatedText(
-                                          summon.commentary,
-                                          textStyle: TextStyle(
-                                              color: Colors.black54,
-                                              fontWeight: FontWeight.w400),
-                                          speed: Duration(milliseconds: 20),
-                                        ),
-                                      ],
-                                      key: Key(summon.commentary),
-                                      isRepeatingAnimation: false,
-                                    ),
+                                    child: (!summon.noAnimations)
+                                        ? AnimatedTextKit(
+                                            animatedTexts: [
+                                              TyperAnimatedText(
+                                                summon.commentary,
+                                                textStyle: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                                speed:
+                                                    Duration(milliseconds: 20),
+                                              ),
+                                            ],
+                                            key: Key(summon.commentary),
+                                            isRepeatingAnimation: false,
+                                          )
+                                        : Text(
+                                            summon.commentary,
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontWeight: FontWeight.w400),
+                                          ),
                                   ),
                                   Row(
                                     children: [
