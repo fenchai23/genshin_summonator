@@ -17,7 +17,7 @@ class SummonPage extends StatelessWidget {
   // TODO: add sharedPreferences for bg music preference and audio etc
   // TODO: add a way to not use any asset from the app itself
   // TODO: allow different music bg
-  // TODO: hide 3 stars
+  // TODO: hide 3 stars (instead add another section to show all pulls)
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +49,17 @@ class SummonPage extends StatelessWidget {
                         width: 750,
                         child: BannerInfo(),
                       ),
+                      Container(
+                        color: Colors.orange[400],
+                        width: 750,
+                        height: 150,
+                        child: AllBannersInfo(),
+                      ),
                       Expanded(
                         child: Container(
-                          color: Colors.orange[400],
+                          color: Colors.red,
                           width: 750,
-                          child: AllBannersInfo(),
+                          // child: AllBannersInfo(),
                         ),
                       ),
                     ],
