@@ -13,7 +13,7 @@ class BannerInfoController extends GetxController {
   @override
   void onInit() async {
     final List<FileSystemEntity> fileList =
-        await Directory('assets/images/banners/characters/').list().toList();
+        await Directory('assets/images/banners/event/').list().toList();
 
     fileList.reversed.forEach((e) {
       characterBanners[basename(e.path)] = e;

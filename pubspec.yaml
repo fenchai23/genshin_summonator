@@ -50,9 +50,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/banners/characters/
+    - assets/images/banners/event/
     - assets/genshin/
-    - assets/genshin/sound/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
