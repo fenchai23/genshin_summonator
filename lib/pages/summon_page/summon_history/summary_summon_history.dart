@@ -15,7 +15,6 @@ class SummarySummonHistory extends StatelessWidget {
         if (summons.summonedFourFiveStarOnly.length > 0)
           return Scrollbar(
             thickness: 20.0,
-            isAlwaysShown: true,
             child: GridView.builder(
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 8,

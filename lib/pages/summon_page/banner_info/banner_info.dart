@@ -69,13 +69,13 @@ class BannerInfo extends StatelessWidget {
                           'Total Amount of Rolls: ${summons.summoned.length.toString()}',
                       textStyle: TextStyle(fontSize: 20, color: Colors.white70),
                       decoration: BoxDecoration(
-                        color: Colors.blueGrey,
+                        color: Colors.blue,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(4)),
                       ),
                       child: CircleAvatar(
                         radius: 30,
-                        backgroundColor: Colors.blueGrey.withOpacity(0.65),
+                        backgroundColor: Colors.blue.withOpacity(0.65),
                         foregroundColor: Colors.white70,
                         child: Text(
                           summons.summoned.length.toString(),
