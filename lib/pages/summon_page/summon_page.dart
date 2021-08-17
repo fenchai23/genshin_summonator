@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/menu/main_drawer.dart';
 import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banners_info.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/summary_summon_history.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
@@ -17,7 +18,6 @@ class SummonPage extends StatelessWidget {
   // TODO: add sharedPreferences for bg music preference and audio etc
   // TODO: add a way to not use any asset from the app itself
   // TODO: allow different music bg
-  // TODO: hide 3 stars (instead add another section to show all pulls)
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +57,9 @@ class SummonPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: Container(
-                          color: Colors.red,
+                          color: Colors.blueGrey[100],
                           width: 750,
-                          // child: AllBannersInfo(),
+                          child: SummarySummonHistory(),
                         ),
                       ),
                     ],
