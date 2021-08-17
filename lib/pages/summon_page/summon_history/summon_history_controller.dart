@@ -314,6 +314,12 @@ class SummonHistoryController extends GetxController {
     }
 
     summonedFourFiveStarOnly.addAll(itemsToAdd);
+
+    // sort items
+    summonedFourFiveStarOnly.sort((a, b) => <Comparator<SummonHistoryModel>>[
+          (o1, o2) => o1.rarity.compareTo(o2.rarity),
+          (o1, o2) => o1.constellation.compareTo(o2.constellation),
+        ].map((e) => e(a, b)).firstWhere((e) => e != 0, orElse: () => 0));
   }
 
   String fixNaming(dynamic item) {
