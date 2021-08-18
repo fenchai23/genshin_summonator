@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
@@ -98,13 +99,20 @@ class SummonRows extends StatelessWidget {
                         right: 0,
                         child: Visibility(
                           visible: !(summon.rarity == '3'),
-                          child: Text(
-                            ' c${summon.constellation.toString()} ',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.underline,
-                                backgroundColor: Colors.black45),
+                          child: Badge(
+                            toAnimate: false,
+                            badgeColor: Colors.black87,
+                            borderRadius: BorderRadius.circular(8),
+                            badgeContent: Text(
+                              ' c${summon.constellation.toString()} ',
+                              style: TextStyle(
+                                  color: (summon.rarity == '5')
+                                      ? Colors.amber
+                                      : (summon.rarity == '4')
+                                          ? Colors.purple[300]!
+                                          : Colors.white,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
                         ))
                   ],

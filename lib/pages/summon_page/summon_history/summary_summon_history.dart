@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
@@ -83,31 +84,38 @@ class SummonItem extends StatelessWidget {
                       : Colors.white,
               border: Border.all(color: Colors.white12),
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-            child: Stack(
-              children: [
-                CachedNetworkImage(
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: CachedNetworkImage(
                   imageUrl: getApropUrl(ctrl, summon.item),
                   fit: BoxFit.fitHeight,
                   height: 140,
                   width: 140,
                 ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Text(
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: Badge(
+                  toAnimate: true,
+                  badgeColor: Colors.black87,
+                  animationType: BadgeAnimationType.fade,
+                  borderRadius: BorderRadius.circular(8),
+                  badgeContent: Text(
                     ' c${summon.constellation.toString()} ',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.underline,
-                        backgroundColor: Colors.black45),
+                        color: (summon.rarity == '5')
+                            ? Colors.amber
+                            : (summon.rarity == '4')
+                                ? Colors.purple[300]!
+                                : Colors.white,
+                        fontWeight: FontWeight.w600),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),
