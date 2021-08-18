@@ -12,7 +12,7 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController tec = TextEditingController(text: '1000');
+    final TextEditingController tec = TextEditingController(text: '500');
     return GetBuilder<SummonPageController>(
       init: SummonPageController(),
       builder: (player) => Drawer(
@@ -59,6 +59,7 @@ class MainDrawer extends StatelessWidget {
                 Divider(),
                 TextButton.icon(
                   onPressed: () => Get.bottomSheet(Container(
+                    color: Colors.white,
                     child: Wrap(
                       children: <Widget>[
                         ListTile(
@@ -81,7 +82,7 @@ class MainDrawer extends StatelessWidget {
                             child: TextFormField(
                               controller: tec,
                               autofocus: true,
-                              onTap: () => tec.clear(),
+                              // onTap: () => tec.clear(),
                               keyboardType: TextInputType.number,
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
