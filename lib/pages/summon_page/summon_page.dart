@@ -118,11 +118,21 @@ class SummonPage extends StatelessWidget {
                                             color: Colors.white70),
                                         child: InkWell(
                                           onTap: () {
-                                            summon.resetSummons();
                                             Get.defaultDialog(
-                                                title: 'Done',
+                                                title: 'Reset',
                                                 middleText:
-                                                    'Everything was reset');
+                                                    'Do you want to reset all summons?',
+                                                confirm: TextButton(
+                                                    onPressed: () {
+                                                      summon.resetSummons();
+                                                      Get.back();
+                                                    },
+                                                    child: Text(
+                                                      'Reset',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.redAccent),
+                                                    )));
                                           },
                                           child: Icon(
                                             Icons.refresh,

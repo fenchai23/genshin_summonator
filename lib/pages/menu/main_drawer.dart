@@ -67,15 +67,27 @@ class MainDrawer extends StatelessWidget {
                                 BannerInfoModel.currency['intertwined_fate']!,
                             height: 50,
                           ),
-                          title: TextField(
-                            controller: tec,
-                            autofocus: true,
-                            onTap: () => tec.clear(),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'[0-9]')),
-                            ],
+                          title: RawKeyboardListener(
+                            focusNode: FocusNode(),
+                            onKey: (event) {
+                              if (event.runtimeType == RawKeyDownEvent &&
+                                  (event.logicalKey.keyId == 4295426088)) {
+                                Get.back(closeOverlays: true);
+
+                                Get.find<SummonHistoryController>()
+                                    .roll(int.parse(tec.text));
+                              }
+                            },
+                            child: TextFormField(
+                              controller: tec,
+                              autofocus: true,
+                              onTap: () => tec.clear(),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]')),
+                              ],
+                            ),
                           ),
                           trailing: TextButton(
                             onPressed: () {
