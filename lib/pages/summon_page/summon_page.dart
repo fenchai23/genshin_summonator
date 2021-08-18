@@ -1,8 +1,10 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/menu/main_drawer.dart';
 import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banners_info.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/summary_summon_history.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
@@ -16,9 +18,6 @@ class SummonPage extends StatelessWidget {
   // TODO: add sharedPreferences for bg music preference and audio etc
   // TODO: add a way to not use any asset from the app itself
   // TODO: allow different music bg
-  // TODO: hide 3 stars
-  // TODO: animate commentary
-  // TODO: add a way to show all 4* and 5* summoned so far on left panel
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +49,17 @@ class SummonPage extends StatelessWidget {
                         width: 750,
                         child: BannerInfo(),
                       ),
+                      Container(
+                        color: Colors.orange[400],
+                        width: 750,
+                        height: 150,
+                        child: AllBannersInfo(),
+                      ),
                       Expanded(
                         child: Container(
-                          color: Colors.orange[400],
+                          color: Colors.blueGrey[100],
                           width: 750,
-                          child: AllBannersInfo(),
+                          child: SummarySummonHistory(),
                         ),
                       ),
                     ],
@@ -75,12 +80,28 @@ class SummonPage extends StatelessWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      summon.commentary,
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.w400),
-                                    ),
+                                    child: (!summon.noAnimations)
+                                        ? AnimatedTextKit(
+                                            animatedTexts: [
+                                              TyperAnimatedText(
+                                                summon.commentary,
+                                                textStyle: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                                speed:
+                                                    Duration(milliseconds: 20),
+                                              ),
+                                            ],
+                                            key: Key(summon.commentary),
+                                            isRepeatingAnimation: false,
+                                          )
+                                        : Text(
+                                            summon.commentary,
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontWeight: FontWeight.w400),
+                                          ),
                                   ),
                                   Row(
                                     children: [

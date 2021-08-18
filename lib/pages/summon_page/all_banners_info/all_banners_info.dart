@@ -12,17 +12,15 @@ class AllBannersInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
+      padding: const EdgeInsets.only(
+          top: 12.0, left: 12.0, right: 12.0, bottom: 12.0),
       child: GetBuilder<SummonHistoryController>(
         init: SummonHistoryController(),
         builder: (summon) => GetBuilder<BannerInfoController>(
           init: BannerInfoController(),
-          builder: (banner) => GridView.builder(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20),
+          builder: (banner) => ListView.builder(
             itemCount: banner.characterBanners.values.length,
+            scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext ctx, index) {
               final String fileName = basename(
                   banner.characterBanners.values.elementAt(index).path);
@@ -32,17 +30,20 @@ class AllBannersInfo extends StatelessWidget {
 
               return InkWell(
                 onTap: () => banner.setBannerIndex(index),
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: (banner.bannerIndex == index)
-                          ? Border.all(color: Colors.white70, width: 7)
-                          : Border.all(color: Colors.black12, width: 5)),
-                  child: CachedNetworkImage(
-                    imageUrl: (summon.hasEventPoolInit)
-                        ? summon.eventPool.images[fiveStarCharIcon]['icon']
-                        : "https://static.wikia.nocookie.net/gensin-impact/images/6/6a/Character_Dainsleif_Portrait.png/revision/latest/scale-to-width-down/1000?cb=20210321222051",
-                    height: 50,
-                    fit: BoxFit.cover,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: (banner.bannerIndex == index)
+                            ? Border.all(color: Colors.white70, width: 7)
+                            : Border.all(color: Colors.black12, width: 5)),
+                    child: CachedNetworkImage(
+                      imageUrl: (summon.hasEventPoolInit)
+                          ? summon.eventPool.images[fiveStarCharIcon]['icon']
+                          : "https://static.wikia.nocookie.net/gensin-impact/images/6/6a/Character_Dainsleif_Portrait.png/revision/latest/scale-to-width-down/1000?cb=20210321222051",
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               );

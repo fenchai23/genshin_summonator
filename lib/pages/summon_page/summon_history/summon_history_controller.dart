@@ -17,6 +17,7 @@ class SummonHistoryController extends GetxController {
   bool wasLastFourStarRateUp = false;
   bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
+  List<SummonHistoryModel> summonedFourFiveStarOnly = [];
   double fourStarChance = (5.1 * 1000) / 100;
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
@@ -24,6 +25,7 @@ class SummonHistoryController extends GetxController {
   int fiveStarCount = 0;
   int fourStarCount = 0;
   final ScrollController historyScrollController = ScrollController();
+  bool noAnimations = false;
 
   @override
   Future<void> onInit() async {
@@ -40,6 +42,7 @@ class SummonHistoryController extends GetxController {
     wasLastFourStarRateUp = false;
     wasLastFiveStarRateUp = false;
     summoned = [];
+    summonedFourFiveStarOnly = [];
     commentary = 'good luck ~';
     fiveStarCount = 0;
     fourStarCount = 0;
@@ -90,13 +93,19 @@ class SummonHistoryController extends GetxController {
   }
 
   void roll(int amount) {
-    for (var i = 1; i <= amount; i++) {
-      increasePity();
+    if (amount != 1) noAnimations = true;
 
-      if (historyScrollController.offset != 0.0)
+    for (var i = 1; i <= amount; i++) increasePity();
+
+    noAnimations = false;
+
+    if (historyScrollController.hasClients) {
+      if (historyScrollController.offset != 0.0 && amount == 1)
         historyScrollController.animateTo(0.0,
             duration: Duration(milliseconds: 400), curve: Curves.ease);
     }
+
+    update();
   }
 
   void increasePity() {
@@ -211,8 +220,15 @@ class SummonHistoryController extends GetxController {
   void wonfourStar5050(nextRollCount, Random rnd) {
     final item =
         Get.find<BannerInfoController>().currentBannerPool['4'][rnd.nextInt(2)];
-    summoned.add(SummonHistoryModel(nextRollCount, item, fixNaming(item),
-        'character', '4', true, calConst(item)));
+
+    final fixedName = fixNaming(item);
+    final constellation = calConst(item);
+
+    summoned.add(SummonHistoryModel(
+        nextRollCount, item, fixedName, 'character', '4', true, constellation));
+
+    addToSummaryList(SummonHistoryModel(
+        nextRollCount, item, fixedName, 'character', '4', true, constellation));
 
     wasLastFourStarRateUp = true;
     fourStarCount++;
@@ -228,11 +244,23 @@ class SummonHistoryController extends GetxController {
     final charItem = fourStarCharPool[rnd.nextInt(fourStarCharPool.length - 1)];
     final weaponItem = eventPool.fourStarWeaponPool[rnd.nextInt(17)];
     if (win5050) {
-      summoned.add(SummonHistoryModel(nextRollCount, charItem,
-          fixNaming(charItem), 'character', '4', false, calConst(charItem)));
+      final fixedName = fixNaming(charItem);
+      final constellation = calConst(charItem);
+
+      summoned.add(SummonHistoryModel(nextRollCount, charItem, fixedName,
+          'character', '4', false, constellation));
+
+      addToSummaryList(SummonHistoryModel(nextRollCount, charItem, fixedName,
+          'character', '4', false, constellation));
     } else {
-      summoned.add(SummonHistoryModel(nextRollCount, weaponItem,
-          fixNaming(weaponItem), 'weapon', '4', false, calConst(weaponItem)));
+      final fixedName = fixNaming(weaponItem);
+      final constellation = calConst(weaponItem);
+
+      summoned.add(SummonHistoryModel(nextRollCount, weaponItem, fixedName,
+          'weapon', '4', false, constellation));
+
+      addToSummaryList(SummonHistoryModel(nextRollCount, weaponItem, fixedName,
+          'character', '4', false, constellation));
     }
 
     wasLastFourStarRateUp = false;
@@ -243,8 +271,14 @@ class SummonHistoryController extends GetxController {
   void wonfiveStar5050(nextRollCount) {
     final item = Get.find<BannerInfoController>().currentBannerPool['5'];
 
-    summoned.add(SummonHistoryModel(nextRollCount, item, fixNaming(item),
-        'character', '5', true, calConst(item)));
+    final fixedName = fixNaming(item);
+    final constellation = calConst(item);
+
+    summoned.add(SummonHistoryModel(
+        nextRollCount, item, fixedName, 'character', '5', true, constellation));
+
+    addToSummaryList(SummonHistoryModel(
+        nextRollCount, item, fixedName, 'character', '5', true, constellation));
 
     wasLastFiveStarRateUp = true;
     fiveStarCount++;
@@ -253,12 +287,39 @@ class SummonHistoryController extends GetxController {
 
   void lostfiveStar5050(nextRollCount, rnd) {
     final item = eventPool.fiveStarCharacterPool[rnd.nextInt(5)];
-    summoned.add(SummonHistoryModel(nextRollCount, item, fixNaming(item),
-        'character', '5', false, calConst(item)));
+
+    final fixedName = fixNaming(item);
+    final constellation = calConst(item);
+
+    summoned.add(SummonHistoryModel(
+        nextRollCount, item, fixedName, 'character', '5', true, constellation));
+
+    addToSummaryList(SummonHistoryModel(
+        nextRollCount, item, fixedName, 'character', '5', true, constellation));
 
     wasLastFiveStarRateUp = false;
     fiveStarCount++;
     fiveStarPityCount = 0;
+  }
+
+  addToSummaryList(SummonHistoryModel summon) {
+    List<SummonHistoryModel> itemsToAdd = [];
+
+    Iterable<SummonHistoryModel> it =
+        summonedFourFiveStarOnly.where((item) => (item.item == summon.item));
+    if (it.length > 0) {
+      it.forEach((e) => e.constellation = summon.constellation);
+    } else {
+      itemsToAdd.add(summon);
+    }
+
+    summonedFourFiveStarOnly.addAll(itemsToAdd);
+
+    // sort items
+    summonedFourFiveStarOnly.sort((a, b) => <Comparator<SummonHistoryModel>>[
+          (o1, o2) => o1.rarity.compareTo(o2.rarity),
+          (o1, o2) => o1.constellation.compareTo(o2.constellation),
+        ].map((e) => e(a, b)).firstWhere((e) => e != 0, orElse: () => 0));
   }
 
   String fixNaming(dynamic item) {

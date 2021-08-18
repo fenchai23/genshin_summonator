@@ -101,9 +101,7 @@ class SummonRows extends StatelessWidget {
                           child: Text(
                             ' c${summon.constellation.toString()} ',
                             style: TextStyle(
-                                color: (summon.rarity == '5')
-                                    ? Colors.amber
-                                    : Colors.purple[300],
+                                color: Colors.white,
                                 fontWeight: FontWeight.w600,
                                 decoration: TextDecoration.underline,
                                 backgroundColor: Colors.black45),
