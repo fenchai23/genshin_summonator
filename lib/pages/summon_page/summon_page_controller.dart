@@ -1,20 +1,27 @@
 import 'package:dart_vlc/dart_vlc.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SummonPageController extends GetxController {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   Player bgMusicPlayer = Player(id: 111);
   bool isbgMusicPlaying = true;
 
   @override
   Future<void> onInit() async {
     // Media media = Media.asset('file:///assets\genshin\sound\specialistP4.mp3');
-    Media media = Media.network(
-        'https://vgmsite.com/soundtracks/persona-4-dancing-all-night/wncrrxpp/2-01%20specialist%20%28_NEVER%20MORE_%20P4D-EDIT%20ver.%29.mp3');
 
-    bgMusicPlayer.setVolume(0.75);
-    bgMusicPlayer.open(media);
+    Playlist playlist = Playlist(
+      medias: [
+        Media.network('https://www.dropbox.com/s/jg2ejmu43uvkx2v/4.mp3?dl=1'),
+        Media.network('https://www.dropbox.com/s/9mqun2c6bxml0hi/1.mp3?dl=1'),
+        Media.network('https://www.dropbox.com/s/lspdipignhy3i6m/2.mp3?dl=1'),
+        Media.network('https://www.dropbox.com/s/si032f16643ckhg/3.mp3?dl=1'),
+        Media.network('https://www.dropbox.com/s/q878dcm0k6rrfgq/5.mp3?dl=1'),
+      ],
+    );
+
+    // bgMusicPlayer.setVolume(0.75);
+    bgMusicPlayer.next();
+    bgMusicPlayer.open(playlist);
     bgMusicPlayer.setPlaylistMode(PlaylistMode.loop);
 
     super.onInit();

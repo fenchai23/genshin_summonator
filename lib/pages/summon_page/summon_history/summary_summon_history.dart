@@ -17,10 +17,9 @@ class SummarySummonHistory extends StatelessWidget {
             thickness: 20.0,
             child: GridView.builder(
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 8,
+                  crossAxisCount: 7,
                   childAspectRatio: 1,
                 ),
-                reverse: false,
                 itemCount: summons.summonedFourFiveStarOnly.length,
                 itemBuilder: (BuildContext context, int index) {
                   final reversedIndex =

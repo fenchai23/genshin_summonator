@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:genshin_summonator/pages/menu/main_drawer.dart';
+import 'package:genshin_summonator/pages/menu/more_actions.dart';
 import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banners_info.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summary_summon_history.dart';
@@ -21,21 +21,36 @@ class SummonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String getSummonStats(SummonHistoryController summoned) {
-      String fiveStarStats = (summoned.summoned.length / summoned.fiveStarCount)
-          .toStringAsFixed(2);
-      String fourStarStats = (summoned.summoned.length / summoned.fourStarCount)
-          .toStringAsFixed(2);
+    String getSummonStats(SummonHistoryController summoned, int whichOne) {
+      String fiveStarStats;
+      String fourStarStats;
 
-      return 'summon stats:\n5* rate = $fiveStarStats / ${summoned.summoned.length}\n4* rate = $fourStarStats / ${summoned.summoned.length}';
+      if (summoned.fiveStarCount > 0) {
+        fiveStarStats = (summoned.summoned.length / summoned.fiveStarCount)
+            .toStringAsFixed(2);
+      } else {
+        fiveStarStats = '0 ';
+      }
+
+      if (summoned.fourStarCount > 0) {
+        fourStarStats = (summoned.summoned.length / summoned.fourStarCount)
+            .toStringAsFixed(2);
+      } else {
+        fourStarStats = '0';
+      }
+
+      return (whichOne == 5) ? fiveStarStats : fourStarStats;
     }
 
     return GetBuilder<SummonPageController>(
       init: SummonPageController(),
       builder: (summonPage) => Scaffold(
-        key: summonPage.scaffoldKey,
-        drawer: MainDrawer(),
         backgroundColor: Colors.blueGrey[100],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Get.bottomSheet(MoreActions()),
+          backgroundColor: Colors.amber[400],
+          child: Icon(Icons.more_vert_rounded),
+        ),
         body: WindowBorder(
           color: Color(0xFF805306),
           width: 1,
@@ -55,6 +70,63 @@ class SummonPage extends StatelessWidget {
                         height: 150,
                         child: AllBannersInfo(),
                       ),
+                      GetBuilder<SummonHistoryController>(
+                          init: SummonHistoryController(),
+                          builder: (summon) => Visibility(
+                                visible: (summon.summoned.length > 0),
+                                child: Container(
+                                  width: 750,
+                                  height: 50,
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 12.0),
+                                    child: DefaultTextStyle(
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.black87),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text('You get a 5* every '),
+                                          AnimatedTextKit(
+                                            key: Key(getSummonStats(summon, 5)),
+                                            animatedTexts: [
+                                              RotateAnimatedText(
+                                                getSummonStats(summon, 5),
+                                                rotateOut: false,
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                textStyle: TextStyle(
+                                                  color: Colors.orange[800],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              )
+                                            ],
+                                            totalRepeatCount: 1,
+                                          ),
+                                          Text(' pulls, and a 4* every '),
+                                          AnimatedTextKit(
+                                            key: Key(getSummonStats(summon, 4)),
+                                            animatedTexts: [
+                                              RotateAnimatedText(
+                                                getSummonStats(summon, 4),
+                                                rotateOut: false,
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                textStyle: TextStyle(
+                                                  color: Colors.purple,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              )
+                                            ],
+                                            totalRepeatCount: 1,
+                                          ),
+                                          Text(' pulls. (avg)'),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )),
                       Expanded(
                         child: Container(
                           color: Colors.blueGrey[100],
@@ -143,22 +215,6 @@ class SummonPage extends StatelessWidget {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Tooltip(
-                                        message: getSummonStats(summon),
-                                        padding: EdgeInsets.all(10.0),
-                                        decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(4)),
-                                        ),
-                                        textStyle: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white70),
-                                        child: Icon(
-                                          Icons.help_center_rounded,
-                                          color: Colors.black54,
-                                        ),
-                                      ),
                                       WindowButtons(),
                                     ],
                                   ),
@@ -174,17 +230,6 @@ class SummonPage extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-              Positioned(
-                top: 0,
-                left: 0,
-                child: IconButton(
-                    onPressed: () =>
-                        summonPage.scaffoldKey.currentState!.openDrawer(),
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.black45,
-                    )),
               ),
             ],
           ),

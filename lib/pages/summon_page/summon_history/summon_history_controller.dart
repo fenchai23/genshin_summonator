@@ -100,7 +100,7 @@ class SummonHistoryController extends GetxController {
     noAnimations = false;
 
     if (historyScrollController.hasClients) {
-      if (historyScrollController.offset != 0.0 && amount == 1)
+      if (historyScrollController.offset != 0.0)
         historyScrollController.animateTo(0.0,
             duration: Duration(milliseconds: 400), curve: Curves.ease);
     }
