@@ -174,7 +174,7 @@ class SummonHistoryController extends GetxController {
   }
 
   void distributeThreeStar(nextRollCount, rnd) {
-    final item = eventPool.threeStarWeaponPool[rnd.nextInt(12)];
+    final item = eventPool.threeStarWeaponPool[rnd.nextInt(13)];
 
     summoned.add(SummonHistoryModel(
         nextRollCount, item, fixNaming(item), 'weapon', '3', false, 0));
@@ -219,7 +219,7 @@ class SummonHistoryController extends GetxController {
 
   void wonfourStar5050(nextRollCount, Random rnd) {
     final item =
-        Get.find<BannerInfoController>().currentBannerPool['4'][rnd.nextInt(2)];
+        Get.find<BannerInfoController>().currentBannerPool['4'][rnd.nextInt(3)];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);
@@ -241,8 +241,8 @@ class SummonHistoryController extends GetxController {
     final fourStarCharPool =
         Get.find<BannerInfoController>().fourStarEventCharPool;
 
-    final charItem = fourStarCharPool[rnd.nextInt(fourStarCharPool.length - 1)];
-    final weaponItem = eventPool.fourStarWeaponPool[rnd.nextInt(17)];
+    final charItem = fourStarCharPool[rnd.nextInt(fourStarCharPool.length)];
+    final weaponItem = eventPool.fourStarWeaponPool[rnd.nextInt(18)];
     if (win5050) {
       final fixedName = fixNaming(charItem);
       final constellation = calConst(charItem);
