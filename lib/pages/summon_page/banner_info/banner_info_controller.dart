@@ -12,11 +12,30 @@ class BannerInfoController extends GetxController {
 
   @override
   void onInit() async {
-    final List<FileSystemEntity> fileList =
-        await Directory('assets/images/banners/event/').list().toList();
+    // final List<FileSystemEntity> fileList =
+    //     await Directory('assets/images/banners/event/').list().toList();
+
+    final List fileList = [
+      'assets/images/banners/event/2020-09-28_BalladInGoblets.jpg',
+      'assets/images/banners/event/2020-10-19_Sparkling_Steps.jpg',
+      'assets/images/banners/event/2020-11-10_Farewell_of_Snezhnaya.jpg',
+      'assets/images/banners/event/2020-12-02_Gentry_of_Hermitage.jpg',
+      'assets/images/banners/event/2020-12-23_Secretum_Secretorum.png',
+      'assets/images/banners/event/2021-01-13_Adrift_in_the_Harbor.jpeg',
+      'assets/images/banners/event/2021-02-03_Invitation_to_Mundane_Life.jpg',
+      'assets/images/banners/event/2021-02-17_Dance_of_Lanterns.jpg',
+      'assets/images/banners/event/2021-03-02-MomentOfBloom.jpg',
+      'assets/images/banners/event/2021-03-16_BalladInGoblets.jpg',
+      'assets/images/banners/event/2021-04-06_Farewell_of_Snezhnaya.jpg',
+      'assets/images/banners/event/2021-04-28_Gentry_of_Hermitage.jpg',
+      'assets/images/banners/event/2021-05-19_Born_of_Ocean_Swell.jpg',
+      'assets/images/banners/event/2021-07-03_Leaves_in_the_Wind.png',
+      'assets/images/banners/event/2021-07-22_The_Herons_Court.jpeg',
+      'assets/images/banners/event/2021-08-10_Wish_Tapestry_of_Golden_Flames.png'
+    ];
 
     fileList.reversed.forEach((e) {
-      characterBanners[basename(e.path)] = e;
+      characterBanners[basename(e)] = File(e);
     });
 
     currentBannerPool = BannerInfoModel
