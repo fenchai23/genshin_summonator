@@ -6,6 +6,7 @@ import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_mod
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MoreActions extends StatelessWidget {
   const MoreActions({Key? key}) : super(key: key);
@@ -18,6 +19,17 @@ class MoreActions extends StatelessWidget {
       color: Colors.white,
       child: Wrap(
         children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 25.0),
+            child: TextButton(
+                onPressed: () async {
+                  await canLaunch('https://github.com/theBowja/genshin-db')
+                      ? await launch('https://github.com/theBowja/genshin-db')
+                      : throw 'Could not launch https://github.com/theBowja/genshin-db';
+                },
+                child: Text(
+                    'Every character and weapon data is extracted from https://github.com/theBowja/genshin-db')),
+          ),
           ListTile(
             leading: CachedNetworkImage(
               imageUrl: BannerInfoModel.currency['intertwined_fate']!,
