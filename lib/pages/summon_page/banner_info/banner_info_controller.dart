@@ -16,6 +16,7 @@ class BannerInfoController extends GetxController {
     //     await Directory('assets/images/banners/event/').list().toList();
 
     final List fileList = [
+      'assets/images/banners/standard/standard_banner.png',
       'assets/images/banners/event/2020-09-28_BalladInGoblets.jpg',
       'assets/images/banners/event/2020-10-19_Sparkling_Steps.jpg',
       'assets/images/banners/event/2020-11-10_Farewell_of_Snezhnaya.jpg',
@@ -31,7 +32,7 @@ class BannerInfoController extends GetxController {
       'assets/images/banners/event/2021-05-19_Born_of_Ocean_Swell.jpg',
       'assets/images/banners/event/2021-07-03_Leaves_in_the_Wind.png',
       'assets/images/banners/event/2021-07-22_The_Herons_Court.jpeg',
-      'assets/images/banners/event/2021-08-10_Wish_Tapestry_of_Golden_Flames.png'
+      'assets/images/banners/event/2021-08-10_Wish_Tapestry_of_Golden_Flames.png',
     ];
 
     fileList.reversed.forEach((e) {

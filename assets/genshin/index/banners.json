@@ -35,6 +35,18 @@
                 "theflute.json",
                 "thestringless.json",
                 "thewidsith.json"
+            ],
+            "5": [
+                "amosbow.json",
+                "aquilafavonia.json",
+                "lostprayertothesacredwinds.json",
+                "primordialjadewingedspear.json",
+                "skywardatlas.json",
+                "skywardblade.json",
+                "skywardharp.json",
+                "skywardpride.json",
+                "skywardspine.json",
+                "wolfsgravestone.json"
             ]
         },
         "characters": {

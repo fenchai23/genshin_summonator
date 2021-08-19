@@ -52,6 +52,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/banners/event/
+    - assets/images/banners/standard/
     - assets/genshin/
   #   - images/a_dot_ham.jpeg
 

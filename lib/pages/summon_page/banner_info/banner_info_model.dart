@@ -85,6 +85,29 @@ class BannerInfoModel {
     '2020-09-28_BalladInGoblets.jpg': {
       '5': 'venti.json',
       '4': ['xiangling.json', 'barbara.json', 'fischl.json']
+    },
+    'standard_banner.png': {
+      '5': 'qiqi.json',
+      '4': [
+        "amber.json",
+        "barbara.json",
+        "beidou.json",
+        "bennett.json",
+        "chongyun.json",
+        "diona.json",
+        "fischl.json",
+        "kaeya.json",
+        "lisa.json",
+        "ningguang.json",
+        "noelle.json",
+        "razor.json",
+        "rosaria.json",
+        "sucrose.json",
+        "xiangling.json",
+        "xingqiu.json",
+        "xinyan.json",
+        "yanfei.json"
+      ]
     }
   };
 }
