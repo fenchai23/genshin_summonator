@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dart_vlc/dart_vlc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
@@ -88,6 +89,31 @@ class MiniMusicControls extends StatelessWidget {
             child: Icon(
               Icons.skip_next,
               size: 50,
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          InkWell(
+            onTap: () {
+              bgMusic.setPlaylistMode(PlaylistMode.repeat);
+              Get.snackbar('Music', 'Repeat Mode',
+                  overlayBlur: 0.0, barBlur: 0.0);
+            },
+            child: Icon(
+              Icons.repeat,
+              size: 30,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              bgMusic.setPlaylistMode(PlaylistMode.loop);
+              Get.snackbar('Music', 'Loop Mode',
+                  overlayBlur: 0.0, barBlur: 0.0);
+            },
+            child: Icon(
+              Icons.loop,
+              size: 30,
             ),
           ),
         ],

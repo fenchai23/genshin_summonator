@@ -69,7 +69,8 @@ class SummonCounts extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               badgeContent: Text(
                 summons.summoned.length.toString(),
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.white70),
               ),
             ),
           ),
@@ -88,7 +89,8 @@ class SummonCounts extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               badgeContent: Text(
                 summons.fiveStarPityCount.toString(),
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.white70),
               ),
             ),
           ),
@@ -107,7 +109,8 @@ class SummonCounts extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               badgeContent: Text(
                 summons.fourStarPityCount.toString(),
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.white70),
               ),
             ),
           ),

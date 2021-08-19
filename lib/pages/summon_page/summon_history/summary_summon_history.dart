@@ -33,7 +33,7 @@ class SummarySummonHistory extends StatelessWidget {
         else
           return Center(
             child: Text(
-              '"Your summon history will be shown here"',
+              '"Your summon stats will be shown here"',
               style: TextStyle(fontSize: 25),
             ),
           );
