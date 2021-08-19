@@ -316,7 +316,7 @@ class SummonHistoryController extends GetxController {
   }
 
   void wonfiveStar5050(nextRollCount) {
-    final item = Get.find<BannerInfoController>().currentBannerPool['5'];
+    final item = Get.find<BannerInfoController>().currentBannerPool['5'][0];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);

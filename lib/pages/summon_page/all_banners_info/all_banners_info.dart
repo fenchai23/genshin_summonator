@@ -26,7 +26,7 @@ class AllBannersInfo extends StatelessWidget {
                   banner.characterBanners.values.elementAt(index).path);
 
               final String fiveStarCharIcon =
-                  BannerInfoModel.eventCharacters[fileName]['5'];
+                  BannerInfoModel.eventCharacters[fileName]['5'][0];
 
               return InkWell(
                 onTap: () => banner.setBannerIndex(index),
