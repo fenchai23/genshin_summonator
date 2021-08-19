@@ -215,6 +215,11 @@ class SummonHistoryController extends GetxController {
       wonfiveStar5050(nextRollCount);
       wasLastFiveStarRateUp = true;
     }
+
+    if (fourStarPityCount == 9)
+      fourStarPityCount = 0;
+    else
+      fourStarPityCount++;
   }
 
   void wonfourStar5050(nextRollCount, Random rnd) {

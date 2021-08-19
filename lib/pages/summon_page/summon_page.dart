@@ -96,14 +96,14 @@ class SummonAverageRateInfo extends StatelessWidget {
       fiveStarStats = (summoned.summoned.length / summoned.fiveStarCount)
           .toStringAsFixed(2);
     } else {
-      fiveStarStats = '0 ';
+      fiveStarStats = '?';
     }
 
     if (summoned.fourStarCount > 0) {
       fourStarStats = (summoned.summoned.length / summoned.fourStarCount)
           .toStringAsFixed(2);
     } else {
-      fourStarStats = '0';
+      fourStarStats = '??';
     }
 
     return (whichOne == 5) ? fiveStarStats : fourStarStats;

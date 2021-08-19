@@ -99,7 +99,7 @@ class SummonItem extends StatelessWidget {
                 top: 0,
                 right: 0,
                 child: Badge(
-                  toAnimate: true,
+                  toAnimate: false,
                   badgeColor: Colors.black87,
                   animationType: BadgeAnimationType.fade,
                   borderRadius: BorderRadius.circular(8),
