@@ -17,6 +17,7 @@ class SummonPage extends StatelessWidget {
   // TODO: add standard banner
   // TODO: add sharedPreferences for bg music preference and audio etc
   // TODO: add a way to not use any asset from the app itself
+  // TODO: add summon animation only when doing 1 and 10 pulls
 
   @override
   Widget build(BuildContext context) {
