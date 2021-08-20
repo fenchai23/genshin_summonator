@@ -17,7 +17,7 @@ class BannerInfo extends StatelessWidget {
         children: [
           GetBuilder<BannerInfoController>(
             init: BannerInfoController(),
-            builder: (banner) => banner.characterBanners.length > 0
+            builder: (banner) => banner.bannerList.length > 0
                 ? BannerImage(banner)
                 : Container(),
           ),
@@ -143,7 +143,7 @@ class BannerNavigation extends StatelessWidget {
             Container(
               width: 50,
             ),
-          if (!((banner.bannerIndex + 1) >= banner.characterBanners.length))
+          if (!((banner.bannerIndex + 1) >= banner.bannerList.length))
             InkWell(
               onTap: () => banner.prevBanner(),
               child: Icon(
@@ -245,7 +245,7 @@ class BannerImage extends StatelessWidget {
           height: 371,
           width: 750,
           child: Image.asset(
-            banner.characterBanners.values.elementAt(banner.bannerIndex).path,
+            banner.bannerList.values.elementAt(banner.bannerIndex).path,
             fit: BoxFit.fitWidth,
           ),
         ),

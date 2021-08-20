@@ -19,11 +19,11 @@ class AllBannersInfo extends StatelessWidget {
         builder: (summon) => GetBuilder<BannerInfoController>(
           init: BannerInfoController(),
           builder: (banner) => ListView.builder(
-            itemCount: banner.characterBanners.values.length,
+            itemCount: banner.bannerList.values.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext ctx, index) {
-              final String fileName = basename(
-                  banner.characterBanners.values.elementAt(index).path);
+              final String fileName =
+                  basename(banner.bannerList.values.elementAt(index).path);
 
               final String fiveStarCharIcon =
                   BannerInfoModel.eventCharacters[fileName]['5'][0];
@@ -38,7 +38,7 @@ class AllBannersInfo extends StatelessWidget {
                             ? Border.all(color: Colors.white70, width: 7)
                             : Border.all(color: Colors.black12, width: 5)),
                     child: CachedNetworkImage(
-                      imageUrl: (summon.hasEventPoolInit)
+                      imageUrl: (summon.hasBannerPoolLoaded)
                           ? summon.eventPool.images[fiveStarCharIcon]['icon']
                           : "https://static.wikia.nocookie.net/gensin-impact/images/6/6a/Character_Dainsleif_Portrait.png/revision/latest/scale-to-width-down/1000?cb=20210321222051",
                       height: 50,

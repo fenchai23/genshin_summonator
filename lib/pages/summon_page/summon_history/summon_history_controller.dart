@@ -9,7 +9,8 @@ import 'package:get/get.dart';
 
 class SummonHistoryController extends GetxController {
   late EventPool eventPool;
-  bool hasEventPoolInit = false;
+  late StandardPool stdPool;
+  bool hasBannerPoolLoaded = false;
   int fourStarPityCount = 0;
   int fiveStarPityCount = 0;
   bool firstTimePullingFourStar = true;
@@ -30,6 +31,11 @@ class SummonHistoryController extends GetxController {
   @override
   Future<void> onInit() async {
     await loadCharEventData();
+    await loadStdEventData();
+
+    hasBannerPoolLoaded = true;
+
+    update();
 
     super.onInit();
   }
@@ -82,11 +88,7 @@ class SummonHistoryController extends GetxController {
       eventPool = EventPool(fiveStarCharPool, fourStarCharPool,
           threeStarWeaponPool, fourStarWeaponPool, nameMap, imagesData);
 
-      Get.find<BannerInfoController>().removeRateUpCharFromPool();
-
-      hasEventPoolInit = true;
-
-      update();
+      Get.find<BannerInfoController>().prepBannerPool();
     } on Exception catch (e) {
       print(e.toString());
     }
@@ -100,13 +102,13 @@ class SummonHistoryController extends GetxController {
       final bannerData = json.decode(rawBannerData);
 
       final List<dynamic> threeStarWeaponPool =
-          bannerData['event_pool']['weapons']['3'];
+          bannerData['standard_pool']['weapons']['3'];
       final List<dynamic> fourStarWeaponPool =
-          bannerData['event_pool']['weapons']['4'];
+          bannerData['standard_pool']['weapons']['4'];
       final List<dynamic> fourStarCharPool =
-          bannerData['event_pool']['characters']['4'];
+          bannerData['standard_pool']['characters']['4'];
       final List<dynamic> fiveStarCharPool =
-          bannerData['event_pool']['characters']['5'];
+          bannerData['standard_pool']['characters']['5'];
 
       final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
 
@@ -121,14 +123,10 @@ class SummonHistoryController extends GetxController {
       imagesData.addAll(characterImagesData);
       imagesData.addAll(weaponImagesData);
 
-      eventPool = EventPool(fiveStarCharPool, fourStarCharPool,
+      stdPool = StandardPool(fiveStarCharPool, fourStarCharPool,
           threeStarWeaponPool, fourStarWeaponPool, nameMap, imagesData);
 
-      Get.find<BannerInfoController>().removeRateUpCharFromPool();
-
-      hasEventPoolInit = true;
-
-      update();
+      Get.find<BannerInfoController>().prepBannerPool();
     } on Exception catch (e) {
       print(e.toString());
     }
@@ -285,8 +283,7 @@ class SummonHistoryController extends GetxController {
   void lostfourStar5050(nextRollCount, Random rnd) {
     bool win5050 = rnd.nextBool();
 
-    final fourStarCharPool =
-        Get.find<BannerInfoController>().fourStarEventCharPool;
+    final fourStarCharPool = Get.find<BannerInfoController>().fourStarCharPool;
 
     final charItem = fourStarCharPool[rnd.nextInt(fourStarCharPool.length)];
     final weaponItem = eventPool.fourStarWeaponPool[rnd.nextInt(18)];

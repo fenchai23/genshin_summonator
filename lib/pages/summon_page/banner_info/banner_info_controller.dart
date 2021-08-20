@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import 'package:path/path.dart';
 
 class BannerInfoController extends GetxController {
-  Map<String, FileSystemEntity> characterBanners = {};
+  Map<String, FileSystemEntity> bannerList = {};
   int bannerIndex = 0;
   Map<String, dynamic> currentBannerPool = {};
-  List<String> fourStarEventCharPool = [];
+  List<String> fourStarCharPool = []; // for event and std banner
+  List<String> fourStarWeaponPool = []; // for std & future weapon banner
+  String bannerType = 'character';
 
   @override
   void onInit() async {
@@ -36,41 +38,48 @@ class BannerInfoController extends GetxController {
     ];
 
     fileList.reversed.forEach((e) {
-      characterBanners[basename(e)] = File(e);
+      bannerList[basename(e)] = File(e);
     });
 
-    currentBannerPool = BannerInfoModel
-        .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
-
-    // print(bannerInfo);
+    currentBannerPool =
+        BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
     update();
 
     super.onInit();
   }
 
+  void chooseBannerType() {
+    // just a temp hack, will not work if I add weapon banners in the future
+    if (bannerIndex == bannerList.length)
+      bannerType = 'standard';
+    else
+      bannerType = 'character';
+  }
+
   void nextBanner() {
     final int next = bannerIndex - 1;
     if ((next >= 0)) bannerIndex = bannerIndex - 1;
 
-    currentBannerPool = BannerInfoModel
-        .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
+    currentBannerPool =
+        BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
-    removeRateUpCharFromPool();
+    chooseBannerType();
+    prepBannerPool();
 
     update();
   }
 
   void prevBanner() {
     final int next = bannerIndex + 1;
-    // print(
-    //     'current index: $bannerIndex\nnext index: ${bannerIndex + 1} / ${characterBanners.length}');
-    if (!(next >= characterBanners.length)) bannerIndex = bannerIndex + 1;
 
-    currentBannerPool = BannerInfoModel
-        .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
+    if (!(next >= bannerList.length)) bannerIndex = bannerIndex + 1;
 
-    removeRateUpCharFromPool();
+    currentBannerPool =
+        BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
+
+    chooseBannerType();
+    prepBannerPool();
 
     update();
   }
@@ -78,18 +87,34 @@ class BannerInfoController extends GetxController {
   void setBannerIndex(int index) {
     bannerIndex = index;
 
-    currentBannerPool = BannerInfoModel
-        .eventCharacters[characterBanners.keys.elementAt(bannerIndex)];
+    currentBannerPool =
+        BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
     update();
   }
 
-  void removeRateUpCharFromPool() {
-    final List<dynamic> fourStarCharPool =
-        Get.find<SummonHistoryController>().eventPool.fourStarCharacterPool;
+  void prepBannerPool() {
+    final SummonHistoryController shc = Get.find<SummonHistoryController>();
 
-    fourStarCharPool.forEach((e) {
-      if (!currentBannerPool['4'].contains(e)) fourStarEventCharPool.add(e);
-    });
+    if (bannerType == 'character') {
+      final List<dynamic> _fourStarCharPool =
+          shc.eventPool.fourStarCharacterPool;
+
+      _fourStarCharPool.forEach((e) {
+        if (!currentBannerPool['4'].contains(e)) fourStarCharPool.add(e);
+      });
+    } else if (bannerType == 'standard') {
+      final List<dynamic> _fourStarCharPool = shc.stdPool.fourStarCharacterPool;
+
+      _fourStarCharPool.forEach((e) {
+        if (!currentBannerPool['4'].contains(e)) fourStarCharPool.add(e);
+      });
+
+      final List<dynamic> _fourStarWeaponPool = shc.stdPool.fourStarWeaponPool;
+
+      _fourStarWeaponPool.forEach((e) {
+        fourStarWeaponPool.add(e);
+      });
+    }
   }
 }
