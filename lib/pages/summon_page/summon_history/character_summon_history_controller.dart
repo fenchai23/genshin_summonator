@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
 
@@ -122,7 +122,7 @@ class CharacterSummonHistoryController extends GetxController {
   }
 
   void distributeThreeStar(nextRollCount, rnd) {
-    final item = Get.find<BannerInfoController>()
+    final item = Get.find<CharacterBannerInfoController>()
         .eventPool
         .threeStarWeaponPool[rnd.nextInt(13)];
 
@@ -175,7 +175,7 @@ class CharacterSummonHistoryController extends GetxController {
   }
 
   void wonfourStar5050(nextRollCount, Random rnd) {
-    final item = Get.find<BannerInfoController>()
+    final item = Get.find<CharacterBannerInfoController>()
         .eventPool
         .wonfourStarCharacterPool[rnd.nextInt(3)];
 
@@ -196,11 +196,12 @@ class CharacterSummonHistoryController extends GetxController {
   void lostfourStar5050(nextRollCount, Random rnd) {
     bool win5050 = rnd.nextBool();
 
-    final fourStarCharPool =
-        Get.find<BannerInfoController>().eventPool.lostfourStarCharacterPool;
+    final fourStarCharPool = Get.find<CharacterBannerInfoController>()
+        .eventPool
+        .lostfourStarCharacterPool;
 
     final charItem = fourStarCharPool[rnd.nextInt(fourStarCharPool.length)];
-    final weaponItem = Get.find<BannerInfoController>()
+    final weaponItem = Get.find<CharacterBannerInfoController>()
         .eventPool
         .fourStarWeaponPool[rnd.nextInt(18)];
 
@@ -230,8 +231,9 @@ class CharacterSummonHistoryController extends GetxController {
   }
 
   void wonfiveStar5050(nextRollCount) {
-    final item =
-        Get.find<BannerInfoController>().eventPool.wonfiveStarCharacterPool[0];
+    final item = Get.find<CharacterBannerInfoController>()
+        .eventPool
+        .wonfiveStarCharacterPool[0];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);
@@ -248,7 +250,7 @@ class CharacterSummonHistoryController extends GetxController {
   }
 
   void lostfiveStar5050(nextRollCount, rnd) {
-    final item = Get.find<BannerInfoController>()
+    final item = Get.find<CharacterBannerInfoController>()
         .eventPool
         .lostfiveStarCharacterPool[rnd.nextInt(5)];
 
@@ -293,7 +295,10 @@ class CharacterSummonHistoryController extends GetxController {
   String fixNaming(dynamic item) {
     // print(eventPool.nameMap['aether.json']);
     // return item;
-    return Get.find<BannerInfoController>().eventPool.nameMap[item].toString();
+    return Get.find<CharacterBannerInfoController>()
+        .eventPool
+        .nameMap[item]
+        .toString();
   }
 
   int calConst(dynamic item) {

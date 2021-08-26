@@ -1,16 +1,18 @@
 class StandardPool {
   final List<dynamic> fiveStarCharacterPool;
   final List<dynamic> fourStarCharacterPool;
-  final List<dynamic> threeStarWeaponPool;
+  final List<dynamic> fiveStarWeaponPool;
   final List<dynamic> fourStarWeaponPool;
+  final List<dynamic> threeStarWeaponPool;
   final Map<dynamic, dynamic> nameMap;
   final Map<dynamic, dynamic> images;
 
   StandardPool(
     this.fiveStarCharacterPool,
     this.fourStarCharacterPool,
-    this.threeStarWeaponPool,
+    this.fiveStarWeaponPool,
     this.fourStarWeaponPool,
+    this.threeStarWeaponPool,
     this.nameMap,
     this.images,
   );

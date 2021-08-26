@@ -3,7 +3,7 @@ import 'package:dart_vlc/dart_vlc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
-import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';

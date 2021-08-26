@@ -94,26 +94,7 @@ class BannerInfoModel {
         "keqing.json",
         "mona.json",
       ],
-      '4': [
-        "amber.json",
-        "barbara.json",
-        "beidou.json",
-        "bennett.json",
-        "chongyun.json",
-        "diona.json",
-        "fischl.json",
-        "kaeya.json",
-        "lisa.json",
-        "ningguang.json",
-        "noelle.json",
-        "razor.json",
-        "rosaria.json",
-        "sucrose.json",
-        "xiangling.json",
-        "xingqiu.json",
-        "xinyan.json",
-        "yanfei.json"
-      ]
+      '4': []
     }
   };
 }

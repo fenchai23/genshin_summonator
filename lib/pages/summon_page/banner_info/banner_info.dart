@@ -1,9 +1,9 @@
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
-import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:get/get.dart';
 
 class BannerInfo extends StatelessWidget {
@@ -11,12 +11,12 @@ class BannerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BannerInfoController>(
-      init: BannerInfoController(),
+    return GetBuilder<CharacterBannerInfoController>(
+      init: CharacterBannerInfoController(),
       builder: (banner) => Stack(
         children: [
-          GetBuilder<BannerInfoController>(
-            init: BannerInfoController(),
+          GetBuilder<CharacterBannerInfoController>(
+            init: CharacterBannerInfoController(),
             builder: (banner) => banner.bannerList.length > 0
                 ? BannerImage(banner)
                 : Container(),
@@ -121,7 +121,7 @@ class SummonCounts extends StatelessWidget {
 }
 
 class BannerNavigation extends StatelessWidget {
-  final BannerInfoController banner;
+  final CharacterBannerInfoController banner;
   const BannerNavigation(this.banner, {Key? key}) : super(key: key);
 
   @override
@@ -234,7 +234,7 @@ class SummonButtons extends StatelessWidget {
 }
 
 class BannerImage extends StatelessWidget {
-  final BannerInfoController banner;
+  final CharacterBannerInfoController banner;
   const BannerImage(this.banner, {Key? key}) : super(key: key);
 
   @override

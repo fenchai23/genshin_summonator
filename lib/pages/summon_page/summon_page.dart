@@ -6,7 +6,7 @@ import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banner
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summary_summon_history.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history.dart';
-import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
 import 'package:genshin_summonator/windows_window.dart';
 import 'package:get/get.dart';
@@ -19,6 +19,7 @@ class SummonPage extends StatelessWidget {
   // TODO: add a way to not use any asset from the app itself
   // TODO: add summon animation only when doing 1 and 10 pulls
   // TODO: add a summon video?
+  // TODO: add a way to switch to standard/weapon/character banner
 
   @override
   Widget build(BuildContext context) {

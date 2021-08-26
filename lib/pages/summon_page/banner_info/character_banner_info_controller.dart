@@ -5,14 +5,12 @@ import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_mod
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 
-class BannerInfoController extends GetxController {
+class CharacterBannerInfoController extends GetxController {
   bool hasBannerPoolLoaded = false;
   Map<String, FileSystemEntity> bannerList = {};
   int bannerIndex = 0;
   Map<String, dynamic> currentBannerPool = {};
-  String bannerType = 'character';
   late EventPool eventPool;
-  late StandardPool stdPool;
 
   @override
   Future<void> onInit() async {
@@ -20,7 +18,7 @@ class BannerInfoController extends GetxController {
     //     await Directory('assets/images/banners/event/').list().toList();
 
     final List fileList = [
-      'assets/images/banners/standard/standard_banner.png',
+      // 'assets/images/banners/standard/standard_banner.png',
       'assets/images/banners/event/2020-09-28_BalladInGoblets.jpg',
       'assets/images/banners/event/2020-10-19_Sparkling_Steps.jpg',
       'assets/images/banners/event/2020-11-10_Farewell_of_Snezhnaya.jpg',
@@ -47,7 +45,6 @@ class BannerInfoController extends GetxController {
         BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
     await loadCharEventData();
-    await loadStdEventData();
 
     hasBannerPoolLoaded = true;
 
@@ -103,50 +100,6 @@ class BannerInfoController extends GetxController {
     }
   }
 
-  Future<void> loadStdEventData() async {
-    try {
-      final rawBannerData =
-          await File("assets/genshin/index/banners.json").readAsString();
-
-      final bannerData = json.decode(rawBannerData);
-
-      final List<dynamic> threeStarWeaponPool =
-          bannerData['standard_pool']['weapons']['3'];
-      final List<dynamic> fourStarWeaponPool =
-          bannerData['standard_pool']['weapons']['4'];
-      final List<dynamic> fourStarCharPool =
-          bannerData['standard_pool']['characters']['4'];
-      final List<dynamic> fiveStarCharPool =
-          bannerData['standard_pool']['characters']['5'];
-
-      final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
-
-      final characterImagesData = json.decode(
-          await File("assets/genshin/image/characters.json").readAsString());
-
-      final weaponImagesData = json.decode(
-          await File("assets/genshin/image/weapons.json").readAsString());
-
-      Map<dynamic, dynamic> imagesData = {};
-
-      imagesData.addAll(characterImagesData);
-      imagesData.addAll(weaponImagesData);
-
-      stdPool = StandardPool(fiveStarCharPool, fourStarCharPool,
-          threeStarWeaponPool, fourStarWeaponPool, nameMap, imagesData);
-    } on Exception catch (e) {
-      print(e.toString());
-    }
-  }
-
-  void chooseBannerType() {
-    //TODO: just a temp hack, will not work if I add weapon banners in the future
-    if (bannerIndex == bannerList.length)
-      bannerType = 'standard';
-    else
-      bannerType = 'character';
-  }
-
   Future<void> nextBanner() async {
     final int next = bannerIndex - 1;
     if ((next >= 0)) bannerIndex = bannerIndex - 1;
@@ -154,11 +107,7 @@ class BannerInfoController extends GetxController {
     currentBannerPool =
         BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
-    if (bannerType == 'character')
-      await loadCharEventData();
-    else if (bannerType == 'standard') await loadStdEventData();
-
-    chooseBannerType();
+    await loadCharEventData();
 
     update();
   }
@@ -171,11 +120,7 @@ class BannerInfoController extends GetxController {
     currentBannerPool =
         BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
-    if (bannerType == 'character')
-      await loadCharEventData();
-    else if (bannerType == 'standard') await loadStdEventData();
-
-    chooseBannerType();
+    await loadCharEventData();
 
     update();
   }
@@ -186,9 +131,7 @@ class BannerInfoController extends GetxController {
     currentBannerPool =
         BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
-    if (bannerType == 'character')
-      await loadCharEventData();
-    else if (bannerType == 'standard') await loadStdEventData();
+    await loadCharEventData();
 
     update();
   }
