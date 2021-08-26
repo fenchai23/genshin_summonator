@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
@@ -23,6 +24,14 @@ class BannerInfo extends StatelessWidget {
           ),
           Positioned(
             top: 0,
+            left: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: BannerChooser(),
+            ),
+          ),
+          Positioned(
+            top: 0,
             right: 0,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -35,6 +44,48 @@ class BannerInfo extends StatelessWidget {
             child: BannerNavigation(banner),
           ),
           Positioned(bottom: 5, right: 5, child: SummonButtons()),
+        ],
+      ),
+    );
+  }
+}
+
+class BannerChooser extends StatelessWidget {
+  const BannerChooser({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<BannerInfoController>(
+      init: BannerInfoController(),
+      builder: (info) => Column(
+        children: [
+          ActionChip(
+            label: Text('Character'),
+            side: BorderSide(
+                color: (info.currentBannerType == 'character')
+                    ? Colors.green
+                    : Colors.white,
+                width: 2.5),
+            onPressed: () => info.switchBannerType('character'),
+          ),
+          SizedBox(height: 2),
+          Visibility(
+            visible: false,
+            child: Chip(
+              label: Text('Weapon'),
+              side: BorderSide(color: Colors.white, width: 2.5),
+            ),
+          ),
+          SizedBox(height: 2),
+          ActionChip(
+            label: Text('Standard'),
+            side: BorderSide(
+                color: (info.currentBannerType == 'standard')
+                    ? Colors.green
+                    : Colors.white,
+                width: 2.5),
+            onPressed: () => info.switchBannerType('standard'),
+          ),
         ],
       ),
     );
@@ -141,7 +192,7 @@ class BannerNavigation extends StatelessWidget {
             )
           else
             Container(
-              width: 50,
+              width: 2.50,
             ),
           if (!((banner.bannerIndex + 1) >= banner.bannerList.length))
             InkWell(
@@ -154,7 +205,7 @@ class BannerNavigation extends StatelessWidget {
             )
           else
             Container(
-              width: 50,
+              width: 2.50,
             ),
         ],
       ),
