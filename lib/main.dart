@@ -10,7 +10,7 @@ void main() {
   DartVLC.initialize();
 
   doWhenWindowReady(() {
-    final initialSize = Size(1487, 1004);
+    final initialSize = Size(1200, 1004);
     appWindow.minSize = initialSize;
     appWindow.size = initialSize;
     appWindow.alignment = Alignment.center;

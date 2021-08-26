@@ -18,6 +18,7 @@ class SummonPage extends StatelessWidget {
   // TODO: add sharedPreferences for bg music preference and audio etc
   // TODO: add a way to not use any asset from the app itself
   // TODO: add summon animation only when doing 1 and 10 pulls
+  // TODO: add a summon video?
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +41,12 @@ class SummonPage extends StatelessWidget {
                   Column(
                     children: [
                       Container(
-                        width: 750,
+                        width: 650,
                         child: BannerInfo(),
                       ),
                       Container(
                         color: Colors.orange[400],
-                        width: 750,
+                        width: 650,
                         height: 150,
                         child: AllBannersInfo(),
                       ),
@@ -56,7 +57,7 @@ class SummonPage extends StatelessWidget {
                       Expanded(
                         child: Container(
                           color: Colors.blueGrey[100],
-                          width: 750,
+                          width: 650,
                           child: SummarySummonHistory(),
                         ),
                       ),
@@ -97,14 +98,14 @@ class SummonAverageRateInfo extends StatelessWidget {
       fiveStarStats = (summoned.summoned.length / summoned.fiveStarCount)
           .toStringAsFixed(2);
     } else {
-      fiveStarStats = '?';
+      fiveStarStats = '0';
     }
 
     if (summoned.fourStarCount > 0) {
       fourStarStats = (summoned.summoned.length / summoned.fourStarCount)
           .toStringAsFixed(2);
     } else {
-      fourStarStats = '??';
+      fourStarStats = '0';
     }
 
     return (whichOne == 5) ? fiveStarStats : fourStarStats;
@@ -115,7 +116,7 @@ class SummonAverageRateInfo extends StatelessWidget {
     return Visibility(
       visible: (summon.summoned.length > 0),
       child: Container(
-        width: 750,
+        width: 650,
         height: 50,
         alignment: Alignment.centerLeft,
         child: Padding(
@@ -127,7 +128,7 @@ class SummonAverageRateInfo extends StatelessWidget {
               children: [
                 Text('You get a 5* every '),
                 AnimatedTextKit(
-                  key: Key(getSummonStats(summon, 5)),
+                  key: Key('${getSummonStats(summon, 5)} + 1'),
                   animatedTexts: [
                     RotateAnimatedText(
                       getSummonStats(summon, 5),
@@ -143,7 +144,7 @@ class SummonAverageRateInfo extends StatelessWidget {
                 ),
                 Text(' pulls, and a 4* every '),
                 AnimatedTextKit(
-                  key: Key(getSummonStats(summon, 4)),
+                  key: Key('${getSummonStats(summon, 4)} + 2'),
                   animatedTexts: [
                     RotateAnimatedText(
                       getSummonStats(summon, 4),

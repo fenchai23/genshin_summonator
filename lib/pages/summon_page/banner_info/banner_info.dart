@@ -242,7 +242,7 @@ class BannerImage extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 371,
+          height: 320,
           width: 750,
           child: Image.asset(
             banner.bannerList.values.elementAt(banner.bannerIndex).path,
@@ -250,8 +250,8 @@ class BannerImage extends StatelessWidget {
           ),
         ),
         Container(
-          height: 371,
-          width: 750,
+          height: 320,
+          width: 650,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
