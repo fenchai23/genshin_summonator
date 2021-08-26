@@ -42,7 +42,8 @@ class MoreActions extends StatelessWidget {
                     (event.logicalKey.keyId == 4295426088)) {
                   Get.back(closeOverlays: true);
 
-                  Get.find<SummonHistoryController>().roll(int.parse(tec.text));
+                  Get.find<CharacterSummonHistoryController>()
+                      .roll(int.parse(tec.text));
                 }
               },
               child: TextFormField(
@@ -59,7 +60,8 @@ class MoreActions extends StatelessWidget {
               onPressed: () {
                 Get.back(closeOverlays: true);
 
-                Get.find<SummonHistoryController>().roll(int.parse(tec.text));
+                Get.find<CharacterSummonHistoryController>()
+                    .roll(int.parse(tec.text));
               },
               child: Text('Roll!'),
             ),

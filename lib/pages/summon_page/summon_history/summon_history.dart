@@ -12,8 +12,8 @@ class SummonHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SummonHistoryController>(
-      init: SummonHistoryController(),
+    return GetBuilder<CharacterSummonHistoryController>(
+      init: CharacterSummonHistoryController(),
       builder: (summons) {
         if (summons.summoned.length > 0)
           return Scrollbar(

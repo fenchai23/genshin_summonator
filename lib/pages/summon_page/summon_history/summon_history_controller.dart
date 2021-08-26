@@ -4,7 +4,7 @@ import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_con
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
 
-class SummonHistoryController extends GetxController {
+class CharacterSummonHistoryController extends GetxController {
   int fourStarPityCount = 0;
   int fiveStarPityCount = 0;
   bool firstTimePullingFourStar = true;
@@ -12,7 +12,7 @@ class SummonHistoryController extends GetxController {
   bool wasLastFourStarRateUp = false;
   bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
-  List<SummonHistoryModel> summonedFourFiveStarOnly = [];
+  List<SummonHistoryModel> summonedFournFiveStarOnly = [];
   //TODO: make a loop to see record ten pulls data and erase after a 10 pull
   List<SummonHistoryModel> summoned10pull = [];
   double fourStarChance = (5.1 * 1000) / 100;
@@ -32,7 +32,7 @@ class SummonHistoryController extends GetxController {
     wasLastFourStarRateUp = false;
     wasLastFiveStarRateUp = false;
     summoned = [];
-    summonedFourFiveStarOnly = [];
+    summonedFournFiveStarOnly = [];
     commentary = 'good luck ~';
     fiveStarCount = 0;
     fourStarCount = 0;
@@ -175,8 +175,9 @@ class SummonHistoryController extends GetxController {
   }
 
   void wonfourStar5050(nextRollCount, Random rnd) {
-    final item =
-        Get.find<BannerInfoController>().currentBannerPool['4'][rnd.nextInt(3)];
+    final item = Get.find<BannerInfoController>()
+        .eventPool
+        .wonfourStarCharacterPool[rnd.nextInt(3)];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);
@@ -195,12 +196,14 @@ class SummonHistoryController extends GetxController {
   void lostfourStar5050(nextRollCount, Random rnd) {
     bool win5050 = rnd.nextBool();
 
-    final fourStarCharPool = Get.find<BannerInfoController>().fourStarCharPool;
+    final fourStarCharPool =
+        Get.find<BannerInfoController>().eventPool.lostfourStarCharacterPool;
 
     final charItem = fourStarCharPool[rnd.nextInt(fourStarCharPool.length)];
     final weaponItem = Get.find<BannerInfoController>()
         .eventPool
         .fourStarWeaponPool[rnd.nextInt(18)];
+
     if (win5050) {
       final fixedName = fixNaming(charItem);
       final constellation = calConst(charItem);
@@ -227,7 +230,8 @@ class SummonHistoryController extends GetxController {
   }
 
   void wonfiveStar5050(nextRollCount) {
-    final item = Get.find<BannerInfoController>().currentBannerPool['5'][0];
+    final item =
+        Get.find<BannerInfoController>().eventPool.wonfiveStarCharacterPool[0];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);
@@ -246,7 +250,7 @@ class SummonHistoryController extends GetxController {
   void lostfiveStar5050(nextRollCount, rnd) {
     final item = Get.find<BannerInfoController>()
         .eventPool
-        .fiveStarCharacterPool[rnd.nextInt(5)];
+        .lostfiveStarCharacterPool[rnd.nextInt(5)];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);
@@ -262,21 +266,25 @@ class SummonHistoryController extends GetxController {
     fiveStarPityCount = 0;
   }
 
+  trackEach10Pull(SummonHistoryModel summon) {
+    // TODO: insert code
+  }
+
   addToSummaryList(SummonHistoryModel summon) {
     List<SummonHistoryModel> itemsToAdd = [];
 
     Iterable<SummonHistoryModel> it =
-        summonedFourFiveStarOnly.where((item) => (item.item == summon.item));
+        summonedFournFiveStarOnly.where((item) => (item.item == summon.item));
     if (it.length > 0) {
       it.forEach((e) => e.constellation = summon.constellation);
     } else {
       itemsToAdd.add(summon);
     }
 
-    summonedFourFiveStarOnly.addAll(itemsToAdd);
+    summonedFournFiveStarOnly.addAll(itemsToAdd);
 
     // sort items
-    summonedFourFiveStarOnly.sort((a, b) => <Comparator<SummonHistoryModel>>[
+    summonedFournFiveStarOnly.sort((a, b) => <Comparator<SummonHistoryModel>>[
           (o1, o2) => o1.rarity.compareTo(o2.rarity),
           (o1, o2) => o1.constellation.compareTo(o2.constellation),
         ].map((e) => e(a, b)).firstWhere((e) => e != 0, orElse: () => 0));

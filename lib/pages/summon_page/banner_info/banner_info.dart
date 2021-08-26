@@ -46,8 +46,8 @@ class SummonCounts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SummonHistoryController>(
-      init: SummonHistoryController(),
+    return GetBuilder<CharacterSummonHistoryController>(
+      init: CharacterSummonHistoryController(),
       builder: (summons) => Wrap(
         spacing: 10,
         crossAxisAlignment: WrapCrossAlignment.center,
@@ -178,7 +178,7 @@ class SummonButtons extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             hoverColor: Colors.blue[300],
-            onTap: () => Get.find<SummonHistoryController>().roll(1),
+            onTap: () => Get.find<CharacterSummonHistoryController>().roll(1),
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Row(
@@ -207,7 +207,7 @@ class SummonButtons extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             hoverColor: Colors.amber[300],
-            onTap: () => Get.find<SummonHistoryController>().roll(10),
+            onTap: () => Get.find<CharacterSummonHistoryController>().roll(10),
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Row(

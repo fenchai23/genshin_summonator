@@ -11,10 +11,10 @@ class SummarySummonHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SummonHistoryController>(
-      init: SummonHistoryController(),
+    return GetBuilder<CharacterSummonHistoryController>(
+      init: CharacterSummonHistoryController(),
       builder: (summons) {
-        if (summons.summonedFourFiveStarOnly.length > 0)
+        if (summons.summonedFournFiveStarOnly.length > 0)
           return Scrollbar(
             thickness: 20.0,
             child: GridView.builder(
@@ -22,13 +22,13 @@ class SummarySummonHistory extends StatelessWidget {
                   crossAxisCount: 7,
                   childAspectRatio: 1,
                 ),
-                itemCount: summons.summonedFourFiveStarOnly.length,
+                itemCount: summons.summonedFournFiveStarOnly.length,
                 itemBuilder: (BuildContext context, int index) {
                   final reversedIndex =
-                      summons.summonedFourFiveStarOnly.length - 1 - index;
+                      summons.summonedFournFiveStarOnly.length - 1 - index;
 
                   return SummonItem(
-                      summons.summonedFourFiveStarOnly[reversedIndex]);
+                      summons.summonedFournFiveStarOnly[reversedIndex]);
                 }),
           );
         else

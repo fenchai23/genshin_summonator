@@ -50,8 +50,8 @@ class SummonPage extends StatelessWidget {
                         height: 150,
                         child: AllBannersInfo(),
                       ),
-                      GetBuilder<SummonHistoryController>(
-                        init: SummonHistoryController(),
+                      GetBuilder<CharacterSummonHistoryController>(
+                        init: CharacterSummonHistoryController(),
                         builder: (summon) => SummonAverageRateInfo(summon),
                       ),
                       Expanded(
@@ -66,8 +66,8 @@ class SummonPage extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        GetBuilder<SummonHistoryController>(
-                          init: SummonHistoryController(),
+                        GetBuilder<CharacterSummonHistoryController>(
+                          init: CharacterSummonHistoryController(),
                           builder: (summon) => TopRightWindowActions(summon),
                         ),
                         Expanded(
@@ -87,10 +87,11 @@ class SummonPage extends StatelessWidget {
 }
 
 class SummonAverageRateInfo extends StatelessWidget {
-  final SummonHistoryController summon;
+  final CharacterSummonHistoryController summon;
   const SummonAverageRateInfo(this.summon, {Key? key}) : super(key: key);
 
-  String getSummonStats(SummonHistoryController summoned, int whichOne) {
+  String getSummonStats(
+      CharacterSummonHistoryController summoned, int whichOne) {
     String fiveStarStats;
     String fourStarStats;
 
@@ -169,7 +170,7 @@ class SummonAverageRateInfo extends StatelessWidget {
 }
 
 class TopRightWindowActions extends StatelessWidget {
-  final SummonHistoryController summon;
+  final CharacterSummonHistoryController summon;
 
   const TopRightWindowActions(this.summon, {Key? key}) : super(key: key);
 

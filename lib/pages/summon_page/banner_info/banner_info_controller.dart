@@ -10,8 +10,6 @@ class BannerInfoController extends GetxController {
   Map<String, FileSystemEntity> bannerList = {};
   int bannerIndex = 0;
   Map<String, dynamic> currentBannerPool = {};
-  List<String> fourStarCharPool = []; // for event and std banner
-  List<String> fourStarWeaponPool = []; // for std & future weapon banner
   String bannerType = 'character';
   late EventPool eventPool;
   late StandardPool stdPool;
@@ -69,9 +67,9 @@ class BannerInfoController extends GetxController {
           bannerData['event_pool']['weapons']['3'];
       final List<dynamic> fourStarWeaponPool =
           bannerData['event_pool']['weapons']['4'];
-      final List<dynamic> fourStarCharPool =
+      final List<dynamic> lostFourStarCharPool =
           bannerData['event_pool']['characters']['4'];
-      final List<dynamic> fiveStarCharPool =
+      final List<dynamic> lostFiveStarCharPool =
           bannerData['event_pool']['characters']['5'];
 
       final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
@@ -87,10 +85,15 @@ class BannerInfoController extends GetxController {
       imagesData.addAll(characterImagesData);
       imagesData.addAll(weaponImagesData);
 
-      eventPool = EventPool(fiveStarCharPool, fourStarCharPool,
-          threeStarWeaponPool, fourStarWeaponPool, nameMap, imagesData);
-
-      Get.find<BannerInfoController>().prepBannerPool();
+      eventPool = EventPool(
+          currentBannerPool['5'],
+          lostFiveStarCharPool,
+          currentBannerPool['4'],
+          lostFourStarCharPool,
+          threeStarWeaponPool,
+          fourStarWeaponPool,
+          nameMap,
+          imagesData);
     } on Exception catch (e) {
       print(e.toString());
     }
@@ -127,8 +130,6 @@ class BannerInfoController extends GetxController {
 
       stdPool = StandardPool(fiveStarCharPool, fourStarCharPool,
           threeStarWeaponPool, fourStarWeaponPool, nameMap, imagesData);
-
-      Get.find<BannerInfoController>().prepBannerPool();
     } on Exception catch (e) {
       print(e.toString());
     }
@@ -142,20 +143,23 @@ class BannerInfoController extends GetxController {
       bannerType = 'character';
   }
 
-  void nextBanner() {
+  Future<void> nextBanner() async {
     final int next = bannerIndex - 1;
     if ((next >= 0)) bannerIndex = bannerIndex - 1;
 
     currentBannerPool =
         BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
+    if (bannerType == 'character')
+      await loadCharEventData();
+    else if (bannerType == 'standard') await loadStdEventData();
+
     chooseBannerType();
-    prepBannerPool();
 
     update();
   }
 
-  void prevBanner() {
+  Future<void> prevBanner() async {
     final int next = bannerIndex + 1;
 
     if (!(next >= bannerList.length)) bannerIndex = bannerIndex + 1;
@@ -163,40 +167,25 @@ class BannerInfoController extends GetxController {
     currentBannerPool =
         BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
+    if (bannerType == 'character')
+      await loadCharEventData();
+    else if (bannerType == 'standard') await loadStdEventData();
+
     chooseBannerType();
-    prepBannerPool();
 
     update();
   }
 
-  void setBannerIndex(int index) {
+  Future<void> setBannerIndex(int index) async {
     bannerIndex = index;
 
     currentBannerPool =
         BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
+    if (bannerType == 'character')
+      await loadCharEventData();
+    else if (bannerType == 'standard') await loadStdEventData();
+
     update();
-  }
-
-  void prepBannerPool() {
-    if (bannerType == 'character') {
-      final List<dynamic> _fourStarCharPool = eventPool.fourStarCharacterPool;
-
-      _fourStarCharPool.forEach((e) {
-        if (!currentBannerPool['4'].contains(e)) fourStarCharPool.add(e);
-      });
-    } else if (bannerType == 'standard') {
-      final List<dynamic> _fourStarCharPool = stdPool.fourStarCharacterPool;
-
-      _fourStarCharPool.forEach((e) {
-        if (!currentBannerPool['4'].contains(e)) fourStarCharPool.add(e);
-      });
-
-      final List<dynamic> _fourStarWeaponPool = stdPool.fourStarWeaponPool;
-
-      _fourStarWeaponPool.forEach((e) {
-        fourStarWeaponPool.add(e);
-      });
-    }
   }
 }
