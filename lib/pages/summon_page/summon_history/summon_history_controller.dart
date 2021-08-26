@@ -1,16 +1,10 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:genshin_summonator/models/SummonPool.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
 
 class SummonHistoryController extends GetxController {
-  late EventPool eventPool;
-  late StandardPool stdPool;
-  bool hasBannerPoolLoaded = false;
   int fourStarPityCount = 0;
   int fiveStarPityCount = 0;
   bool firstTimePullingFourStar = true;
@@ -28,18 +22,6 @@ class SummonHistoryController extends GetxController {
   final ScrollController historyScrollController = ScrollController();
   bool noAnimations = false;
 
-  @override
-  Future<void> onInit() async {
-    await loadCharEventData();
-    await loadStdEventData();
-
-    hasBannerPoolLoaded = true;
-
-    update();
-
-    super.onInit();
-  }
-
   void resetSummons() {
     fourStarPityCount = 0;
     fiveStarPityCount = 0;
@@ -54,82 +36,6 @@ class SummonHistoryController extends GetxController {
     fourStarCount = 0;
 
     update();
-  }
-
-  Future<void> loadCharEventData() async {
-    try {
-      final rawBannerData =
-          await File("assets/genshin/index/banners.json").readAsString();
-
-      final bannerData = json.decode(rawBannerData);
-
-      final List<dynamic> threeStarWeaponPool =
-          bannerData['event_pool']['weapons']['3'];
-      final List<dynamic> fourStarWeaponPool =
-          bannerData['event_pool']['weapons']['4'];
-      final List<dynamic> fourStarCharPool =
-          bannerData['event_pool']['characters']['4'];
-      final List<dynamic> fiveStarCharPool =
-          bannerData['event_pool']['characters']['5'];
-
-      final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
-
-      final characterImagesData = json.decode(
-          await File("assets/genshin/image/characters.json").readAsString());
-
-      final weaponImagesData = json.decode(
-          await File("assets/genshin/image/weapons.json").readAsString());
-
-      Map<dynamic, dynamic> imagesData = {};
-
-      imagesData.addAll(characterImagesData);
-      imagesData.addAll(weaponImagesData);
-
-      eventPool = EventPool(fiveStarCharPool, fourStarCharPool,
-          threeStarWeaponPool, fourStarWeaponPool, nameMap, imagesData);
-
-      Get.find<BannerInfoController>().prepBannerPool();
-    } on Exception catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<void> loadStdEventData() async {
-    try {
-      final rawBannerData =
-          await File("assets/genshin/index/banners.json").readAsString();
-
-      final bannerData = json.decode(rawBannerData);
-
-      final List<dynamic> threeStarWeaponPool =
-          bannerData['standard_pool']['weapons']['3'];
-      final List<dynamic> fourStarWeaponPool =
-          bannerData['standard_pool']['weapons']['4'];
-      final List<dynamic> fourStarCharPool =
-          bannerData['standard_pool']['characters']['4'];
-      final List<dynamic> fiveStarCharPool =
-          bannerData['standard_pool']['characters']['5'];
-
-      final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
-
-      final characterImagesData = json.decode(
-          await File("assets/genshin/image/characters.json").readAsString());
-
-      final weaponImagesData = json.decode(
-          await File("assets/genshin/image/weapons.json").readAsString());
-
-      Map<dynamic, dynamic> imagesData = {};
-
-      imagesData.addAll(characterImagesData);
-      imagesData.addAll(weaponImagesData);
-
-      stdPool = StandardPool(fiveStarCharPool, fourStarCharPool,
-          threeStarWeaponPool, fourStarWeaponPool, nameMap, imagesData);
-
-      Get.find<BannerInfoController>().prepBannerPool();
-    } on Exception catch (e) {
-      print(e.toString());
-    }
   }
 
   void roll(int amount) {
@@ -214,7 +120,9 @@ class SummonHistoryController extends GetxController {
   }
 
   void distributeThreeStar(nextRollCount, rnd) {
-    final item = eventPool.threeStarWeaponPool[rnd.nextInt(13)];
+    final item = Get.find<BannerInfoController>()
+        .eventPool
+        .threeStarWeaponPool[rnd.nextInt(13)];
 
     summoned.add(SummonHistoryModel(
         nextRollCount, item, fixNaming(item), 'weapon', '3', false, 0));
@@ -223,8 +131,9 @@ class SummonHistoryController extends GetxController {
   }
 
   void distributeFourStar(nextRollCount, rnd) {
+    bool win5050 = rnd.nextBool();
+
     if (wasLastFourStarRateUp || firstTimePullingFourStar) {
-      bool win5050 = rnd.nextBool();
       if (win5050) {
         wonfourStar5050(nextRollCount, rnd);
         wasLastFourStarRateUp = true;
@@ -241,8 +150,9 @@ class SummonHistoryController extends GetxController {
   }
 
   void distributeFiveStar(nextRollCount, rnd) {
+    bool win5050 = rnd.nextBool();
+
     if (wasLastFiveStarRateUp || firstTimePullingFiveStar) {
-      bool win5050 = rnd.nextBool();
       if (win5050) {
         wonfiveStar5050(nextRollCount);
         wasLastFiveStarRateUp = true;
@@ -286,7 +196,9 @@ class SummonHistoryController extends GetxController {
     final fourStarCharPool = Get.find<BannerInfoController>().fourStarCharPool;
 
     final charItem = fourStarCharPool[rnd.nextInt(fourStarCharPool.length)];
-    final weaponItem = eventPool.fourStarWeaponPool[rnd.nextInt(18)];
+    final weaponItem = Get.find<BannerInfoController>()
+        .eventPool
+        .fourStarWeaponPool[rnd.nextInt(18)];
     if (win5050) {
       final fixedName = fixNaming(charItem);
       final constellation = calConst(charItem);
@@ -330,7 +242,9 @@ class SummonHistoryController extends GetxController {
   }
 
   void lostfiveStar5050(nextRollCount, rnd) {
-    final item = eventPool.fiveStarCharacterPool[rnd.nextInt(5)];
+    final item = Get.find<BannerInfoController>()
+        .eventPool
+        .fiveStarCharacterPool[rnd.nextInt(5)];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);
@@ -369,7 +283,7 @@ class SummonHistoryController extends GetxController {
   String fixNaming(dynamic item) {
     // print(eventPool.nameMap['aether.json']);
     // return item;
-    return eventPool.nameMap[item].toString();
+    return Get.find<BannerInfoController>().eventPool.nameMap[item].toString();
   }
 
   int calConst(dynamic item) {

@@ -1,19 +1,23 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:genshin_summonator/models/SummonPool.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
-import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 
 class BannerInfoController extends GetxController {
+  bool hasBannerPoolLoaded = false;
   Map<String, FileSystemEntity> bannerList = {};
   int bannerIndex = 0;
   Map<String, dynamic> currentBannerPool = {};
   List<String> fourStarCharPool = []; // for event and std banner
   List<String> fourStarWeaponPool = []; // for std & future weapon banner
   String bannerType = 'character';
+  late EventPool eventPool;
+  late StandardPool stdPool;
 
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     // final List<FileSystemEntity> fileList =
     //     await Directory('assets/images/banners/event/').list().toList();
 
@@ -44,9 +48,90 @@ class BannerInfoController extends GetxController {
     currentBannerPool =
         BannerInfoModel.eventCharacters[bannerList.keys.elementAt(bannerIndex)];
 
+    await loadCharEventData();
+    await loadStdEventData();
+
+    hasBannerPoolLoaded = true;
+
     update();
 
     super.onInit();
+  }
+
+  Future<void> loadCharEventData() async {
+    try {
+      final rawBannerData =
+          await File("assets/genshin/index/banners.json").readAsString();
+
+      final bannerData = json.decode(rawBannerData);
+
+      final List<dynamic> threeStarWeaponPool =
+          bannerData['event_pool']['weapons']['3'];
+      final List<dynamic> fourStarWeaponPool =
+          bannerData['event_pool']['weapons']['4'];
+      final List<dynamic> fourStarCharPool =
+          bannerData['event_pool']['characters']['4'];
+      final List<dynamic> fiveStarCharPool =
+          bannerData['event_pool']['characters']['5'];
+
+      final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
+
+      final characterImagesData = json.decode(
+          await File("assets/genshin/image/characters.json").readAsString());
+
+      final weaponImagesData = json.decode(
+          await File("assets/genshin/image/weapons.json").readAsString());
+
+      Map<dynamic, dynamic> imagesData = {};
+
+      imagesData.addAll(characterImagesData);
+      imagesData.addAll(weaponImagesData);
+
+      eventPool = EventPool(fiveStarCharPool, fourStarCharPool,
+          threeStarWeaponPool, fourStarWeaponPool, nameMap, imagesData);
+
+      Get.find<BannerInfoController>().prepBannerPool();
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> loadStdEventData() async {
+    try {
+      final rawBannerData =
+          await File("assets/genshin/index/banners.json").readAsString();
+
+      final bannerData = json.decode(rawBannerData);
+
+      final List<dynamic> threeStarWeaponPool =
+          bannerData['standard_pool']['weapons']['3'];
+      final List<dynamic> fourStarWeaponPool =
+          bannerData['standard_pool']['weapons']['4'];
+      final List<dynamic> fourStarCharPool =
+          bannerData['standard_pool']['characters']['4'];
+      final List<dynamic> fiveStarCharPool =
+          bannerData['standard_pool']['characters']['5'];
+
+      final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
+
+      final characterImagesData = json.decode(
+          await File("assets/genshin/image/characters.json").readAsString());
+
+      final weaponImagesData = json.decode(
+          await File("assets/genshin/image/weapons.json").readAsString());
+
+      Map<dynamic, dynamic> imagesData = {};
+
+      imagesData.addAll(characterImagesData);
+      imagesData.addAll(weaponImagesData);
+
+      stdPool = StandardPool(fiveStarCharPool, fourStarCharPool,
+          threeStarWeaponPool, fourStarWeaponPool, nameMap, imagesData);
+
+      Get.find<BannerInfoController>().prepBannerPool();
+    } on Exception catch (e) {
+      print(e.toString());
+    }
   }
 
   void chooseBannerType() {
@@ -94,23 +179,20 @@ class BannerInfoController extends GetxController {
   }
 
   void prepBannerPool() {
-    final SummonHistoryController shc = Get.find<SummonHistoryController>();
-
     if (bannerType == 'character') {
-      final List<dynamic> _fourStarCharPool =
-          shc.eventPool.fourStarCharacterPool;
+      final List<dynamic> _fourStarCharPool = eventPool.fourStarCharacterPool;
 
       _fourStarCharPool.forEach((e) {
         if (!currentBannerPool['4'].contains(e)) fourStarCharPool.add(e);
       });
     } else if (bannerType == 'standard') {
-      final List<dynamic> _fourStarCharPool = shc.stdPool.fourStarCharacterPool;
+      final List<dynamic> _fourStarCharPool = stdPool.fourStarCharacterPool;
 
       _fourStarCharPool.forEach((e) {
         if (!currentBannerPool['4'].contains(e)) fourStarCharPool.add(e);
       });
 
-      final List<dynamic> _fourStarWeaponPool = shc.stdPool.fourStarWeaponPool;
+      final List<dynamic> _fourStarWeaponPool = stdPool.fourStarWeaponPool;
 
       _fourStarWeaponPool.forEach((e) {
         fourStarWeaponPool.add(e);

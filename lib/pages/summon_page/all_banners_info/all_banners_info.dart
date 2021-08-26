@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
-import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 
@@ -14,8 +13,8 @@ class AllBannersInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(
           top: 12.0, left: 12.0, right: 12.0, bottom: 12.0),
-      child: GetBuilder<SummonHistoryController>(
-        init: SummonHistoryController(),
+      child: GetBuilder<BannerInfoController>(
+        init: BannerInfoController(),
         builder: (summon) => GetBuilder<BannerInfoController>(
           init: BannerInfoController(),
           builder: (banner) => ListView.builder(

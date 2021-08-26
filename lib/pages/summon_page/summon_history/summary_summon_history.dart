@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
@@ -48,9 +49,9 @@ class SummonItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SummonHistoryController ctrl = Get.find<SummonHistoryController>();
+    BannerInfoController ctrl = Get.find<BannerInfoController>();
 
-    String getApropUrl(SummonHistoryController ctrl, String item) {
+    String getApropUrl(BannerInfoController ctrl, String item) {
       String url = '';
       if (ctrl.eventPool.images[summon.item]['icon'] != null)
         url = ctrl.eventPool.images[summon.item]['icon'];
