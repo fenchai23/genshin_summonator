@@ -135,7 +135,7 @@ class BannerInfoController extends GetxController {
   }
 
   void chooseBannerType() {
-    // just a temp hack, will not work if I add weapon banners in the future
+    //TODO: just a temp hack, will not work if I add weapon banners in the future
     if (bannerIndex == bannerList.length)
       bannerType = 'standard';
     else

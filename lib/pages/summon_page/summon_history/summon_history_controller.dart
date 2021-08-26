@@ -13,6 +13,8 @@ class SummonHistoryController extends GetxController {
   bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
   List<SummonHistoryModel> summonedFourFiveStarOnly = [];
+  //TODO: make a loop to see record ten pulls data and erase after a 10 pull
+  List<SummonHistoryModel> summoned10pull = [];
   double fourStarChance = (5.1 * 1000) / 100;
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
