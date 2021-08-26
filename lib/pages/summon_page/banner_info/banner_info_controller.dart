@@ -72,6 +72,10 @@ class BannerInfoController extends GetxController {
       final List<dynamic> lostFiveStarCharPool =
           bannerData['event_pool']['characters']['5'];
 
+      // remove 4* featured char from offbanner 4* pool
+      lostFourStarCharPool
+          .removeWhere((e) => currentBannerPool['4'].contains(e));
+
       final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
 
       final characterImagesData = json.decode(
