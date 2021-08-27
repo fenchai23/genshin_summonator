@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dart_vlc/dart_vlc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,6 +15,8 @@ class MoreActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final BannerInfoController bic = Get.find<BannerInfoController>();
+
     final TextEditingController tec = TextEditingController(text: '500');
 
     return Container(
@@ -49,21 +53,46 @@ class MoreActions extends StatelessWidget {
               child: TextFormField(
                 controller: tec,
                 autofocus: true,
-                // onTap: () => tec.clear(),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                 ],
               ),
             ),
-            trailing: TextButton(
-              onPressed: () {
-                Get.back(closeOverlays: true);
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.back(closeOverlays: true);
 
-                Get.find<CharacterSummonHistoryController>()
-                    .roll(int.parse(tec.text));
-              },
-              child: Text('Roll!'),
+                    if (bic.currentBannerType == 'character')
+                      Get.find<CharacterSummonHistoryController>()
+                          .resetSummons();
+                    else if (bic.currentBannerType == 'standard')
+                      Get.find<StandardSummonHistoryController>()
+                          .resetSummons();
+                  },
+                  child: Text(
+                    'Clear All Rolls',
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
+                ),
+                SizedBox(width: 10),
+                TextButton(
+                  onPressed: () {
+                    Get.back(closeOverlays: true);
+
+                    if (bic.currentBannerType == 'character')
+                      Get.find<CharacterSummonHistoryController>()
+                          .roll(int.parse(tec.text));
+                    else if (bic.currentBannerType == 'standard')
+                      Get.find<StandardSummonHistoryController>()
+                          .roll(int.parse(tec.text));
+                  },
+                  child: Text('Roll..!'),
+                ),
+              ],
             ),
           ),
           MiniMusicControls(),
