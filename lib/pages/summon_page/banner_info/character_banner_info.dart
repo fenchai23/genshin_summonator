@@ -2,7 +2,6 @@ import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banners_info.dart';
-import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/universal_banner_widgets.dart';

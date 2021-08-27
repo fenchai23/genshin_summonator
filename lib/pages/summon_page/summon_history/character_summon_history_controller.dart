@@ -14,8 +14,7 @@ class CharacterSummonHistoryController extends GetxController {
   bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
   List<SummonHistoryModel> summonedFournFiveStarOnly = [];
-  //TODO: make a loop to see record ten pulls data and erase after a 10 pull
-  List<SummonHistoryModel> summoned10pull = [];
+  bool hasSummonReachedGoal = false;
   double fourStarChance = (5.1 * 1000) / 100;
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
@@ -55,6 +54,36 @@ class CharacterSummonHistoryController extends GetxController {
     }
 
     update();
+  }
+
+  Future<void> rollWithGoal() async {
+    resetSummons();
+
+    noAnimations = true;
+
+    hasSummonReachedGoal = false;
+
+    while (!hasSummonReachedGoal) {
+      for (var i = 1; i <= 10; i++) increasePity();
+
+      noAnimations = false;
+
+      if (historyScrollController.hasClients) {
+        if (historyScrollController.offset != 0.0)
+          historyScrollController.animateTo(0.0,
+              duration: Duration(milliseconds: 400), curve: Curves.ease);
+      }
+
+      trackEach10PullGoal();
+
+      update();
+
+      if (hasSummonReachedGoal) break;
+
+      await Future.delayed(Duration(milliseconds: 5));
+
+      // if (summoned.length > 1000) break; // just in case
+    }
   }
 
   void increasePity() {
@@ -269,8 +298,13 @@ class CharacterSummonHistoryController extends GetxController {
     fiveStarPityCount = 0;
   }
 
-  trackEach10Pull(SummonHistoryModel summon) {
-    // TODO: insert code
+  trackEach10PullGoal() {
+    int count = 0;
+    // check if list has reached it's goal
+    summoned.skip(summoned.length - 10).forEach((s) {
+      if (s.rarity == '5') count++;
+      if (count > 3) hasSummonReachedGoal = true;
+    });
   }
 
   addToSummaryList(SummonHistoryModel summon) {
