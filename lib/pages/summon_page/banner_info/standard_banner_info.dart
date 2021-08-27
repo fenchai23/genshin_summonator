@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/standard_banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/universal_banner_widgets.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,15 @@ class StandardBannerInfo extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SummonCounts(),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            left: 10,
+            child: Row(
+              children: [
+                BannerChooser(),
+              ],
             ),
           ),
           Positioned(bottom: 5, right: 5, child: SummonButtons()),

@@ -53,67 +53,9 @@ class SummonPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Positioned(
-                top: 0,
-                left: 0,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: BannerChooser(),
-                ),
-              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class BannerChooser extends StatelessWidget {
-  const BannerChooser({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<BannerInfoController>(
-      init: BannerInfoController(),
-      builder: (info) => Column(
-        children: [
-          ActionChip(
-            label: Text('Character'),
-            shadowColor: Colors.transparent,
-            side: BorderSide(
-                color: (info.currentBannerType == 'character')
-                    ? Colors.green
-                    : Colors.white,
-                width: 2.5),
-            onPressed: () => info.switchBannerType('character'),
-          ),
-          SizedBox(height: 2),
-          Visibility(
-            visible: false,
-            child: ActionChip(
-              label: Text('Weapon'),
-              shadowColor: Colors.transparent,
-              side: BorderSide(
-                  color: (info.currentBannerType == 'weapon')
-                      ? Colors.green
-                      : Colors.white,
-                  width: 2.5),
-              onPressed: () => info.switchBannerType('weapon'),
-            ),
-          ),
-          SizedBox(height: 2),
-          ActionChip(
-            label: Text('Standard'),
-            shadowColor: Colors.transparent,
-            side: BorderSide(
-                color: (info.currentBannerType == 'standard')
-                    ? Colors.green
-                    : Colors.white,
-                width: 2.5),
-            onPressed: () => info.switchBannerType('standard'),
-          ),
-        ],
       ),
     );
   }
