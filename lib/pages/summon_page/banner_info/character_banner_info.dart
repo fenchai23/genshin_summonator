@@ -14,6 +14,7 @@ class CharacterBannerInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<CharacterBannerInfoController>(
       init: CharacterBannerInfoController(),
+      autoRemove: false,
       builder: (banner) => Stack(
         children: [
           (banner.bannerList.length > 0)
@@ -24,7 +25,7 @@ class CharacterBannerInfo extends StatelessWidget {
                       color: Colors.orange[400],
                       width: 650,
                       height: 150,
-                      child: AllBannersInfo(),
+                      child: AllBannersInfo(banner),
                     ),
                   ],
                 )
@@ -55,6 +56,7 @@ class SummonCounts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CharacterSummonHistoryController>(
+      autoRemove: false,
       init: CharacterSummonHistoryController(),
       builder: (summons) => Wrap(
         spacing: 10,

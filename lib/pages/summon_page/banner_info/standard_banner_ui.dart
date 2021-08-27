@@ -14,6 +14,7 @@ class StandardBannerUI extends StatelessWidget {
       children: [
         Container(width: 650, child: StandardBannerInfo()),
         GetBuilder<StandardSummonHistoryController>(
+          autoRemove: false,
           init: StandardSummonHistoryController(),
           builder: (summon) => SummonAverageRateInfo(summon),
         ),

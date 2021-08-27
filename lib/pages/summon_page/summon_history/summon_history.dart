@@ -18,6 +18,7 @@ class SummonHistory extends StatelessWidget {
         builder: (info) {
           if (info.currentBannerType == 'character')
             return GetBuilder<CharacterSummonHistoryController>(
+              autoRemove: false,
               init: CharacterSummonHistoryController(),
               builder: (summons) {
                 if (summons.summoned.length > 0)
@@ -56,6 +57,7 @@ class SummonHistory extends StatelessWidget {
             );
           else if (info.currentBannerType == 'standard')
             return GetBuilder<StandardSummonHistoryController>(
+              autoRemove: false,
               init: StandardSummonHistoryController(),
               builder: (summons) {
                 if (summons.summoned.length > 0)

@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/menu/more_actions.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
@@ -42,10 +43,7 @@ class SummonPage extends StatelessWidget {
                     Expanded(
                       child: Column(
                         children: [
-                          GetBuilder<CharacterSummonHistoryController>(
-                            init: CharacterSummonHistoryController(),
-                            builder: (summon) => TopRightWindowActions(summon),
-                          ),
+                          TopRightWindowActions(),
                           Expanded(
                             child: SummonHistory(),
                           ),
@@ -204,9 +202,7 @@ class SummonAverageRateInfo extends StatelessWidget {
 }
 
 class TopRightWindowActions extends StatelessWidget {
-  final CharacterSummonHistoryController summon;
-
-  const TopRightWindowActions(this.summon, {Key? key}) : super(key: key);
+  const TopRightWindowActions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -219,61 +215,59 @@ class TopRightWindowActions extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: (!summon.noAnimations)
-                  ? AnimatedTextKit(
-                      animatedTexts: [
-                        TyperAnimatedText(
-                          summon.commentary,
-                          textStyle: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w400),
-                          speed: Duration(milliseconds: 20),
-                        ),
-                      ],
-                      key: Key(summon.commentary),
-                      isRepeatingAnimation: false,
-                    )
-                  : Text(
-                      summon.commentary,
-                      style: TextStyle(
-                          color: Colors.black54, fontWeight: FontWeight.w400),
-                    ),
-            ),
+                padding: const EdgeInsets.only(left: 8.0),
+                child: GetBuilder<BannerInfoController>(
+                  init: BannerInfoController(),
+                  builder: (info) => (info.currentBannerType == 'character')
+                      ? GetBuilder<CharacterSummonHistoryController>(
+                          init: CharacterSummonHistoryController(),
+                          builder: (summon) => (!summon.noAnimations)
+                              ? AnimatedTextKit(
+                                  animatedTexts: [
+                                    TyperAnimatedText(
+                                      summon.commentary,
+                                      textStyle: TextStyle(
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w400),
+                                      speed: Duration(milliseconds: 20),
+                                    ),
+                                  ],
+                                  key: Key(summon.commentary),
+                                  isRepeatingAnimation: false,
+                                )
+                              : Text(
+                                  summon.commentary,
+                                  style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w400),
+                                ))
+                      : (info.currentBannerType == 'standard')
+                          ? GetBuilder<StandardSummonHistoryController>(
+                              init: StandardSummonHistoryController(),
+                              builder: (summon) => (!summon.noAnimations)
+                                  ? AnimatedTextKit(
+                                      animatedTexts: [
+                                        TyperAnimatedText(
+                                          summon.commentary,
+                                          textStyle: TextStyle(
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w400),
+                                          speed: Duration(milliseconds: 20),
+                                        ),
+                                      ],
+                                      key: Key(summon.commentary),
+                                      isRepeatingAnimation: false,
+                                    )
+                                  : Text(
+                                      summon.commentary,
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w400),
+                                    ))
+                          : Container(),
+                )),
             Row(
               children: [
-                Tooltip(
-                  message: 'reset',
-                  padding: EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  ),
-                  textStyle: TextStyle(fontSize: 20, color: Colors.white70),
-                  child: InkWell(
-                    onTap: () {
-                      Get.defaultDialog(
-                          title: 'Reset',
-                          middleText: 'Do you want to reset all summons?',
-                          confirm: TextButton(
-                              onPressed: () {
-                                summon.resetSummons();
-                                Get.back();
-                              },
-                              child: Text(
-                                'Reset',
-                                style: TextStyle(color: Colors.redAccent),
-                              )));
-                    },
-                    child: Icon(
-                      Icons.refresh,
-                      color: Colors.red[400],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
                 WindowButtons(),
               ],
             ),

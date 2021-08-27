@@ -15,6 +15,7 @@ class CharacterBannerUI extends StatelessWidget {
       children: [
         Container(width: 650, child: CharacterBannerInfo()),
         GetBuilder<CharacterSummonHistoryController>(
+          autoRemove: false,
           init: CharacterSummonHistoryController(),
           builder: (summon) => SummonAverageRateInfo(summon),
         ),

@@ -37,6 +37,7 @@ class SummonCounts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StandardSummonHistoryController>(
+      autoRemove: false,
       init: StandardSummonHistoryController(),
       builder: (summons) => Wrap(
         spacing: 10,
