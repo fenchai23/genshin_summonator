@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page.dart';
 import 'package:get/get.dart';
 
-// TODO: add standard banner
 // TODO: add sharedPreferences for bg music preference and audio etc
 // TODO: add a way to not use any asset from the app itself
 // TODO: add summon animation only when doing 1 and 10 pulls
 // TODO: add a summon video?
-// TODO: add a way to switch to standard/weapon/character banner
 
 void main() {
   runApp(MyApp());
