@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
-import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
@@ -94,15 +94,12 @@ class SummonItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CharacterBannerInfoController ctrl =
-        Get.find<CharacterBannerInfoController>();
-
-    String getApropUrl(CharacterBannerInfoController ctrl, String item) {
+    String getApropUrl(String item) {
       String url = '';
-      if (ctrl.eventPool.images[summon.item]['icon'] != null)
-        url = ctrl.eventPool.images[summon.item]['icon'];
-      else if (ctrl.eventPool.images[summon.item]['image'] != null)
-        url = ctrl.eventPool.images[summon.item]['image'];
+      if (BannerInfoModel.images[summon.item]['icon'] != null)
+        url = BannerInfoModel.images[summon.item]['icon'];
+      else if (BannerInfoModel.images[summon.item]['image'] != null)
+        url = BannerInfoModel.images[summon.item]['image'];
       else
         url =
             'https://static.wikia.nocookie.net/gensin-impact/images/6/6a/Character_Dainsleif_Portrait.png/revision/latest/scale-to-width-down/1000?cb=20210321222051';
@@ -136,7 +133,7 @@ class SummonItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: CachedNetworkImage(
-                  imageUrl: getApropUrl(ctrl, summon.item),
+                  imageUrl: getApropUrl(summon.item),
                   fit: BoxFit.fitHeight,
                   height: 140,
                   width: 140,

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
@@ -295,10 +296,7 @@ class CharacterSummonHistoryController extends GetxController {
   String fixNaming(dynamic item) {
     // print(eventPool.nameMap['aether.json']);
     // return item;
-    return Get.find<CharacterBannerInfoController>()
-        .eventPool
-        .nameMap[item]
-        .toString();
+    return BannerInfoModel.nameMap[item].toString();
   }
 
   int calConst(dynamic item) {

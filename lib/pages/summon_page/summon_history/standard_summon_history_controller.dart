@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/standard_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
 
@@ -9,8 +10,8 @@ class StandardSummonHistoryController extends GetxController {
   int fiveStarPityCount = 0;
   bool firstTimePullingFourStar = true;
   bool firstTimePullingFiveStar = true;
-  bool wasLastFourStarRateUp = false;
-  bool wasLastFiveStarRateUp = false;
+  // bool wasLastFourStarRateUp = false;
+  // bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
   List<SummonHistoryModel> summonedFournFiveStarOnly = [];
   //TODO: make a loop to see record ten pulls data and erase after a 10 pull
@@ -29,8 +30,8 @@ class StandardSummonHistoryController extends GetxController {
     fiveStarPityCount = 0;
     firstTimePullingFourStar = true;
     firstTimePullingFiveStar = true;
-    wasLastFourStarRateUp = false;
-    wasLastFiveStarRateUp = false;
+    // wasLastFourStarRateUp = false;
+    // wasLastFiveStarRateUp = false;
     summoned = [];
     summonedFournFiveStarOnly = [];
     commentary = 'good luck ~';
@@ -122,8 +123,8 @@ class StandardSummonHistoryController extends GetxController {
   }
 
   void distributeThreeStar(nextRollCount, rnd) {
-    final item = Get.find<CharacterBannerInfoController>()
-        .eventPool
+    final item = Get.find<StandardBannerInfoController>()
+        .stdPool
         .threeStarWeaponPool[rnd.nextInt(13)];
 
     summoned.add(SummonHistoryModel(
@@ -135,37 +136,22 @@ class StandardSummonHistoryController extends GetxController {
   void distributeFourStar(nextRollCount, rnd) {
     bool win5050 = rnd.nextBool();
 
-    if (wasLastFourStarRateUp || firstTimePullingFourStar) {
-      if (win5050) {
-        wonfourStar5050(nextRollCount, rnd);
-        wasLastFourStarRateUp = true;
-      } else {
-        lostfourStar5050(nextRollCount, rnd);
-        wasLastFourStarRateUp = false;
-      }
-      firstTimePullingFourStar = false;
-    } else {
+    if (win5050) {
       wonfourStar5050(nextRollCount, rnd);
-      wasLastFourStarRateUp = true;
+    } else {
+      lostfourStar5050(nextRollCount, rnd);
     }
+
     fiveStarPityCount++;
   }
 
   void distributeFiveStar(nextRollCount, rnd) {
     bool win5050 = rnd.nextBool();
 
-    if (wasLastFiveStarRateUp || firstTimePullingFiveStar) {
-      if (win5050) {
-        wonfiveStar5050(nextRollCount);
-        wasLastFiveStarRateUp = true;
-      } else {
-        lostfiveStar5050(nextRollCount, rnd);
-        wasLastFiveStarRateUp = false;
-      }
-      firstTimePullingFiveStar = false;
+    if (win5050) {
+      wonfiveStar5050(nextRollCount, rnd);
     } else {
-      wonfiveStar5050(nextRollCount);
-      wasLastFiveStarRateUp = true;
+      lostfiveStar5050(nextRollCount, rnd);
     }
 
     if (fourStarPityCount == 9)
@@ -175,95 +161,77 @@ class StandardSummonHistoryController extends GetxController {
   }
 
   void wonfourStar5050(nextRollCount, Random rnd) {
-    final item = Get.find<CharacterBannerInfoController>()
-        .eventPool
-        .wonfourStarCharacterPool[rnd.nextInt(3)];
+    final stdBannerController = Get.find<StandardBannerInfoController>();
+
+    final item = stdBannerController.stdPool.fourStarCharacterPool[
+        rnd.nextInt(stdBannerController.stdPool.fourStarCharacterPool.length)];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);
 
-    summoned.add(SummonHistoryModel(
-        nextRollCount, item, fixedName, 'character', '4', true, constellation));
+    summoned.add(SummonHistoryModel(nextRollCount, item, fixedName, 'character',
+        '4', false, constellation));
 
-    addToSummaryList(SummonHistoryModel(
-        nextRollCount, item, fixedName, 'character', '4', true, constellation));
+    addToSummaryList(SummonHistoryModel(nextRollCount, item, fixedName,
+        'character', '4', false, constellation));
 
-    wasLastFourStarRateUp = true;
     fourStarCount++;
     fourStarPityCount = 0;
   }
 
   void lostfourStar5050(nextRollCount, Random rnd) {
-    bool win5050 = rnd.nextBool();
+    final stdBannerController = Get.find<StandardBannerInfoController>();
 
-    final fourStarCharPool = Get.find<CharacterBannerInfoController>()
-        .eventPool
-        .lostfourStarCharacterPool;
+    final item = stdBannerController.stdPool.fourStarWeaponPool[
+        rnd.nextInt(stdBannerController.stdPool.fourStarWeaponPool.length)];
 
-    final charItem = fourStarCharPool[rnd.nextInt(fourStarCharPool.length)];
-    final weaponItem = Get.find<CharacterBannerInfoController>()
-        .eventPool
-        .fourStarWeaponPool[rnd.nextInt(18)];
+    final fixedName = fixNaming(item);
+    final constellation = calConst(item);
 
-    if (win5050) {
-      final fixedName = fixNaming(charItem);
-      final constellation = calConst(charItem);
+    summoned.add(SummonHistoryModel(
+        nextRollCount, item, fixedName, 'weapon', '4', false, constellation));
 
-      summoned.add(SummonHistoryModel(nextRollCount, charItem, fixedName,
-          'character', '4', false, constellation));
+    addToSummaryList(SummonHistoryModel(
+        nextRollCount, item, fixedName, 'weapon', '4', false, constellation));
 
-      addToSummaryList(SummonHistoryModel(nextRollCount, charItem, fixedName,
-          'character', '4', false, constellation));
-    } else {
-      final fixedName = fixNaming(weaponItem);
-      final constellation = calConst(weaponItem);
-
-      summoned.add(SummonHistoryModel(nextRollCount, weaponItem, fixedName,
-          'weapon', '4', false, constellation));
-
-      addToSummaryList(SummonHistoryModel(nextRollCount, weaponItem, fixedName,
-          'character', '4', false, constellation));
-    }
-
-    wasLastFourStarRateUp = false;
     fourStarCount++;
     fourStarPityCount = 0;
   }
 
-  void wonfiveStar5050(nextRollCount) {
-    final item = Get.find<CharacterBannerInfoController>()
-        .eventPool
-        .wonfiveStarCharacterPool[0];
+  void wonfiveStar5050(nextRollCount, Random rnd) {
+    final stdBannerController = Get.find<StandardBannerInfoController>();
+
+    final item = stdBannerController.stdPool.fiveStarCharacterPool[
+        rnd.nextInt(stdBannerController.stdPool.fiveStarCharacterPool.length)];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);
 
-    summoned.add(SummonHistoryModel(
-        nextRollCount, item, fixedName, 'character', '5', true, constellation));
+    summoned.add(SummonHistoryModel(nextRollCount, item, fixedName, 'character',
+        '5', false, constellation));
 
-    addToSummaryList(SummonHistoryModel(
-        nextRollCount, item, fixedName, 'character', '5', true, constellation));
+    addToSummaryList(SummonHistoryModel(nextRollCount, item, fixedName,
+        'character', '5', false, constellation));
 
-    wasLastFiveStarRateUp = true;
     fiveStarCount++;
     fiveStarPityCount = 0;
   }
 
-  void lostfiveStar5050(nextRollCount, rnd) {
-    final item = Get.find<CharacterBannerInfoController>()
-        .eventPool
-        .lostfiveStarCharacterPool[rnd.nextInt(5)];
+  void lostfiveStar5050(nextRollCount, Random rnd) {
+    final stdBannerController = Get.find<StandardBannerInfoController>();
+
+    final item = stdBannerController.stdPool.fiveStarWeaponPool[
+        rnd.nextInt(stdBannerController.stdPool.fiveStarWeaponPool.length)];
 
     final fixedName = fixNaming(item);
     final constellation = calConst(item);
 
-    summoned.add(SummonHistoryModel(
-        nextRollCount, item, fixedName, 'character', '5', true, constellation));
+    summoned.add(SummonHistoryModel(nextRollCount, item, fixedName, 'character',
+        '5', false, constellation));
 
-    addToSummaryList(SummonHistoryModel(
-        nextRollCount, item, fixedName, 'character', '5', true, constellation));
+    addToSummaryList(SummonHistoryModel(nextRollCount, item, fixedName,
+        'character', '5', false, constellation));
 
-    wasLastFiveStarRateUp = false;
     fiveStarCount++;
     fiveStarPityCount = 0;
   }
@@ -293,12 +261,9 @@ class StandardSummonHistoryController extends GetxController {
   }
 
   String fixNaming(dynamic item) {
-    // print(eventPool.nameMap['aether.json']);
+    // print(stdPool.nameMap['aether.json']);
     // return item;
-    return Get.find<CharacterBannerInfoController>()
-        .eventPool
-        .nameMap[item]
-        .toString();
+    return BannerInfoModel.nameMap[item].toString();
   }
 
   int calConst(dynamic item) {

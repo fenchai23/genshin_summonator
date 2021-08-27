@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/standard_banner_info_controller.dart';
-import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:get/get.dart';
 
 class StandardBannerInfo extends StatelessWidget {
@@ -36,8 +36,8 @@ class SummonCounts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CharacterSummonHistoryController>(
-      init: CharacterSummonHistoryController(),
+    return GetBuilder<StandardSummonHistoryController>(
+      init: StandardSummonHistoryController(),
       builder: (summons) => Wrap(
         spacing: 10,
         crossAxisAlignment: WrapCrossAlignment.center,
@@ -126,7 +126,7 @@ class SummonButtons extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             hoverColor: Colors.blue[300],
-            onTap: () => Get.find<CharacterSummonHistoryController>().roll(1),
+            onTap: () => Get.find<StandardSummonHistoryController>().roll(1),
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Row(
@@ -155,7 +155,7 @@ class SummonButtons extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             hoverColor: Colors.amber[300],
-            onTap: () => Get.find<CharacterSummonHistoryController>().roll(10),
+            onTap: () => Get.find<StandardSummonHistoryController>().roll(10),
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Row(

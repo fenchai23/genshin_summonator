@@ -73,28 +73,14 @@ class CharacterBannerInfoController extends GetxController {
       lostFourStarCharPool
           .removeWhere((e) => currentBannerPool['4'].contains(e));
 
-      final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
-
-      final characterImagesData = json.decode(
-          await File("assets/genshin/image/characters.json").readAsString());
-
-      final weaponImagesData = json.decode(
-          await File("assets/genshin/image/weapons.json").readAsString());
-
-      Map<dynamic, dynamic> imagesData = {};
-
-      imagesData.addAll(characterImagesData);
-      imagesData.addAll(weaponImagesData);
-
       eventPool = EventPool(
-          currentBannerPool['5'],
-          lostFiveStarCharPool,
-          currentBannerPool['4'],
-          lostFourStarCharPool,
-          threeStarWeaponPool,
-          fourStarWeaponPool,
-          nameMap,
-          imagesData);
+        currentBannerPool['5'],
+        lostFiveStarCharPool,
+        currentBannerPool['4'],
+        lostFourStarCharPool,
+        threeStarWeaponPool,
+        fourStarWeaponPool,
+      );
     } on Exception catch (e) {
       print(e.toString());
     }

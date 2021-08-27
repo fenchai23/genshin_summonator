@@ -38,27 +38,13 @@ class StandardBannerInfoController extends GetxController {
       final List<dynamic> fiveStarCharPool =
           bannerData['standard_pool']['characters']['5'];
 
-      final Map<dynamic, dynamic> nameMap = bannerData['namemap'];
-
-      final characterImagesData = json.decode(
-          await File("assets/genshin/image/characters.json").readAsString());
-
-      final weaponImagesData = json.decode(
-          await File("assets/genshin/image/weapons.json").readAsString());
-
-      Map<dynamic, dynamic> imagesData = {};
-
-      imagesData.addAll(characterImagesData);
-      imagesData.addAll(weaponImagesData);
-
       stdPool = StandardPool(
-          fiveStarCharPool,
-          fourStarCharPool,
-          fiveStarWeaponPool,
-          fourStarWeaponPool,
-          threeStarWeaponPool,
-          nameMap,
-          imagesData);
+        fiveStarCharPool,
+        fourStarCharPool,
+        fiveStarWeaponPool,
+        fourStarWeaponPool,
+        threeStarWeaponPool,
+      );
     } on Exception catch (e) {
       print(e.toString());
     }
