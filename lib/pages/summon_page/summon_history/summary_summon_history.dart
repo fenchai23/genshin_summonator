@@ -1,8 +1,10 @@
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
 
@@ -11,35 +13,78 @@ class SummarySummonHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CharacterSummonHistoryController>(
-      init: CharacterSummonHistoryController(),
-      builder: (summons) {
-        if (summons.summonedFournFiveStarOnly.length > 0)
-          return Scrollbar(
-            thickness: 20.0,
-            child: GridView.builder(
-                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 7,
-                  childAspectRatio: 1,
-                ),
-                itemCount: summons.summonedFournFiveStarOnly.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final reversedIndex =
-                      summons.summonedFournFiveStarOnly.length - 1 - index;
+    return GetBuilder<BannerInfoController>(
+        init: BannerInfoController(),
+        builder: (info) {
+          if (info.currentBannerType == 'character')
+            return GetBuilder<CharacterSummonHistoryController>(
+              init: CharacterSummonHistoryController(),
+              builder: (summons) {
+                if (summons.summonedFournFiveStarOnly.length > 0)
+                  return Scrollbar(
+                    thickness: 20.0,
+                    child: GridView.builder(
+                        gridDelegate:
+                            new SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 7,
+                          childAspectRatio: 1,
+                        ),
+                        itemCount: summons.summonedFournFiveStarOnly.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final reversedIndex =
+                              summons.summonedFournFiveStarOnly.length -
+                                  1 -
+                                  index;
 
-                  return SummonItem(
-                      summons.summonedFournFiveStarOnly[reversedIndex]);
-                }),
-          );
-        else
-          return Center(
-            child: Text(
-              '"Your summon stats will be shown here"',
-              style: TextStyle(fontSize: 25),
-            ),
-          );
-      },
-    );
+                          return SummonItem(
+                              summons.summonedFournFiveStarOnly[reversedIndex]);
+                        }),
+                  );
+                else
+                  return Center(
+                    child: Text(
+                      '"Your summon stats will be shown here"',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  );
+              },
+            );
+          else if (info.currentBannerType == 'standard')
+            return GetBuilder<StandardSummonHistoryController>(
+              init: StandardSummonHistoryController(),
+              builder: (summons) {
+                if (summons.summonedFournFiveStarOnly.length > 0)
+                  return Scrollbar(
+                    thickness: 20.0,
+                    child: GridView.builder(
+                        gridDelegate:
+                            new SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 7,
+                          childAspectRatio: 1,
+                        ),
+                        itemCount: summons.summonedFournFiveStarOnly.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final reversedIndex =
+                              summons.summonedFournFiveStarOnly.length -
+                                  1 -
+                                  index;
+
+                          return SummonItem(
+                              summons.summonedFournFiveStarOnly[reversedIndex]);
+                        }),
+                  );
+                else
+                  return Center(
+                    child: Text(
+                      '"Your summon stats will be shown here"',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  );
+              },
+            );
+          else
+            return Container();
+        });
   }
 }
 

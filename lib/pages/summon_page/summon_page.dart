@@ -2,24 +2,17 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/menu/more_actions.dart';
-import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banners_info.dart';
-import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info.dart';
-import 'package:genshin_summonator/pages/summon_page/summon_history/summary_summon_history.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
 import 'package:genshin_summonator/windows_window.dart';
 import 'package:get/get.dart';
+import 'banner_info/banner_info_controller.dart';
+import 'banner_info/character_banner_ui.dart';
+import 'banner_info/standard_banner_ui.dart';
 
 class SummonPage extends StatelessWidget {
   const SummonPage({Key? key}) : super(key: key);
-
-  // TODO: add standard banner
-  // TODO: add sharedPreferences for bg music preference and audio etc
-  // TODO: add a way to not use any asset from the app itself
-  // TODO: add summon animation only when doing 1 and 10 pulls
-  // TODO: add a summon video?
-  // TODO: add a way to switch to standard/weapon/character banner
 
   @override
   Widget build(BuildContext context) {
@@ -37,47 +30,38 @@ class SummonPage extends StatelessWidget {
           width: 1,
           child: Stack(
             children: [
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        width: 650,
-                        child: BannerInfo(),
+              GetBuilder<BannerInfoController>(
+                init: BannerInfoController(),
+                builder: (info) => Row(
+                  children: [
+                    (info.currentBannerType == 'character')
+                        ? CharacterBannerUI()
+                        : (info.currentBannerType == 'standard')
+                            ? StandardBannerUI()
+                            : Container(),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          GetBuilder<CharacterSummonHistoryController>(
+                            init: CharacterSummonHistoryController(),
+                            builder: (summon) => TopRightWindowActions(summon),
+                          ),
+                          Expanded(
+                            child: SummonHistory(),
+                          ),
+                        ],
                       ),
-                      Container(
-                        color: Colors.orange[400],
-                        width: 650,
-                        height: 150,
-                        child: AllBannersInfo(),
-                      ),
-                      GetBuilder<CharacterSummonHistoryController>(
-                        init: CharacterSummonHistoryController(),
-                        builder: (summon) => SummonAverageRateInfo(summon),
-                      ),
-                      Expanded(
-                        child: Container(
-                          color: Colors.blueGrey[100],
-                          width: 650,
-                          child: SummarySummonHistory(),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        GetBuilder<CharacterSummonHistoryController>(
-                          init: CharacterSummonHistoryController(),
-                          builder: (summon) => TopRightWindowActions(summon),
-                        ),
-                        Expanded(
-                          child: SummonHistory(),
-                        ),
-                      ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: BannerChooser(),
+                ),
               ),
             ],
           ),
@@ -87,12 +71,61 @@ class SummonPage extends StatelessWidget {
   }
 }
 
+class BannerChooser extends StatelessWidget {
+  const BannerChooser({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<BannerInfoController>(
+      init: BannerInfoController(),
+      builder: (info) => Column(
+        children: [
+          ActionChip(
+            label: Text('Character'),
+            shadowColor: Colors.transparent,
+            side: BorderSide(
+                color: (info.currentBannerType == 'character')
+                    ? Colors.green
+                    : Colors.white,
+                width: 2.5),
+            onPressed: () => info.switchBannerType('character'),
+          ),
+          SizedBox(height: 2),
+          Visibility(
+            visible: false,
+            child: ActionChip(
+              label: Text('Weapon'),
+              shadowColor: Colors.transparent,
+              side: BorderSide(
+                  color: (info.currentBannerType == 'weapon')
+                      ? Colors.green
+                      : Colors.white,
+                  width: 2.5),
+              onPressed: () => info.switchBannerType('weapon'),
+            ),
+          ),
+          SizedBox(height: 2),
+          ActionChip(
+            label: Text('Standard'),
+            shadowColor: Colors.transparent,
+            side: BorderSide(
+                color: (info.currentBannerType == 'standard')
+                    ? Colors.green
+                    : Colors.white,
+                width: 2.5),
+            onPressed: () => info.switchBannerType('standard'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class SummonAverageRateInfo extends StatelessWidget {
-  final CharacterSummonHistoryController summon;
+  final summon;
   const SummonAverageRateInfo(this.summon, {Key? key}) : super(key: key);
 
-  String getSummonStats(
-      CharacterSummonHistoryController summoned, int whichOne) {
+  String getSummonStats(summoned, int whichOne) {
     String fiveStarStats;
     String fourStarStats;
 

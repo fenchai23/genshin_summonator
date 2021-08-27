@@ -1,9 +1,11 @@
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
 
@@ -12,42 +14,88 @@ class SummonHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CharacterSummonHistoryController>(
-      init: CharacterSummonHistoryController(),
-      builder: (summons) {
-        if (summons.summoned.length > 0)
-          return Scrollbar(
-            thickness: 20.0,
-            controller: summons.historyScrollController,
-            isAlwaysShown: true,
-            child: ListView.builder(
-                controller: summons.historyScrollController,
-                reverse: false,
-                itemCount: summons.summoned.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final reversedIndex = summons.summoned.length - 1 - index;
+    return GetBuilder<BannerInfoController>(
+        init: BannerInfoController(),
+        builder: (info) {
+          if (info.currentBannerType == 'character')
+            return GetBuilder<CharacterSummonHistoryController>(
+              init: CharacterSummonHistoryController(),
+              builder: (summons) {
+                if (summons.summoned.length > 0)
+                  return Scrollbar(
+                    thickness: 20.0,
+                    controller: summons.historyScrollController,
+                    isAlwaysShown: true,
+                    child: ListView.builder(
+                        controller: summons.historyScrollController,
+                        reverse: false,
+                        itemCount: summons.summoned.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final reversedIndex =
+                              summons.summoned.length - 1 - index;
 
-                  return SummonRows(summons.summoned[reversedIndex]);
-                }),
-          );
-        else
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.list_rounded,
-                  size: 100,
-                ),
-                Text(
-                  'Good luck on your summons!',
-                  style: TextStyle(fontSize: 35),
-                )
-              ],
-            ),
-          );
-      },
-    );
+                          return SummonRows(summons.summoned[reversedIndex]);
+                        }),
+                  );
+                else
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.list_rounded,
+                          size: 100,
+                        ),
+                        Text(
+                          'Good luck on your summons!',
+                          style: TextStyle(fontSize: 35),
+                        )
+                      ],
+                    ),
+                  );
+              },
+            );
+          else if (info.currentBannerType == 'standard')
+            return GetBuilder<StandardSummonHistoryController>(
+              init: StandardSummonHistoryController(),
+              builder: (summons) {
+                if (summons.summoned.length > 0)
+                  return Scrollbar(
+                    thickness: 20.0,
+                    controller: summons.historyScrollController,
+                    isAlwaysShown: true,
+                    child: ListView.builder(
+                        controller: summons.historyScrollController,
+                        reverse: false,
+                        itemCount: summons.summoned.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final reversedIndex =
+                              summons.summoned.length - 1 - index;
+
+                          return SummonRows(summons.summoned[reversedIndex]);
+                        }),
+                  );
+                else
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.list_rounded,
+                          size: 100,
+                        ),
+                        Text(
+                          'Good luck on your summons!',
+                          style: TextStyle(fontSize: 35),
+                        )
+                      ],
+                    ),
+                  );
+              },
+            );
+          else
+            return Container();
+        });
   }
 }
 

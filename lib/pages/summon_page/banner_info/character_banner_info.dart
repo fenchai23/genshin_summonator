@@ -1,14 +1,14 @@
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banners_info.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:get/get.dart';
 
-class BannerInfo extends StatelessWidget {
-  const BannerInfo({Key? key}) : super(key: key);
+class CharacterBannerInfo extends StatelessWidget {
+  const CharacterBannerInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +16,19 @@ class BannerInfo extends StatelessWidget {
       init: CharacterBannerInfoController(),
       builder: (banner) => Stack(
         children: [
-          GetBuilder<CharacterBannerInfoController>(
-            init: CharacterBannerInfoController(),
-            builder: (banner) => banner.bannerList.length > 0
-                ? BannerImage(banner)
-                : Container(),
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: BannerChooser(),
-            ),
-          ),
+          (banner.bannerList.length > 0)
+              ? Column(
+                  children: [
+                    BannerImage(banner),
+                    Container(
+                      color: Colors.orange[400],
+                      width: 650,
+                      height: 150,
+                      child: AllBannersInfo(),
+                    ),
+                  ],
+                )
+              : Container(),
           Positioned(
             top: 0,
             right: 0,
@@ -39,53 +38,11 @@ class BannerInfo extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 0,
+            bottom: 150,
             left: 0,
             child: BannerNavigation(banner),
           ),
-          Positioned(bottom: 5, right: 5, child: SummonButtons()),
-        ],
-      ),
-    );
-  }
-}
-
-class BannerChooser extends StatelessWidget {
-  const BannerChooser({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<BannerInfoController>(
-      init: BannerInfoController(),
-      builder: (info) => Column(
-        children: [
-          ActionChip(
-            label: Text('Character'),
-            side: BorderSide(
-                color: (info.currentBannerType == 'character')
-                    ? Colors.green
-                    : Colors.white,
-                width: 2.5),
-            onPressed: () => info.switchBannerType('character'),
-          ),
-          SizedBox(height: 2),
-          Visibility(
-            visible: false,
-            child: Chip(
-              label: Text('Weapon'),
-              side: BorderSide(color: Colors.white, width: 2.5),
-            ),
-          ),
-          SizedBox(height: 2),
-          ActionChip(
-            label: Text('Standard'),
-            side: BorderSide(
-                color: (info.currentBannerType == 'standard')
-                    ? Colors.green
-                    : Colors.white,
-                width: 2.5),
-            onPressed: () => info.switchBannerType('standard'),
-          ),
+          Positioned(bottom: 150, right: 5, child: SummonButtons()),
         ],
       ),
     );

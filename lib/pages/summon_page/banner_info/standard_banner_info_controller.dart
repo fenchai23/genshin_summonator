@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:genshin_summonator/models/SummonPool.dart';
 import 'package:get/get.dart';
 
-class CharacterBannerInfoController extends GetxController {
+class StandardBannerInfoController extends GetxController {
   bool hasBannerPoolLoaded = false;
   FileSystemEntity stdBannerFile =
       File('assets/images/banners/standard/standard_banner.png');
