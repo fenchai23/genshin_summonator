@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/goal_rolls/goal_rolls_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
 
@@ -56,7 +57,7 @@ class CharacterSummonHistoryController extends GetxController {
     update();
   }
 
-  Future<void> rollWithGoal() async {
+  Future<void> rollWithGoal(String condType) async {
     resetSummons();
 
     noAnimations = true;
@@ -74,16 +75,34 @@ class CharacterSummonHistoryController extends GetxController {
               duration: Duration(milliseconds: 400), curve: Curves.ease);
       }
 
-      trackEach10PullGoal();
+      if (condType == 'rarity') goalByRarity();
 
       update();
 
       if (hasSummonReachedGoal) break;
 
-      // await Future.delayed(Duration(milliseconds: 5));
+      await Future.delayed(Duration(milliseconds: 1));
 
       // if (summoned.length > 1000) break; // just in case
     }
+  }
+
+  goalByRarity() {
+    final goalController = Get.find<GoalRollsController>();
+
+    int fourStarAmount = int.tryParse(goalController.tec4Star.text) ?? 0;
+    int fiveStarAmount = int.tryParse(goalController.tec5Star.text) ?? 0;
+
+    int fourStarCondCount = 0;
+    int fiveStarCondCount = 0;
+
+    // check if list has reached it's goal
+    summoned.skip(summoned.length - 10).forEach((s) {
+      if (s.rarity == '5') fiveStarCondCount++;
+      if (s.rarity == '4') fourStarCondCount++;
+      if ((fiveStarCondCount >= fiveStarAmount) &&
+          (fourStarCondCount >= fourStarAmount)) hasSummonReachedGoal = true;
+    });
   }
 
   void increasePity() {
@@ -296,15 +315,6 @@ class CharacterSummonHistoryController extends GetxController {
     wasLastFiveStarRateUp = false;
     fiveStarCount++;
     fiveStarPityCount = 0;
-  }
-
-  trackEach10PullGoal() {
-    int count = 0;
-    // check if list has reached it's goal
-    summoned.skip(summoned.length - 10).forEach((s) {
-      if (s.rarity == '5') count++;
-      if (count > 3) hasSummonReachedGoal = true;
-    });
   }
 
   addToSummaryList(SummonHistoryModel summon) {
