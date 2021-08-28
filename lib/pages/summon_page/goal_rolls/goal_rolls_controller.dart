@@ -36,6 +36,8 @@ class GoalRollsController extends GetxController {
   }
 
   void simulateRollWithGoal() async {
+    if ((tec4Star.text == '') && (tec5Star.text == '')) return;
+
     Get.back(closeOverlays: true);
 
     await Get.find<CharacterSummonHistoryController>().rollWithGoal('rarity');
