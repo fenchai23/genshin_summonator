@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 // TODO: add summon animation only when doing 1 and 10 pulls
 // TODO: add a summon video?
 
-void main() {
+Future<void> main() async {
   runApp(MyApp());
 
   DartVLC.initialize();

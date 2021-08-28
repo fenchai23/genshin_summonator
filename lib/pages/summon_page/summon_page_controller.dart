@@ -1,9 +1,11 @@
 import 'package:dart_vlc/dart_vlc.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SummonPageController extends GetxController {
   Player bgMusicPlayer = Player(id: 111);
-  bool isbgMusicPlaying = true;
+  late SharedPreferences prefs;
+  late bool isBgMusicPlaying;
 
   @override
   Future<void> onInit() async {
@@ -19,22 +21,33 @@ class SummonPageController extends GetxController {
       ],
     );
 
-    // bgMusicPlayer.setVolume(0.75);
+    bgMusicPlayer.setVolume(0.50);
     bgMusicPlayer.next();
     bgMusicPlayer.open(playlist);
     bgMusicPlayer.setPlaylistMode(PlaylistMode.loop);
 
+    prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getBool('isBgMusicOn') == false) {
+      isBgMusicPlaying = false;
+      bgMusicPlayer.stop();
+    } else
+      isBgMusicPlaying = true;
+
     super.onInit();
   }
 
-  setPlayerStatus(Player player, bool status) {
-    if (status) {
-      player.pause();
-      isbgMusicPlaying = false;
+  Future<void> setBgPlayerStatus() async {
+    if (isBgMusicPlaying) {
+      bgMusicPlayer.pause();
+      await prefs.setBool('isBgMusicOn', false);
+      isBgMusicPlaying = false;
     } else {
-      player.play();
-      isbgMusicPlaying = true;
+      bgMusicPlayer.play();
+      await prefs.setBool('isBgMusicOn', true);
+      isBgMusicPlaying = true;
     }
+
     update();
   }
 }

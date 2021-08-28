@@ -80,7 +80,7 @@ class CharacterSummonHistoryController extends GetxController {
 
       if (hasSummonReachedGoal) break;
 
-      await Future.delayed(Duration(milliseconds: 5));
+      // await Future.delayed(Duration(milliseconds: 5));
 
       // if (summoned.length > 1000) break; // just in case
     }

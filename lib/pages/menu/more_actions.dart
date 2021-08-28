@@ -118,59 +118,79 @@ class MiniMusicControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgMusic = Get.find<SummonPageController>().bgMusicPlayer;
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(20),
-      child: Row(
-        children: [
-          InkWell(
-            onTap: () => bgMusic.back(),
-            child: Icon(
-              Icons.skip_previous,
-              size: 50,
+    return GetBuilder<SummonPageController>(
+      init: SummonPageController(),
+      builder: (spController) => Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(20),
+        child: Row(
+          children: [
+            Tooltip(
+              message: 'previous',
+              child: InkWell(
+                onTap: () => spController.bgMusicPlayer.back(),
+                child: Icon(
+                  Icons.skip_previous,
+                  size: 50,
+                ),
+              ),
             ),
-          ),
-          InkWell(
-            onTap: () => bgMusic.playOrPause(),
-            child: Icon(
-              Icons.play_circle,
-              size: 50,
+            Tooltip(
+              message: (spController.isBgMusicPlaying) ? 'pause' : 'play',
+              child: InkWell(
+                onTap: () => spController.setBgPlayerStatus(),
+                child: Icon(
+                  (spController.isBgMusicPlaying)
+                      ? Icons.pause_circle
+                      : Icons.play_circle,
+                  size: 50,
+                ),
+              ),
             ),
-          ),
-          InkWell(
-            onTap: () => bgMusic.next(),
-            child: Icon(
-              Icons.skip_next,
-              size: 50,
+            Tooltip(
+              message: 'next',
+              child: InkWell(
+                onTap: () => spController.bgMusicPlayer.next(),
+                child: Icon(
+                  Icons.skip_next,
+                  size: 50,
+                ),
+              ),
             ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          InkWell(
-            onTap: () {
-              bgMusic.setPlaylistMode(PlaylistMode.repeat);
-              Get.snackbar('Music', 'Repeat Mode',
-                  overlayBlur: 0.0, barBlur: 0.0);
-            },
-            child: Icon(
-              Icons.repeat,
-              size: 30,
+            SizedBox(
+              width: 20,
             ),
-          ),
-          InkWell(
-            onTap: () {
-              bgMusic.setPlaylistMode(PlaylistMode.loop);
-              Get.snackbar('Music', 'Loop Mode',
-                  overlayBlur: 0.0, barBlur: 0.0);
-            },
-            child: Icon(
-              Icons.loop,
-              size: 30,
+            Tooltip(
+              message: 'repeat mode',
+              child: InkWell(
+                onTap: () {
+                  spController.bgMusicPlayer
+                      .setPlaylistMode(PlaylistMode.repeat);
+                  Get.snackbar('Music', 'Repeat Mode',
+                      overlayBlur: 0.0, barBlur: 0.0);
+                },
+                child: Icon(
+                  Icons.repeat,
+                  size: 30,
+                ),
+              ),
             ),
-          ),
-        ],
+            Tooltip(
+              message: 'loop mode',
+              child: InkWell(
+                onTap: () {
+                  spController.bgMusicPlayer.setPlaylistMode(PlaylistMode.loop);
+                  Get.snackbar('Music', 'Loop Mode',
+                      overlayBlur: 0.0, barBlur: 0.0);
+                },
+                child: Icon(
+                  Icons.loop,
+                  size: 30,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
