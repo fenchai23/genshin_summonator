@@ -13,8 +13,8 @@ class GoalRollsController extends GetxController {
   List<String> suggestions = ['acb', 'retrun', 'prep'];
 
   void setRatingCondLimit() {
-    int cond1 = int.tryParse(tec4Star.text) ?? 0;
-    int cond2 = int.tryParse(tec4Star.text) ?? 0;
+    final int cond1 = int.tryParse(tec5Star.text) ?? 0;
+    final int cond2 = int.tryParse(tec4Star.text) ?? 0;
 
     ratingCondLimit = (cond1 + cond2);
 
@@ -22,8 +22,10 @@ class GoalRollsController extends GetxController {
       ratingCondMsg = 'please be realistic';
     else if (cond2 > 4)
       ratingCondMsg = 'please be realistic';
-    else
+    else if (cond1 == 0 && cond2 == 0)
       ratingCondMsg = '';
+    else
+      ratingCondMsg = 'looks alright';
 
     if (ratingCondLimit > 10)
       ratingCondLimitColor = Colors.red[400]!;
