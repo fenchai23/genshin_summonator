@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
+import 'package:genshin_summonator/pages/summon_page/goal_rolls/goal_rolls.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page_controller.dart';
@@ -67,8 +68,9 @@ class MoreActions extends StatelessWidget {
                     Get.back(closeOverlays: true);
 
                     if (bic.currentBannerType == 'character')
-                      Get.find<CharacterSummonHistoryController>()
-                          .rollWithGoal();
+                      Get.to(GoalRolls(), transition: Transition.downToUp);
+                    // Get.find<CharacterSummonHistoryController>()
+                    //     .rollWithGoal();
                   },
                   child: Text('Roll with goal beta'),
                 ),

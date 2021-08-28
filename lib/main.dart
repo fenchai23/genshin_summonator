@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_page.dart';
 import 'package:get/get.dart';
 
-// TODO: add sharedPreferences for bg music preference and audio etc
-// TODO: add a way to not use any asset from the app itself
 // TODO: add summon animation only when doing 1 and 10 pulls
 // TODO: add a summon video?
+// TODO: add booba sword video as splashpage
 
 Future<void> main() async {
   runApp(MyApp());

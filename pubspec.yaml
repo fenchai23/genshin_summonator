@@ -56,6 +56,7 @@ flutter:
     - assets/images/banners/event/
     - assets/images/banners/standard/
     - assets/genshin/
+    - assets/genshin/res/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
