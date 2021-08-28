@@ -133,7 +133,7 @@ class SummonRows extends StatelessWidget {
             children: [
               Expanded(flex: 2, child: Text((summon.index).toString())),
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Stack(
                   children: [
                     CachedNetworkImage(
@@ -143,26 +143,30 @@ class SummonRows extends StatelessWidget {
                       width: 70,
                     ),
                     Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Visibility(
-                          visible: !(summon.rarity == '3'),
-                          child: Badge(
-                            toAnimate: false,
-                            badgeColor: Colors.black87,
-                            borderRadius: BorderRadius.circular(8),
-                            badgeContent: Text(
-                              ' c${summon.constellation.toString()} ',
-                              style: TextStyle(
-                                  color: (summon.rarity == '5')
-                                      ? Colors.amber
-                                      : (summon.rarity == '4')
-                                          ? Colors.purple[300]!
-                                          : Colors.white,
-                                  fontWeight: FontWeight.w600),
+                      bottom: 0,
+                      right: 0,
+                      child: Visibility(
+                        visible: !(summon.rarity == '3'),
+                        child: Badge(
+                          toAnimate: false,
+                          shape: BadgeShape.square,
+                          borderRadius: BorderRadius.circular(8),
+                          badgeColor: Colors.black87,
+                          badgeContent: Text(
+                            ' c${summon.constellation.toString()} ',
+                            style: TextStyle(
+                              color: (summon.rarity == '5')
+                                  ? Colors.amber
+                                  : (summon.rarity == '4')
+                                      ? Colors.purple[300]!
+                                      : Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
                             ),
                           ),
-                        ))
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

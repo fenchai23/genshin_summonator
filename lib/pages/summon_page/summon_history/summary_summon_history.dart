@@ -142,12 +142,13 @@ class SummonItem extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 0,
+                bottom: 0,
                 right: 0,
                 child: Badge(
                   toAnimate: false,
                   badgeColor: Colors.black87,
                   animationType: BadgeAnimationType.fade,
+                  shape: BadgeShape.square,
                   borderRadius: BorderRadius.circular(8),
                   badgeContent: Text(
                     ' c${summon.constellation.toString()} ',
