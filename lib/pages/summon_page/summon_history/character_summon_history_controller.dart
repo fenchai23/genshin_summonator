@@ -80,11 +80,12 @@ class CharacterSummonHistoryController extends GetxController {
 
       update();
 
-      if (goalCtrl.goalStatus == GoalStatus.stopped) break;
+      if (goalCtrl.goalStatus == GoalStatus.stopped) {
+        goalCtrl.goalMessage = 'More Actions';
+        break;
+      }
 
       await Future.delayed(Duration(milliseconds: 1));
-
-      // if (summoned.length > 1000) break; // just in case
     }
   }
 
@@ -105,6 +106,9 @@ class CharacterSummonHistoryController extends GetxController {
           (fourStarCondCount >= fourStarAmount))
         goalController.setGoalStatus(GoalStatus.stopped);
     });
+
+    goalController.goalMessage =
+        'Rolling will stop when ($fiveStarAmount) 5* and ($fourStarAmount) 4* is found on a 10 pull.';
   }
 
   void increasePity() {

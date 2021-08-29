@@ -10,6 +10,7 @@ class GoalRollsController extends GetxController {
   TextEditingController tec4Star = TextEditingController();
   TextEditingController tecCharWeapon = TextEditingController();
   GoalStatus goalStatus = GoalStatus.sleeping;
+  String goalMessage = '';
   int ratingCondLimit = 0;
   String ratingCondMsg = '';
   Color ratingCondLimitColor = Colors.green[600]!;

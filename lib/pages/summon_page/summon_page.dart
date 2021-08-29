@@ -224,16 +224,27 @@ class MainFab extends StatelessWidget {
     return GetBuilder<GoalRollsController>(
       init: GoalRollsController(),
       autoRemove: false,
-      builder: (goalCtrl) => FloatingActionButton(
-        onPressed: () => (goalCtrl.goalStatus != GoalStatus.started)
-            ? Get.bottomSheet(MoreActions())
-            : goalCtrl.setGoalStatus(GoalStatus.stopped),
-        backgroundColor: (goalCtrl.goalStatus != GoalStatus.started)
-            ? Colors.amber[400]
-            : Colors.redAccent,
-        child: (goalCtrl.goalStatus != GoalStatus.started)
-            ? Icon(Icons.more_vert_rounded)
-            : Icon(Icons.stop),
+      builder: (goalCtrl) => Tooltip(
+        padding: EdgeInsets.all(10.0),
+        textStyle: TextStyle(fontSize: 20, color: Colors.white70),
+        decoration: BoxDecoration(
+          color: Colors.black87,
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
+        ),
+        message: (goalCtrl.goalMessage == '')
+            ? 'More Actions'
+            : goalCtrl.goalMessage,
+        child: FloatingActionButton(
+          onPressed: () => (goalCtrl.goalStatus != GoalStatus.started)
+              ? Get.bottomSheet(MoreActions())
+              : goalCtrl.setGoalStatus(GoalStatus.stopped),
+          backgroundColor: (goalCtrl.goalStatus != GoalStatus.started)
+              ? Colors.amber[400]
+              : Colors.redAccent,
+          child: (goalCtrl.goalStatus != GoalStatus.started)
+              ? Icon(Icons.more_vert_rounded)
+              : Icon(Icons.stop),
+        ),
       ),
     );
   }
