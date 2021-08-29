@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/menu/more_actions.dart';
@@ -234,16 +235,21 @@ class MainFab extends StatelessWidget {
         message: (goalCtrl.goalMessage == '')
             ? 'More Actions'
             : goalCtrl.goalMessage,
-        child: FloatingActionButton(
-          onPressed: () => (goalCtrl.goalStatus != GoalStatus.started)
-              ? Get.bottomSheet(MoreActions())
-              : goalCtrl.setGoalStatus(GoalStatus.stopped),
-          backgroundColor: (goalCtrl.goalStatus != GoalStatus.started)
-              ? Colors.amber[400]
-              : Colors.redAccent,
-          child: (goalCtrl.goalStatus != GoalStatus.started)
-              ? Icon(Icons.more_vert_rounded)
-              : Icon(Icons.stop),
+        child: AvatarGlow(
+          endRadius: 60.0,
+          animate: goalCtrl.goalStatus == GoalStatus.started,
+          glowColor: Colors.red,
+          child: FloatingActionButton(
+            onPressed: () => (goalCtrl.goalStatus != GoalStatus.started)
+                ? Get.bottomSheet(MoreActions())
+                : goalCtrl.setGoalStatus(GoalStatus.stopped),
+            backgroundColor: (goalCtrl.goalStatus != GoalStatus.started)
+                ? Colors.amber[400]
+                : Colors.redAccent,
+            child: (goalCtrl.goalStatus != GoalStatus.started)
+                ? Icon(Icons.more_vert_rounded)
+                : Icon(Icons.stop),
+          ),
         ),
       ),
     );
