@@ -5,6 +5,7 @@ import 'package:genshin_summonator/pages/summon_page/all_banners_info/all_banner
 import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/universal_banner_widgets.dart';
+import 'package:genshin_summonator/pages/summon_page/goal_rolls/goal_rolls_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:get/get.dart';
 
@@ -16,42 +17,56 @@ class CharacterBannerInfo extends StatelessWidget {
     return GetBuilder<CharacterBannerInfoController>(
       init: CharacterBannerInfoController(),
       autoRemove: false,
-      builder: (banner) => Stack(
-        children: [
-          (banner.bannerList.length > 0)
-              ? Column(
+      builder: (banner) => GetBuilder<GoalRollsController>(
+        init: GoalRollsController(),
+        autoRemove: false,
+        builder: (goalCtrl) => Stack(
+          children: [
+            (banner.bannerList.length > 0)
+                ? Column(
+                    children: [
+                      BannerImage(banner),
+                      Container(
+                        color: Colors.orange[400],
+                        width: 650,
+                        height: 150,
+                        child: AllBannersInfo(banner),
+                      ),
+                    ],
+                  )
+                : Container(),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SummonCounts(),
+              ),
+            ),
+            Visibility(
+              visible: (goalCtrl.goalStatus != GoalStatus.started),
+              child: Positioned(
+                bottom: 150,
+                left: 0,
+                child: Row(
                   children: [
-                    BannerImage(banner),
-                    Container(
-                      color: Colors.orange[400],
-                      width: 650,
-                      height: 150,
-                      child: AllBannersInfo(banner),
-                    ),
+                    BannerNavigation(banner),
+                    SizedBox(width: 10.0),
+                    BannerChooser(),
                   ],
-                )
-              : Container(),
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SummonCounts(),
+                ),
+              ),
             ),
-          ),
-          Positioned(
-            bottom: 150,
-            left: 0,
-            child: Row(
-              children: [
-                BannerNavigation(banner),
-                SizedBox(width: 10.0),
-                BannerChooser(),
-              ],
+            Visibility(
+              visible: (goalCtrl.goalStatus != GoalStatus.started),
+              child: Positioned(
+                bottom: 155,
+                right: 5,
+                child: SummonButtons(),
+              ),
             ),
-          ),
-          Positioned(bottom: 155, right: 5, child: SummonButtons()),
-        ],
+          ],
+        ),
       ),
     );
   }

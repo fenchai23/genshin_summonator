@@ -3,14 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
 import 'package:get/get.dart';
 
+enum GoalStatus { sleeping, started, stopped }
+
 class GoalRollsController extends GetxController {
   TextEditingController tec5Star = TextEditingController();
   TextEditingController tec4Star = TextEditingController();
   TextEditingController tecCharWeapon = TextEditingController();
+  GoalStatus goalStatus = GoalStatus.sleeping;
   int ratingCondLimit = 0;
   String ratingCondMsg = '';
   Color ratingCondLimitColor = Colors.green[600]!;
   List<String> suggestions = ['acb', 'retrun', 'prep'];
+
+  void setGoalStatus(GoalStatus status) {
+    goalStatus = status;
+    update();
+  }
 
   void setRatingCondLimit() {
     final int cond1 = int.tryParse(tec5Star.text) ?? 0;

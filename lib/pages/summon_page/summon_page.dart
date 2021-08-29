@@ -11,20 +11,29 @@ import 'package:get/get.dart';
 import 'banner_info/banner_info_controller.dart';
 import 'banner_info/character_banner_ui.dart';
 import 'banner_info/standard_banner_ui.dart';
+import 'goal_rolls/goal_rolls_controller.dart';
 
 class SummonPage extends StatelessWidget {
   const SummonPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SummonPageController>(
-      init: SummonPageController(),
-      builder: (summonPage) => Scaffold(
+    Get.put(SummonPageController());
+    return GetBuilder<GoalRollsController>(
+      init: GoalRollsController(),
+      autoRemove: false,
+      builder: (goalCtrl) => Scaffold(
         backgroundColor: Colors.blueGrey[100],
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Get.bottomSheet(MoreActions()),
-          backgroundColor: Colors.amber[400],
-          child: Icon(Icons.more_vert_rounded),
+          onPressed: () => (goalCtrl.goalStatus != GoalStatus.started)
+              ? Get.bottomSheet(MoreActions())
+              : goalCtrl.setGoalStatus(GoalStatus.stopped),
+          backgroundColor: (goalCtrl.goalStatus != GoalStatus.started)
+              ? Colors.amber[400]
+              : Colors.redAccent,
+          child: (goalCtrl.goalStatus != GoalStatus.started)
+              ? Icon(Icons.more_vert_rounded)
+              : Icon(Icons.stop),
         ),
         body: WindowBorder(
           color: Color(0xFF805306),

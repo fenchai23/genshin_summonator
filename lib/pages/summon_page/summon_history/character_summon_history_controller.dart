@@ -15,7 +15,6 @@ class CharacterSummonHistoryController extends GetxController {
   bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
   List<SummonHistoryModel> summonedFournFiveStarOnly = [];
-  bool hasSummonReachedGoal = false;
   double fourStarChance = (5.1 * 1000) / 100;
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
@@ -62,9 +61,11 @@ class CharacterSummonHistoryController extends GetxController {
 
     noAnimations = true;
 
-    hasSummonReachedGoal = false;
+    final GoalRollsController goalCtrl = Get.find<GoalRollsController>();
 
-    while (!hasSummonReachedGoal) {
+    goalCtrl.setGoalStatus(GoalStatus.started);
+
+    while (goalCtrl.goalStatus != GoalStatus.stopped) {
       for (var i = 1; i <= 10; i++) increasePity();
 
       noAnimations = false;
@@ -79,7 +80,7 @@ class CharacterSummonHistoryController extends GetxController {
 
       update();
 
-      if (hasSummonReachedGoal) break;
+      if (goalCtrl.goalStatus == GoalStatus.stopped) break;
 
       await Future.delayed(Duration(milliseconds: 1));
 
@@ -101,7 +102,8 @@ class CharacterSummonHistoryController extends GetxController {
       if (s.rarity == '5') fiveStarCondCount++;
       if (s.rarity == '4') fourStarCondCount++;
       if ((fiveStarCondCount >= fiveStarAmount) &&
-          (fourStarCondCount >= fourStarAmount)) hasSummonReachedGoal = true;
+          (fourStarCondCount >= fourStarAmount))
+        goalController.setGoalStatus(GoalStatus.stopped);
     });
   }
 

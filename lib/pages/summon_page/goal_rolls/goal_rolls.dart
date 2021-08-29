@@ -14,6 +14,7 @@ class GoalRolls extends StatelessWidget {
 
     final x = Get.find<CharacterBannerInfoController>();
 
+    print('testing');
     print(x.currentBannerPool);
     print(x.eventPool.wonfiveStarCharacterPool);
     print(x.eventPool.lostfiveStarCharacterPool);
@@ -29,7 +30,7 @@ class GoalRolls extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   'By Rarity',
@@ -45,13 +46,26 @@ class GoalRolls extends StatelessWidget {
                     Expanded(child: RarityCondLimitCount()),
                   ],
                 ),
-                TextButton(
+                Padding(
+                  padding: const EdgeInsets.only(top: 25.0),
+                  child: TextButton(
                     onPressed: () =>
                         Get.find<GoalRollsController>().simulateRollWithGoal(),
-                    child: Text(
-                      'Start',
-                      style: TextStyle(fontSize: 25),
-                    ))
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 32.0),
+                      child: Text(
+                        'Start Goal Roll',
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ),
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: Colors.orange[400],
+                      onSurface: Colors.grey,
+                    ),
+                  ),
+                )
               ],
             ),
           ),
