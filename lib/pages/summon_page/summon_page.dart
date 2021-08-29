@@ -19,51 +19,38 @@ class SummonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(SummonPageController());
-    return GetBuilder<GoalRollsController>(
-      init: GoalRollsController(),
-      autoRemove: false,
-      builder: (goalCtrl) => Scaffold(
-        backgroundColor: Colors.blueGrey[100],
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => (goalCtrl.goalStatus != GoalStatus.started)
-              ? Get.bottomSheet(MoreActions())
-              : goalCtrl.setGoalStatus(GoalStatus.stopped),
-          backgroundColor: (goalCtrl.goalStatus != GoalStatus.started)
-              ? Colors.amber[400]
-              : Colors.redAccent,
-          child: (goalCtrl.goalStatus != GoalStatus.started)
-              ? Icon(Icons.more_vert_rounded)
-              : Icon(Icons.stop),
-        ),
-        body: WindowBorder(
-          color: Color(0xFF805306),
-          width: 1,
-          child: Stack(
-            children: [
-              GetBuilder<BannerInfoController>(
-                init: BannerInfoController(),
-                builder: (info) => Row(
-                  children: [
-                    (info.currentBannerType == 'character')
-                        ? CharacterBannerUI()
-                        : (info.currentBannerType == 'standard')
-                            ? StandardBannerUI()
-                            : Container(),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          TopRightWindowActions(),
-                          Expanded(
-                            child: SummonHistory(),
-                          ),
-                        ],
-                      ),
+
+    return Scaffold(
+      backgroundColor: Colors.blueGrey[100],
+      floatingActionButton: MainFab(),
+      body: WindowBorder(
+        color: Color(0xFF805306),
+        width: 1,
+        child: Stack(
+          children: [
+            GetBuilder<BannerInfoController>(
+              init: BannerInfoController(),
+              builder: (info) => Row(
+                children: [
+                  (info.currentBannerType == 'character')
+                      ? CharacterBannerUI()
+                      : (info.currentBannerType == 'standard')
+                          ? StandardBannerUI()
+                          : Container(),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        TopRightWindowActions(),
+                        Expanded(
+                          child: SummonHistory(),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -224,6 +211,29 @@ class TopRightWindowActions extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MainFab extends StatelessWidget {
+  const MainFab({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<GoalRollsController>(
+      init: GoalRollsController(),
+      autoRemove: false,
+      builder: (goalCtrl) => FloatingActionButton(
+        onPressed: () => (goalCtrl.goalStatus != GoalStatus.started)
+            ? Get.bottomSheet(MoreActions())
+            : goalCtrl.setGoalStatus(GoalStatus.stopped),
+        backgroundColor: (goalCtrl.goalStatus != GoalStatus.started)
+            ? Colors.amber[400]
+            : Colors.redAccent,
+        child: (goalCtrl.goalStatus != GoalStatus.started)
+            ? Icon(Icons.more_vert_rounded)
+            : Icon(Icons.stop),
       ),
     );
   }
