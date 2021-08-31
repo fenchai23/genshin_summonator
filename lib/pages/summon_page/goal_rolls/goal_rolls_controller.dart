@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/character_summon_history_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:get/get.dart';
 
 enum GoalStatus { sleeping, started, stopped }
@@ -49,6 +51,11 @@ class GoalRollsController extends GetxController {
 
     Get.back(closeOverlays: true);
 
-    await Get.find<CharacterSummonHistoryController>().rollWithGoal('rarity');
+    final BannerInfoController bic = Get.find<BannerInfoController>();
+
+    if (bic.currentBannerType == 'character')
+      await Get.find<CharacterSummonHistoryController>().rollWithGoal('rarity');
+    else if (bic.currentBannerType == 'standard')
+      await Get.find<StandardSummonHistoryController>().rollWithGoal('rarity');
   }
 }

@@ -89,7 +89,7 @@ class CharacterSummonHistoryController extends GetxController {
     }
   }
 
-  goalByRarity() {
+  void goalByRarity() {
     final goalController = Get.find<GoalRollsController>();
 
     int fourStarAmount = int.tryParse(goalController.tec4Star.text) ?? 0;

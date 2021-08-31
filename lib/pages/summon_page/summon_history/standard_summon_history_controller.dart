@@ -2,9 +2,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/standard_banner_info_controller.dart';
+import 'package:genshin_summonator/pages/summon_page/goal_rolls/goal_rolls_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history_model.dart';
 import 'package:get/get.dart';
 
+//
 class StandardSummonHistoryController extends GetxController {
   int fourStarPityCount = 0;
   int fiveStarPityCount = 0;
@@ -14,8 +16,6 @@ class StandardSummonHistoryController extends GetxController {
   // bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
   List<SummonHistoryModel> summonedFournFiveStarOnly = [];
-  //TODO: make a loop to see record ten pulls data and erase after a 10 pull
-  List<SummonHistoryModel> summoned10pull = [];
   double fourStarChance = (5.1 * 1000) / 100;
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
@@ -55,6 +55,61 @@ class StandardSummonHistoryController extends GetxController {
     }
 
     update();
+  }
+
+  Future<void> rollWithGoal(String condType) async {
+    resetSummons();
+
+    noAnimations = true;
+
+    final GoalRollsController goalCtrl = Get.find<GoalRollsController>();
+
+    goalCtrl.setGoalStatus(GoalStatus.started);
+
+    while (goalCtrl.goalStatus != GoalStatus.stopped) {
+      for (var i = 1; i <= 10; i++) increasePity();
+
+      noAnimations = false;
+
+      if (historyScrollController.hasClients) {
+        if (historyScrollController.offset != 0.0)
+          historyScrollController.animateTo(0.0,
+              duration: Duration(milliseconds: 400), curve: Curves.ease);
+      }
+
+      if (condType == 'rarity') goalByRarity();
+
+      update();
+
+      if (goalCtrl.goalStatus == GoalStatus.stopped) {
+        goalCtrl.goalMessage = 'More Actions';
+        break;
+      }
+
+      await Future.delayed(Duration(milliseconds: 1));
+    }
+  }
+
+  void goalByRarity() {
+    final goalController = Get.find<GoalRollsController>();
+
+    int fourStarAmount = int.tryParse(goalController.tec4Star.text) ?? 0;
+    int fiveStarAmount = int.tryParse(goalController.tec5Star.text) ?? 0;
+
+    int fourStarCondCount = 0;
+    int fiveStarCondCount = 0;
+
+    // check if list has reached it's goal
+    summoned.skip(summoned.length - 10).forEach((s) {
+      if (s.rarity == '5') fiveStarCondCount++;
+      if (s.rarity == '4') fourStarCondCount++;
+      if ((fiveStarCondCount >= fiveStarAmount) &&
+          (fourStarCondCount >= fourStarAmount))
+        goalController.setGoalStatus(GoalStatus.stopped);
+    });
+
+    goalController.goalMessage =
+        'Rolling will stop when ($fiveStarAmount) 5* and ($fourStarAmount) 4* is found on a 10 pull.';
   }
 
   void increasePity() {
@@ -234,10 +289,6 @@ class StandardSummonHistoryController extends GetxController {
 
     fiveStarCount++;
     fiveStarPityCount = 0;
-  }
-
-  trackEach10Pull(SummonHistoryModel summon) {
-    // TODO: insert code
   }
 
   addToSummaryList(SummonHistoryModel summon) {

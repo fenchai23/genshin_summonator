@@ -67,12 +67,9 @@ class MoreActions extends StatelessWidget {
                   onPressed: () {
                     Get.back(closeOverlays: true);
 
-                    if (bic.currentBannerType == 'character')
-                      Get.to(GoalRolls(), transition: Transition.downToUp);
-                    // Get.find<CharacterSummonHistoryController>()
-                    //     .rollWithGoal();
+                    Get.to(GoalRolls(), transition: Transition.downToUp);
                   },
-                  child: Text('Roll with goal beta'),
+                  child: Text('Roll with a goal'),
                 ),
                 SizedBox(width: 10),
                 TextButton(
