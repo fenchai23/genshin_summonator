@@ -22,6 +22,10 @@ class BannerInfoModel {
   };
 
   static Map<String, dynamic> eventCharacters = {
+    '2021-08-31_Reign_of_Serenity.jpg': {
+      '5': ['yoimiya.json'],
+      '4': ['sayu.json', 'xinyan.json', 'diona.json']
+    },
     '2021-08-10_Wish_Tapestry_of_Golden_Flames.png': {
       '5': ['yoimiya.json'],
       '4': ['sayu.json', 'xinyan.json', 'diona.json']

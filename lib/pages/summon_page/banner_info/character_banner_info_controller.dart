@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:genshin_summonator/models/SummonPool.dart';
 import 'package:genshin_summonator/pages/summon_page/banner_info/banner_info_model.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,7 @@ class CharacterBannerInfoController extends GetxController {
       'assets/images/banners/event/2021-07-03_Leaves_in_the_Wind.png',
       'assets/images/banners/event/2021-07-22_The_Herons_Court.jpeg',
       'assets/images/banners/event/2021-08-10_Wish_Tapestry_of_Golden_Flames.png',
+      'assets/images/banners/event/2021-08-31_Reign_of_Serenity.jpg',
     ];
 
     fileList.reversed.forEach((e) {
@@ -56,7 +58,7 @@ class CharacterBannerInfoController extends GetxController {
   Future<void> loadCharEventData() async {
     try {
       final rawBannerData =
-          await File("assets/genshin/index/banners.json").readAsString();
+          await rootBundle.loadString('assets/genshin/index/banners.json');
 
       final bannerData = json.decode(rawBannerData);
 

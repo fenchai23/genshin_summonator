@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:genshin_summonator/models/SummonPool.dart';
 import 'package:get/get.dart';
 
@@ -23,7 +24,7 @@ class StandardBannerInfoController extends GetxController {
   Future<void> loadStdEventData() async {
     try {
       final rawBannerData =
-          await File("assets/genshin/index/banners.json").readAsString();
+          await rootBundle.loadString('assets/genshin/index/banners.json');
 
       final bannerData = json.decode(rawBannerData);
 
