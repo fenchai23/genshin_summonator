@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 // TODO: add summon animation only when doing 1 and 10 pulls
 // TODO: add a summon video?
 // TODO: add booba sword video as splashpage
+// TODO add auto fetch and update banners.json and BannerInfoModel
 
-Future<void> main() async {
+void main() async {
   runApp(MyApp());
 
   DartVLC.initialize();
@@ -24,16 +25,10 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      onInit: () async {
-        // await DesktopWindow.setWindowSize(Size(1487, 1004));
-        // await DesktopWindow.setMinWindowSize(Size(1487, 1004));
-      },
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
