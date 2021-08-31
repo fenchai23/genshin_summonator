@@ -23,8 +23,8 @@ class BannerInfoModel {
 
   static Map<String, dynamic> eventCharacters = {
     '2021-08-31_Reign_of_Serenity.jpg': {
-      '5': ['yoimiya.json'],
-      '4': ['sayu.json', 'xinyan.json', 'diona.json']
+      '5': ['raiden.json'],
+      '4': ['sucrose.json', 'xiangling.json', 'sara.json']
     },
     '2021-08-10_Wish_Tapestry_of_Golden_Flames.png': {
       '5': ['yoimiya.json'],
@@ -128,8 +128,10 @@ class BannerInfoModel {
     "ningguang.json": "Ningguang",
     "noelle.json": "Noelle",
     "qiqi.json": "Qiqi",
+    "raiden.json": "Raiden Shogun",
     "razor.json": "Razor",
     "rosaria.json": "Rosaria",
+    "sara.json": "Kujou Sara",
     "sayu.json": "Sayu",
     "sucrose.json": "Sucrose",
     "tartaglia.json": "Tartaglia",
@@ -651,6 +653,9 @@ class BannerInfoModel {
       "hoyolab-avatar":
           "https://img-os-static.hoyolab.com/communityWeb/upload/9438885c72bddc067a0b0e4f94611cb7.png"
     },
+    "raiden.json": {
+      "icon": "https://www.dropbox.com/s/qr764amqxr3y3xj/raiden.png?dl=1",
+    },
     "razor.json": {
       "image":
           "https://static.wikia.nocookie.net/gensin-impact/images/1/1d/Character_Razor_Thumb.png",
@@ -679,6 +684,9 @@ class BannerInfoModel {
       "cover2":
           "https://uploadstatic-sea.mihoyo.com/contentweb/20210325/2021032515090348894.png",
       "hoyolab-avatar": ""
+    },
+    "sara.json": {
+      "icon": "https://www.dropbox.com/s/mn4jdjznih0pt4e/sara.png?dl=1",
     },
     "sucrose.json": {
       "image":
