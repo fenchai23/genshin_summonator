@@ -21,12 +21,16 @@ class CharacterSummonHistoryController extends GetxController {
   String commentary = 'good luck ~';
   int fiveStarCount = 0;
   int fourStarCount = 0;
+  int fiveStar5050Won = 0;
+  int fiveStar5050Lost = 0;
   final ScrollController historyScrollController = ScrollController();
   bool noAnimations = false;
 
   void resetSummons() {
     fourStarPityCount = 0;
     fiveStarPityCount = 0;
+    fiveStar5050Won = 0;
+    fiveStar5050Lost = 0;
     firstTimePullingFourStar = true;
     firstTimePullingFiveStar = true;
     wasLastFourStarRateUp = false;
@@ -211,9 +215,11 @@ class CharacterSummonHistoryController extends GetxController {
 
     if (wasLastFiveStarRateUp || firstTimePullingFiveStar) {
       if (win5050) {
+        fiveStar5050Won++;
         wonfiveStar5050(nextRollCount);
         wasLastFiveStarRateUp = true;
       } else {
+        fiveStar5050Lost++;
         lostfiveStar5050(nextRollCount, rnd);
         wasLastFiveStarRateUp = false;
       }

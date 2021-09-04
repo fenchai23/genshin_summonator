@@ -65,6 +65,11 @@ class CharacterBannerInfo extends StatelessWidget {
                 child: SummonButtons(),
               ),
             ),
+            Positioned(
+              top: 10,
+              left: 10,
+              child: FiveStar5050StatCount(),
+            )
           ],
         ),
       ),
@@ -147,6 +152,51 @@ class SummonCounts extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class FiveStar5050StatCount extends StatelessWidget {
+  const FiveStar5050StatCount({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: 'Ratio of 5* 50/50 (won/loss)',
+      padding: EdgeInsets.all(10.0),
+      textStyle: TextStyle(fontSize: 20, color: Colors.white70),
+      decoration: BoxDecoration(
+        color: Colors.black87,
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
+      ),
+      child: Badge(
+        toAnimate: false,
+        shape: BadgeShape.square,
+        badgeColor: Colors.black.withOpacity(0.65),
+        borderRadius: BorderRadius.circular(8),
+        badgeContent: GetBuilder<CharacterSummonHistoryController>(
+          init: CharacterSummonHistoryController(),
+          builder: (summon) => Row(
+            children: [
+              Text(
+                summon.fiveStar5050Lost.toString(),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.white70),
+              ),
+              Text(
+                " : ",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.white70),
+              ),
+              Text(
+                summon.fiveStar5050Won.toString(),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.red[200]),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
