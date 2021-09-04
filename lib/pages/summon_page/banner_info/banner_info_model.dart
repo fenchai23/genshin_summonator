@@ -23,8 +23,8 @@ class BannerInfoModel {
 
   static Map<String, dynamic> eventCharacters = {
     '2021-08-31_Reign_of_Serenity.jpg': {
-      '5': ['raiden.json'],
-      '4': ['sucrose.json', 'xiangling.json', 'sara.json']
+      '5': ['raidenshogun.json'],
+      '4': ['sucrose.json', 'xiangling.json', 'kujousara.json']
     },
     '2021-08-10_Wish_Tapestry_of_Golden_Flames.png': {
       '5': ['yoimiya.json'],
@@ -128,10 +128,10 @@ class BannerInfoModel {
     "ningguang.json": "Ningguang",
     "noelle.json": "Noelle",
     "qiqi.json": "Qiqi",
-    "raiden.json": "Raiden Shogun",
+    "raidenshogun.json": "Raiden Shogun",
     "razor.json": "Razor",
     "rosaria.json": "Rosaria",
-    "sara.json": "Kujou Sara",
+    "kujousara.json": "Kujou Sara",
     "sayu.json": "Sayu",
     "sucrose.json": "Sucrose",
     "tartaglia.json": "Tartaglia",
@@ -653,8 +653,15 @@ class BannerInfoModel {
       "hoyolab-avatar":
           "https://img-os-static.hoyolab.com/communityWeb/upload/9438885c72bddc067a0b0e4f94611cb7.png"
     },
-    "raiden.json": {
-      "icon": "https://www.dropbox.com/s/qr764amqxr3y3xj/raiden.png?dl=1",
+    "raidenshogun.json": {
+      "cover1":
+          "https://uploadstatic-sea.mihoyo.com/contentweb/20210818/2021081811215218379.png",
+      "cover2":
+          "https://uploadstatic-sea.mihoyo.com/contentweb/20210818/2021081811215958458.png",
+      "icon":
+          "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Shougun.png",
+      "sideicon":
+          "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_side_icon/UI_AvatarIcon_Side_Shougun.png"
     },
     "razor.json": {
       "image":
@@ -685,8 +692,15 @@ class BannerInfoModel {
           "https://uploadstatic-sea.mihoyo.com/contentweb/20210325/2021032515090348894.png",
       "hoyolab-avatar": ""
     },
-    "sara.json": {
-      "icon": "https://www.dropbox.com/s/mn4jdjznih0pt4e/sara.png?dl=1",
+    "kujousara.json": {
+      "cover1":
+          "https://uploadstatic-sea.mihoyo.com/contentweb/20210818/2021081815224386395.png",
+      "cover2":
+          "https://uploadstatic-sea.mihoyo.com/contentweb/20210818/2021081815224926366.png",
+      "icon":
+          "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Sara.png",
+      "sideicon":
+          "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_side_icon/UI_AvatarIcon_Side_Sara.png"
     },
     "sucrose.json": {
       "image":
