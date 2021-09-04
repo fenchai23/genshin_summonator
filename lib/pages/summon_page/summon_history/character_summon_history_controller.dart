@@ -225,6 +225,7 @@ class CharacterSummonHistoryController extends GetxController {
       }
       firstTimePullingFiveStar = false;
     } else {
+      fiveStar5050Won++;
       wonfiveStar5050(nextRollCount);
       wasLastFiveStarRateUp = true;
     }
