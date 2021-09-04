@@ -180,7 +180,7 @@ class FiveStar5050StatCount extends StatelessWidget {
           builder: (summon) => Row(
             children: [
               Text(
-                summon.fiveStar5050Lost.toString(),
+                summon.fiveStar5050Won.toString(),
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.white70),
               ),
@@ -190,7 +190,7 @@ class FiveStar5050StatCount extends StatelessWidget {
                     fontWeight: FontWeight.bold, color: Colors.white70),
               ),
               Text(
-                summon.fiveStar5050Won.toString(),
+                summon.fiveStar5050Lost.toString(),
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.red[200]),
               ),
