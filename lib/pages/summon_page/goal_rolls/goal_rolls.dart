@@ -28,7 +28,7 @@ class GoalRolls extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(32.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -71,7 +71,7 @@ class GoalRolls extends StatelessWidget {
           ),
           Divider(),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(32.0),
             child: Column(
               children: [
                 Text(
@@ -81,13 +81,15 @@ class GoalRolls extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: Colors.black54),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Expanded(child: CharWeaponCondition()),
-                //     Expanded(child: RarityCondLimitCount()),
-                //   ],
-                // ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(50.0),
+                    child: Text(
+                      'Coming Soon?',
+                      style: TextStyle(fontSize: 40, color: Colors.black26),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
