@@ -1,16 +1,24 @@
 # genshin_summonator
 
-A new Flutter project.
+A Summon Simulator for [Genshin Impact](https://genshin.mihoyo.com/) with many features to test your luck.
 
-## Getting Started
+## Disclaimer
 
-This project is a starting point for a Flutter application.
+This project was made for fun and testing purposes with zero monetary gain.
 
-A few resources to get you started if this is your first Flutter project:
+This is a project I made for fun because I enjoy coding and wanted to know if I really was unlucky on my pulls.
+All assets in this application were taken from 3rd party websites. I do not own any asset from the project.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+If you are from Mihoyo and wish to take this project down let me know and I will do so, just don't get me in trouble :0
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Download (Windows Only)
+
+- [Latest releases](https://github.com/fenchai23/genshin_summonator/releases)
+  ` Simply download the latest compiled release and open the .exe file.`
+
+## Preview
+
+## Development
+
+- Flutter
+- Dart
