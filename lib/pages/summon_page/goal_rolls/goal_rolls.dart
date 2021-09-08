@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
+// import 'package:genshin_summonator/pages/summon_page/banner_info/character_banner_info_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/goal_rolls/goal_rolls_controller.dart';
 import 'package:get/get.dart';
 
@@ -12,88 +12,98 @@ class GoalRolls extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(GoalRollsController(), permanent: true);
 
-    final x = Get.find<CharacterBannerInfoController>();
+    // final x = Get.find<CharacterBannerInfoController>();
 
-    print('testing');
-    print(x.currentBannerPool);
-    print(x.eventPool.wonfiveStarCharacterPool);
-    print(x.eventPool.lostfiveStarCharacterPool);
+    // print('testing');
+    // print(x.currentBannerPool);
+    // print(x.eventPool.wonfiveStarCharacterPool);
+    // print(x.eventPool.lostfiveStarCharacterPool);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Select you roll goals'),
-        leading: IconButton(
-            onPressed: () => Get.back(), icon: Icon(Icons.arrow_downward)),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'By Rarity',
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: RarityCondition()),
-                    Expanded(child: RarityCondLimitCount()),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25.0),
-                  child: TextButton(
-                    onPressed: () =>
-                        Get.find<GoalRollsController>().simulateRollWithGoal(),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 32.0),
-                      child: Text(
-                        'Start Goal Roll',
-                        style: TextStyle(fontSize: 40),
+    return RawKeyboardListener(
+      focusNode: FocusNode(),
+      autofocus: true,
+      onKey: (event) {
+        if (event.runtimeType == RawKeyDownEvent &&
+            (event.logicalKey.keyId == 4295426089)) {
+          Get.back(closeOverlays: true);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Select your roll goals'),
+          leading: IconButton(
+              onPressed: () => Get.back(), icon: Icon(Icons.arrow_downward)),
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'By Rarity',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black54),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: RarityCondition()),
+                      Expanded(child: RarityCondLimitCount()),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: TextButton(
+                      onPressed: () => Get.find<GoalRollsController>()
+                          .simulateRollWithGoal(),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 32.0),
+                        child: Text(
+                          'Start Goal Roll',
+                          style: TextStyle(fontSize: 40),
+                        ),
+                      ),
+                      style: TextButton.styleFrom(
+                        primary: Colors.white,
+                        backgroundColor: Colors.orange[400],
+                        onSurface: Colors.grey,
                       ),
                     ),
-                    style: TextButton.styleFrom(
-                      primary: Colors.white,
-                      backgroundColor: Colors.orange[400],
-                      onSurface: Colors.grey,
+                  )
+                ],
+              ),
+            ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                children: [
+                  Text(
+                    'By Characters / Weapons',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black54),
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(50.0),
+                      child: Text(
+                        'Coming Soon?',
+                        style: TextStyle(fontSize: 40, color: Colors.black26),
+                      ),
                     ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
-          ),
-          Divider(),
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              children: [
-                Text(
-                  'By Characters / Weapons',
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(50.0),
-                    child: Text(
-                      'Coming Soon?',
-                      style: TextStyle(fontSize: 40, color: Colors.black26),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:genshin_summonator/pages/menu/more_actions.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/standard_summon_history_controller.dart';
 import 'package:genshin_summonator/pages/summon_page/summon_history/summon_history.dart';
@@ -21,37 +22,67 @@ class SummonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(SummonPageController());
 
-    return Scaffold(
-      backgroundColor: Colors.blueGrey[100],
-      floatingActionButton: MainFab(),
-      body: WindowBorder(
-        color: Color(0xFF805306),
-        width: 1,
-        child: Stack(
-          children: [
-            GetBuilder<BannerInfoController>(
-              init: BannerInfoController(),
-              builder: (info) => Row(
-                children: [
-                  (info.currentBannerType == 'character')
-                      ? CharacterBannerUI()
-                      : (info.currentBannerType == 'standard')
-                          ? StandardBannerUI()
-                          : Container(),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        TopRightWindowActions(),
-                        Expanded(
-                          child: SummonHistory(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+    return RawKeyboardListener(
+      focusNode: FocusNode(),
+      autofocus: true,
+      onKey: (event) {
+        if (event.runtimeType == RawKeyDownEvent &&
+            (event.logicalKey.keyId == 4295426089)) {
+          Get.defaultDialog(
+            titlePadding: EdgeInsets.all(10.0),
+            title: 'Clear all rolls?',
+            content: TextButton(
+              onPressed: () {
+                final BannerInfoController bic =
+                    Get.find<BannerInfoController>();
+
+                if (bic.currentBannerType == 'character')
+                  Get.find<CharacterSummonHistoryController>().resetSummons();
+                else if (bic.currentBannerType == 'standard')
+                  Get.find<StandardSummonHistoryController>().resetSummons();
+
+                Get.back(closeOverlays: true);
+              },
+              child: Text(
+                'yes',
+                style: TextStyle(fontSize: 16.0, color: Colors.red),
               ),
             ),
-          ],
+          );
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.blueGrey[100],
+        floatingActionButton: MainFab(),
+        body: WindowBorder(
+          color: Color(0xFF805306),
+          width: 1,
+          child: Stack(
+            children: [
+              GetBuilder<BannerInfoController>(
+                init: BannerInfoController(),
+                builder: (info) => Row(
+                  children: [
+                    (info.currentBannerType == 'character')
+                        ? CharacterBannerUI()
+                        : (info.currentBannerType == 'standard')
+                            ? StandardBannerUI()
+                            : Container(),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          TopRightWindowActions(),
+                          Expanded(
+                            child: SummonHistory(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

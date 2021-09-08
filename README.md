@@ -39,6 +39,7 @@ Auto-Summons with a Goal
 - [ ] SplashPage video
 - [ ] Summoning videos
 - [ ] Auto update and fetch banner data
+- [ ] Add an auto app update feature
 
 ## Development
 
