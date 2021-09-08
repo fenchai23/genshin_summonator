@@ -26,20 +26,23 @@ If you are from Mihoyo and wish to take this project down let me know and I will
 - Summon System
   ![Summon System](./readme_images/summon.gif)
 
+- Custom Rates
+  ![Custom Rates](./readme_images/custom_rates.gif)
+
 - Custom Qty Summons
   ![Custom Qty Summons](./readme_images/custom_summon.gif)
 
-Auto-Summons with a Goal
-![Auto-Summons with a goal](./readme_images/summon_with_goal.gif)
+- Auto-Summons with a Goal
+  ![Auto-Summons with a goal](./readme_images/summon_with_goal.gif)
 
 ## Roadmap
 
-- [ ] Allow custom summon rates (5\* can be increased to 6.0 instead of 0.6, etc)
+- [x] Allow custom summon rates (5\* can be increased to 6.0 instead of 0.6, etc)
+- [ ] Add an auto app update feature
 - [ ] Goal Roll (stop summoning until you get a weapon(s) or character(s) of your choice)
 - [ ] SplashPage video
 - [ ] Summoning videos
 - [ ] Auto update and fetch banner data
-- [ ] Add an auto app update feature
 
 ## Development
 
