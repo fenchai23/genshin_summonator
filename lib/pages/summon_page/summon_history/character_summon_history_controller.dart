@@ -15,6 +15,8 @@ class CharacterSummonHistoryController extends GetxController {
   bool wasLastFiveStarRateUp = false;
   List<SummonHistoryModel> summoned = [];
   List<SummonHistoryModel> summonedFournFiveStarOnly = [];
+  double fourStarRate = 5.1;
+  double fiveStarRate = 0.6;
   double fourStarChance = (5.1 * 1000) / 100;
   double fiveStarChance = (0.6 * 1000) / 100;
   double fiveStarSoftChance = (32.4 * 1000) / 100;
@@ -58,6 +60,13 @@ class CharacterSummonHistoryController extends GetxController {
     }
 
     update();
+  }
+
+  void setRates({fourStarPityRate = 5.1, fiveStarPityRate = 0.6}) {
+    fourStarRate = fourStarPityRate;
+    fiveStarRate = fiveStarPityRate;
+    fourStarChance = (fourStarRate * 1000) / 100;
+    fiveStarChance = (fiveStarRate * 1000) / 100;
   }
 
   Future<void> rollWithGoal(String condType) async {

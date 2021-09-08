@@ -35,6 +35,7 @@ class MoreActions extends StatelessWidget {
                 child: Text(
                     'Every character and weapon data is extracted from https://github.com/theBowja/genshin-db')),
           ),
+          Divider(),
           ListTile(
             leading: CachedNetworkImage(
               imageUrl: BannerInfoModel.currency['intertwined_fate']!,
@@ -105,8 +106,130 @@ class MoreActions extends StatelessWidget {
               ],
             ),
           ),
+          Divider(),
           MiniMusicControls(),
+          Divider(),
+          BannerRates()
         ],
+      ),
+    );
+  }
+}
+
+class BannerRates extends StatelessWidget {
+  const BannerRates({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final BannerInfoController bic = Get.find<BannerInfoController>();
+
+    TextEditingController tec5starRate = TextEditingController();
+    TextEditingController tec4starRate = TextEditingController();
+
+    if (bic.currentBannerType == 'character') {
+      tec5starRate = TextEditingController(
+          text: Get.find<CharacterSummonHistoryController>()
+              .fiveStarRate
+              .toString());
+      tec4starRate = TextEditingController(
+          text: Get.find<CharacterSummonHistoryController>()
+              .fourStarRate
+              .toString());
+    } else if (bic.currentBannerType == 'standard') {
+      tec5starRate = TextEditingController(
+          text: Get.find<StandardSummonHistoryController>()
+              .fiveStarRate
+              .toString());
+      tec4starRate = TextEditingController(
+          text: Get.find<StandardSummonHistoryController>()
+              .fourStarRate
+              .toString());
+    }
+
+    bool isNumeric(String s) {
+      return double.tryParse(s) != null;
+    }
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+      child: DefaultTextStyle(
+        style: TextStyle(fontSize: 16.0, color: Colors.black87),
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 5,
+          children: [
+            Text('5* rates will be '),
+            SizedBox(
+              width: 50,
+              child: TextField(
+                controller: tec5starRate,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  hintText: "0.6",
+                ),
+                style: TextStyle(color: Colors.orange[300]),
+                onChanged: (text) {
+                  if (text == '') return;
+                  if (text != '') {
+                    if (!isNumeric(text)) return;
+                  }
+
+                  if (bic.currentBannerType == 'character')
+                    Get.find<CharacterSummonHistoryController>()
+                        .setRates(fiveStarPityRate: double.tryParse(text));
+                  else if (bic.currentBannerType == 'standard')
+                    Get.find<StandardSummonHistoryController>()
+                        .setRates(fiveStarPityRate: double.tryParse(text));
+                },
+              ),
+            ),
+            Text('4* rates will be '),
+            SizedBox(
+              width: 50,
+              child: TextField(
+                controller: tec4starRate,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  hintText: "5.1",
+                ),
+                style: TextStyle(color: Colors.purple[300]),
+                onChanged: (text) {
+                  if (text == '') return;
+                  if (text != '') {
+                    if (!isNumeric(text)) return;
+                  }
+
+                  if (bic.currentBannerType == 'character')
+                    Get.find<CharacterSummonHistoryController>()
+                        .setRates(fourStarPityRate: double.tryParse(text));
+                  else if (bic.currentBannerType == 'standard')
+                    Get.find<StandardSummonHistoryController>()
+                        .setRates(fourStarPityRate: double.tryParse(text));
+                },
+              ),
+            ),
+            Text('. '),
+            TextButton(
+              onPressed: () {
+                if (bic.currentBannerType == 'character')
+                  Get.find<CharacterSummonHistoryController>().setRates();
+                else if (bic.currentBannerType == 'standard')
+                  Get.find<StandardSummonHistoryController>().setRates();
+
+                tec4starRate.clear();
+                tec5starRate.clear();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Reset my rates',
+                  style: TextStyle(color: Colors.red[300]),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -121,7 +244,7 @@ class MiniMusicControls extends StatelessWidget {
       init: SummonPageController(),
       builder: (spController) => Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(10),
         child: Row(
           children: [
             Tooltip(
