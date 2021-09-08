@@ -67,7 +67,7 @@ class MoreActions extends StatelessWidget {
                   onPressed: () {
                     Get.back(closeOverlays: true);
 
-                    Get.to(GoalRolls(), transition: Transition.downToUp);
+                    Get.to(() => GoalRolls(), transition: Transition.downToUp);
                   },
                   child: Text('Roll with a goal'),
                 ),
