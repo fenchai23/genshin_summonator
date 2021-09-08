@@ -22,11 +22,13 @@ If you are from Mihoyo and wish to take this project down let me know and I will
 - Allows roll goals. You can automatically summon until `3` 5\* are summoned in a single 10 pull. `(Please be realistic, the most I have gotten was 3 in a single 10 pull lol)`
 
 ## Preview
-
+- Summon System
 ![Summon System](./readme_images/summon.gif)
 
+- Custom Qty Summons
 ![Custom Qty Summons](./readme_images/custom_summon.gif)
 
+Auto-Summons with a Goal
 ![Auto-Summons with a goal](./readme_images/summon_with_goal.gif)
 
 ## Roadmap
