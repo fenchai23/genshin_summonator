@@ -20,6 +20,7 @@ If you are from Mihoyo and wish to take this project down let me know and I will
 
 - Allows custom amount of summon, not just x1 and x10 but x500 or x10000 summons. `(careful of this, make sure your system can handle it)`
 - Allows roll goals. You can automatically summon until `3` 5\* are summoned in a single 10 pull. `(Please be realistic, the most I have gotten was 3 in a single 10 pull lol)`
+- Use your own rates, having bad luck? increase the usual 0.6 pity to 100 lmao. 5\* for breakfast!
 
 ## Preview
 
