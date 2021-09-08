@@ -24,18 +24,6 @@ class MoreActions extends StatelessWidget {
       color: Colors.white,
       child: Wrap(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 25.0),
-            child: TextButton(
-                onPressed: () async {
-                  await canLaunch('https://github.com/theBowja/genshin-db')
-                      ? await launch('https://github.com/theBowja/genshin-db')
-                      : throw 'Could not launch https://github.com/theBowja/genshin-db';
-                },
-                child: Text(
-                    'Every character and weapon data is extracted from https://github.com/theBowja/genshin-db')),
-          ),
-          Divider(),
           ListTile(
             leading: CachedNetworkImage(
               imageUrl: BannerInfoModel.currency['intertwined_fate']!,
@@ -109,7 +97,41 @@ class MoreActions extends StatelessWidget {
           Divider(),
           MiniMusicControls(),
           Divider(),
-          BannerRates()
+          BannerRates(),
+          Divider(),
+          ContactInfo(),
+        ],
+      ),
+    );
+  }
+}
+
+class ContactInfo extends StatelessWidget {
+  const ContactInfo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Wrap(
+        spacing: 50.0,
+        children: [
+          TextButton(
+              onPressed: () async {
+                await canLaunch('https://github.com/theBowja/genshin-db')
+                    ? await launch('https://github.com/theBowja/genshin-db')
+                    : throw 'Could not launch https://github.com/theBowja/genshin-db';
+              },
+              child: Text('https://github.com/fenchai23/genshin_summonator')),
+          TextButton(
+            onPressed: () async {
+              await canLaunch('https://github.com/theBowja/genshin-db')
+                  ? await launch('https://github.com/theBowja/genshin-db')
+                  : throw 'Could not launch https://github.com/theBowja/genshin-db';
+            },
+            child: Text(
+                'Every character and weapon data is extracted from https://github.com/theBowja/genshin-db'),
+          ),
         ],
       ),
     );
